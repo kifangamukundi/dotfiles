@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v fzf &> /dev/null; then
+  echo "Error: fzf is not installed."
+  exit 1
+fi
+
+if ! command -v tmux &> /dev/null; then
+  echo "Error: tmux is not installed."
+  exit 1
+fi
+
+search_dirs=(
+  ~/personal
+  ~/work
+  ~/work/gm/apps
+  ~/work/gm/libs
+  ~/work/fulus-africa/packages
+  ~/work/fulus-africa/shared
+  ~/lab
+)
+
+if [[ $# -eq 1 ]]; then
+  selected="$1"
+  if [[ ! -d "$selected" ]]; then
+    echo "Error: Directory '$selected' does not exist."
+    exit 1
+  fi
+else
+  # selected=$(find "${search_dirs[@]}" -mindepth 1 -maxdepth 1 -type d | fzf)
+  selected=$(fd --type d --hidden --follow --max-depth 1 . "${search_dirs[@]}" | fzf)
+fi
+
+if [[ -z "$selected" ]]; then
+  exit 0
+fi
+
+selected_name=$(basename "$selected" | tr . _)
+
+if [[ -z "${TMUX:-}" ]]; then
+  if tmux has-session -t="$selected_name" 2> /dev/null; then
+    tmux attach-session -t "$selected_name"
+  else
+    tmux new-session -s "$selected_name" -c "$selected"
+  fi
+else
+  if ! tmux has-session -t="$selected_name" 2> /dev/null; then
+    tmux new-session -ds "$selected_name" -c "$selected"
+  fi
+  tmux switch-client -t "$selected_name"
+fi

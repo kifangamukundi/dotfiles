@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if ! command -v fzf &> /dev/null; then
+    echo "Error: fzf is not installed."
+    exit 1
+fi
+
+selected_process=$(ps aux | awk '{print $2, $8, $11, $12}' | fzf)
+
+if [[ -z "$selected_process" ]]; then
+    exit 0
+fi
+
+pid=$(echo "$selected_process" | awk '{print $1}')
+
+if sudo kill "$pid"; then
+    echo "Process $pid terminated gracefully (with sudo)."
+else
+    sudo kill -9 "$pid"
+    echo "Process $pid forcefully terminated (with sudo)."
+fi

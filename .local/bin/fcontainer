@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if ! command -v fzf &> /dev/null; then
+    echo "Error: fzf is not installed."
+    exit 1
+fi
+
+if ! command -v docker &> /dev/null; then
+    echo "Error: docker is not installed."
+    exit 1
+fi
+
+selected_container=$(docker ps -a --format "{{.Names}}" | fzf)
+
+if [[ -z "$selected_container" ]]; then
+    exit 0
+fi
+
+options=(
+    "Start"
+    "Stop"
+    "Restart"
+    "Exec shell"
+    "Remove"
+    "View Logs"
+    "Follow Logs"
+)
+
+selected_action=$(printf "%s\n" "${options[@]}" | fzf)
+
+case "$selected_action" in
+    "Start")
+        docker start "$selected_container"
+        ;;
+    "Stop")
+        docker stop "$selected_container"
+        ;;
+    "Restart")
+        docker restart "$selected_container"
+        ;;
+    "Exec shell")
+        shells=("bash" "sh" "ash" "zsh")
+        selected_shell=$(printf "%s\n" "${shells[@]}" | fzf)
+
+        if [[ -n "$selected_shell" ]]; then
+            docker exec -it "$selected_container" "$selected_shell"
+        else
+            echo "No shell selected."
+        fi
+        ;;
+    "Remove")
+        docker rm "$selected_container"
+        ;;
+    "View Logs")
+        docker logs "$selected_container"
+        ;;
+    "Follow Logs")
+        docker logs -f "$selected_container"
+        ;;
+    *)
+        echo "Invalid action selected."
+        exit 1
+        ;;
+esac

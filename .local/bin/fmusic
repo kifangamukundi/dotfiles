@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if ! command -v fzf &> /dev/null; then
+  echo "Error: fzf is not installed."
+  exit 1
+fi
+
+playlists=(
+  "Chris Chills:chris-chills"
+  "Country Playlist:country-playlist"
+  "Worship Playlist:worship-playlist"
+  "Chris Chills Two:chris-chills-two"
+  "Chris Chills Three Playlist:chris-chills-three"
+)
+
+start_vlc_playlist_or_song() {
+  local playlist_dir="$1"
+  local song_file="${2:-}"
+
+  pkill -x "vlc" &>/dev/null || true
+
+  cd "$HOME/play/music/$playlist_dir" || {
+    echo "Error: Directory $HOME/play/music/$playlist_dir not found."
+    return 1
+  }
+
+  if [[ -n "$song_file" ]]; then
+    nohup cvlc --intf rc --rc-host=localhost:4212 "$song_file" &> /dev/null &
+  else
+    nohup cvlc --intf rc --rc-host=localhost:4212 * &> /dev/null &
+  fi
+}
+
+play_playlist() {
+  local selection=$(printf "%s\n" "${playlists[@]}" | fzf --prompt="Select Playlist> ")
+  [[ -z "$selection" ]] && echo "No playlist selected." && return
+  local playlist_dir=$(echo "$selection" | cut -d':' -f2)
+  start_vlc_playlist_or_song "$playlist_dir"
+}
+
+play_song() {
+  local song_file=$(fd --type f . "$HOME/play/music" | fzf --prompt="Select Song> " --preview 'bat --color=always {}' --preview-window 'right:60%')
+  [[ -z "$song_file" ]] && echo "No song selected." && return
+  local playlist_dir=$(dirname "$song_file" | sed "s|$HOME/play/music/||")
+  start_vlc_playlist_or_song "$playlist_dir" "$song_file"
+}
+
+main_menu() {
+  local options=(
+    "Play a Playlist"
+    "Play a Specific Song"
+    "Exit"
+  )
+
+  local choice=$(printf "%s\n" "${options[@]}" | fzf --prompt="Music Menu> ")
+  case "$choice" in
+    "Play a Playlist") play_playlist ;;
+    "Play a Specific Song") play_song ;;
+    *) echo "Exit."; exit 0 ;;
+  esac
+}
+
+main_menu

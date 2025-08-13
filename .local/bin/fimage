@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if ! command -v fzf &> /dev/null; then
+  echo "Error: fzf is not installed."
+  exit 1
+fi
+
+if ! command -v docker &> /dev/null; then
+  echo "Error: docker is not installed."
+  exit 1
+fi
+
+selected_image=$(docker images --format "{{.Repository}}:{{.Tag}}" | fzf --prompt="Select Image> " --preview="docker inspect {}")
+
+if [[ -z "$selected_image" ]]; then
+  exit 0
+fi
+
+options=(
+  "List Details"
+  "Remove Image"
+  "Force Remove Image"
+  "Inspect Image"
+  "Image History"
+  "Prune Images"
+  "Tag Image"
+  "Image Size"
+)
+
+selected_action=$(printf "%s\n" "${options[@]}" | fzf --prompt="Select Action> ")
+
+case "$selected_action" in
+  "List Details")
+    docker images "$selected_image"
+    ;;
+  "Remove Image")
+    read -p "Are you sure you want to remove image '$selected_image'? (y/N): " confirm
+    if [[ "$confirm" == "y" ]]; then
+      docker rmi "$selected_image"
+    else
+      echo "Image removal cancelled."
+    fi
+    ;;
+  "Force Remove Image")
+    docker rmi -f "$selected_image"
+    ;;
+  "Inspect Image")
+    docker inspect "$selected_image"
+    ;;
+  "Image History")
+    docker history "$selected_image"
+    ;;
+  "Prune Images")
+    read -p "Are you sure you want to prune unused images? (y/N): " confirm
+    if [[ "$confirm" == "y" ]]; then
+      docker image prune -a
+    else
+      echo "Image pruning cancelled."
+    fi
+    ;;
+  "Tag Image")
+    read -p "Enter new tag (e.g., myrepo/myimage:newtag): " new_tag
+    if [[ -n "$new_tag" ]]; then
+      docker tag "$selected_image" "$new_tag"
+    else
+      echo "Tagging cancelled."
+    fi
+    ;;
+  "Image Size")
+    docker images --format "table {{.Repository}}:{{.Tag}}\t{{.Size}}" "$selected_image"
+    ;;
+  *)
+    echo "Invalid action selected."
+    exit 1
+    ;;
+esac

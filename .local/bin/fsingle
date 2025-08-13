@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v fzf &> /dev/null; then
+  echo "Error: fzf is not installed."
+  exit 1
+fi
+
+if ! command -v tmux &> /dev/null; then
+  echo "Error: tmux is not installed."
+  exit 1
+fi
+
+if ! command -v nvim &> /dev/null; then
+  echo "Error: nvim is not installed."
+  exit 1
+fi
+
+start_dir="$HOME"
+
+# Use fzf to search for files in the home directory and its subdirectories
+# selected_file=$(find "$start_dir" -type f | fzf --preview 'bat --color=always {}' --preview-window 'right:60%')
+
+# -H or --hidden: Include hidden files and directories.
+
+# -I or --no-ignore: Include files ignored by .gitignore.
+
+# -E or --exclude: Exclude specific files or directories.
+
+# -L or --follow: Follow symbolic links.
+
+selected_file=$(fd --type f --hidden --follow . "$start_dir" | fzf --preview 'bat --color=always {}' --preview-window 'right:60%')
+
+if [[ -z "$selected_file" ]]; then
+  exit 0
+fi
+
+selected_file=$(realpath "$selected_file")
+
+selected_dir=$(dirname "$selected_file")
+
+selected_name=$(basename "$selected_dir" | tr . _)
+
+if [[ -z "${TMUX:-}" ]]; then
+  if tmux has-session -t="$selected_name" 2> /dev/null; then
+    tmux attach-session -t "$selected_name" \; send-keys "nvim '$selected_file'" C-m
+  else
+    tmux new-session -s "$selected_name" -c "$selected_dir" \; send-keys "nvim '$selected_file'" C-m
+  fi
+else
+  if ! tmux has-session -t="$selected_name" 2> /dev/null; then
+    tmux new-session -ds "$selected_name" -c "$selected_dir"
+  fi
+  tmux switch-client -t "$selected_name" \; send-keys "nvim '$selected_file'" C-m
+fi

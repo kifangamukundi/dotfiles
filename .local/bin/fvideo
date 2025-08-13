@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if ! command -v fzf &> /dev/null; then
+  echo "Error: fzf is not installed."
+  exit 1
+fi
+
+shows_dir="$HOME/play/videos/shows"
+
+start_vlc_season() {
+  local season_dir="$1"
+
+  pkill -x "vlc" &>/dev/null || true
+
+  cd "$season_dir" || {
+    echo "Error: Directory '$season_dir' not found."
+    return 1
+  }
+
+  nohup cvlc --intf rc --rc-host=localhost:4212 ./* &> /dev/null &
+}
+
+select_show() {
+  local selection
+  selection=$(fd --max-depth 1 --type d --base-directory "$shows_dir" . | sed 's|^./||' | fzf --prompt="Select Show> ")
+
+  [[ -z "$selection" ]] && echo "No show selected." && return
+  local show_dir="$shows_dir/$selection"
+  select_season "$show_dir"
+}
+
+select_season() {
+  local show_dir="$1"
+  local selection
+  selection=$(fd --max-depth 1 --type d --base-directory "$show_dir" . | sed 's|^./||' | fzf --prompt="Select Season> ")
+
+  [[ -z "$selection" ]] && echo "No season selected." && return
+  local season_dir="$show_dir/$selection"
+  start_vlc_season "$season_dir"
+}
+
+main_menu() {
+  select_show
+}
+
+main_menu
