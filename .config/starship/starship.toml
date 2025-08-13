@@ -1,0 +1,99 @@
+# Character module configuration
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[➜](bold red)"
+
+# Username module configuration
+[username]
+style_user = "green bold"
+style_root = "red bold"
+format = "[$user]($style) "
+show_always = true
+
+# Hostname module configuration
+[hostname]
+format = 'on [$hostname]($style) '
+style = "bold yellow"
+trim_at = "."
+ssh_only = true
+disabled = false
+
+# Directory module configuration
+[directory]
+truncation_length = 10
+truncate_to_repo = true
+read_only = " locked"
+read_only_style = "bold red"
+style = "bold cyan"
+
+# Command duration module configuration
+[cmd_duration]
+disabled = false
+
+[git_status]
+disabled = true
+
+# Git branch module configuration
+[git_branch]
+format = '(\([git:$branch]($style)\)) '
+style = "bold purple"
+disabled = false
+
+# Golang module configuration
+[golang]
+symbol = "go "
+format = '\([$symbol($version)]($style)\) '
+style = "bold cyan"
+disabled = false
+
+# rust module configuration
+[rust]
+symbol = "rust "
+format = '\([$symbol($version)]($style)\) '
+style = "bold cyan"
+disabled = false
+
+# Node.js module configuration
+[nodejs]
+symbol = "node "
+format = '\([$symbol($version)]($style)\) '
+style = "bold cyan"
+detect_files = ["package.json"]
+disabled = false
+
+# Python module configuration
+[python]
+symbol = "python "
+format = '\([$symbol($version) $virtualenv]($style)\) '
+style = "bold cyan"
+disabled = false
+
+# php module configuration
+[php]
+symbol = "php "
+format = '\([$symbol($version)]($style)\) '
+style = "bold cyan"
+disabled = false
+
+# Docker context module configuration
+[docker_context]
+symbol = "docker " 
+format = '\([$symbol($context)]($style)\) '
+style = "bold cyan"
+only_with_files = true
+detect_files = ["docker-compose.yml", "Dockerfile"]
+disabled = false
+
+# Shlvl module configuration
+[shlvl]
+symbol = "shell "
+format = '\([$symbol($shlvl)]($style)\) '
+style = "bold cyan"
+disabled = false
+
+# Package module configuration
+[package]
+symbol = "package "
+format = '\([$symbol($package $version)]($style)\) '
+style = "bold yellow"
+disabled = false
