@@ -1,0 +1,65 @@
+[user]
+	name = kifangamukundi
+	email = pkmymcmbnhs@gmail.com
+
+[core]
+	editor = nvim
+	autocrlf = input
+	excludesfile = ~/.gitignore_global
+	quotepath = false
+
+[http]
+	postBuffer = 524288000
+	sslVerify = true
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = true
+	ff = only
+
+[branch]
+	autosetuprebase = always
+	autosetupmerge = false
+
+[merge]
+	ff = only
+	tool = nvimdiff
+	conflictstyle = diff3
+
+[mergetool]
+	prompt = false
+	keepBackup = false
+
+[rerere]
+	enabled = true
+	autoUpdate = true
+
+[color]
+	ui = auto
+
+[diff]
+	tool = nvimdiff
+	algorithm = patience
+	colorMoved = zebra
+
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	ci = commit
+	df = diff
+	lg = log --graph --oneline --decorate --all
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	save = "!git add -A && git commit -m 'chore: savepoint'"
+	wip = "!git add -A && git commit -m 'WIP'"
+	undo = reset --soft HEAD~1
+
+[push]
+	default = current
+	autoSetupRemote = true
+
+[fetch]
+	prune = true
