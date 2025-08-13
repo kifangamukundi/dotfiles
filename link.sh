@@ -6,7 +6,7 @@ SSH_DIR="$HOME/.ssh"
 LOCAL_DIR="$HOME/.local"
 
 # Dry run mode
-DRY_RUN=true
+DRY_RUN=false
 if [[ "$1" == "--dry-run" ]]; then
     DRY_RUN=true
     echo "Running in dry-run mode. No changes will be made."
