@@ -1,0 +1,78 @@
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "Return"
+mods = "Super"
+
+[colors.bright]
+black = "#6272a4"
+blue = "#6699cc"
+cyan = "#9aedfe"
+green = "#5af78e"
+magenta = "#ff92df"
+red = "#ff6e67"
+white = "#ffffff"
+yellow = "#f4f99d"
+
+[colors.cursor]
+cursor = "#f8f8f2"
+text = "#282a36"
+
+[colors.hints.end]
+background = "#1f1d2e"
+foreground = "#e0def4"
+
+[colors.hints.start]
+background = "#f1fa8c"
+foreground = "#282a36"
+
+[colors.normal]
+black = "#282a36"
+blue = "#6272a4"
+cyan = "#8be9fd"
+green = "#50fa7b"
+magenta = "#ff79c6"
+red = "#ff5555"
+white = "#f8f8f2"
+yellow = "#f1fa8c"
+
+[colors.primary]
+background = "#181818"
+foreground = "#f8f8f2"
+
+[colors.selection]
+background = "#44475a"
+text = "#f8f8f2"
+
+[cursor]
+style = "Beam"
+unfocused_hollow = true
+
+[font]
+size = 12.0
+
+[font.bold]
+family = "monospace"
+style = "Bold"
+
+[font.bold_italic]
+family = "monospace"
+style = "Bold Italic"
+
+[font.italic]
+family = "monospace"
+style = "Italic"
+
+[font.normal]
+family = "monospace"
+style = "Regular"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[window]
+opacity = 1.0
+
+[window.padding]
+x = 0
+y = 0
