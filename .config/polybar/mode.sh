@@ -3,11 +3,9 @@
 default_color="#5f5faf"
 system_color="#e07a5f"
 
-window_color="#5fafaf"
-resize_color="#f2b179"
-workspace_color="#8ec07c"
-move_color="#b988f2"
-media_color="#7fb2f0"
+window_color="#e07a5f"
+resize_color="#e07a5f"
+media_color="#e07a5f"
 unknown_color="#d65d0e"
 
 # Default mode
@@ -35,12 +33,6 @@ case "$mode" in
         ;;
     "Resize")
         color=$resize_color
-        ;;
-    "Workspace")
-        color=$workspace_color
-        ;;
-    "Move")
-        color=$move_color
         ;;
     "Media")
       color=$media_color
