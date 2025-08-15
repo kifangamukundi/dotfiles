@@ -17,7 +17,7 @@ return {
                 -- Taglist control t
                 vim.keymap.set(
                     "n",
-                    "<leader>vrd",
+                    "grd",
                     vim.lsp.buf.declaration,
                     { buffer = event.buf, desc = "LSP: Go to Declaration" }
                 )
@@ -29,7 +29,7 @@ return {
                 )
                 vim.keymap.set(
                     "n",
-                    "<leader>vrt",
+                    "grt",
                     vim.lsp.buf.type_definition,
                     { buffer = event.buf, desc = "LSP: Go to Type Definition" }
                 )
@@ -41,27 +41,27 @@ return {
                 )
                 vim.keymap.set(
                     "n",
-                    "<leader>vri",
+                    "gri",
                     vim.lsp.buf.implementation,
                     { buffer = event.buf, desc = "LSP: Go to Implementation" }
                 )
                 -- This opens quickfix list
                 vim.keymap.set(
                     "n",
-                    "<leader>vrr",
+                    "grr",
                     vim.lsp.buf.references,
                     { buffer = event.buf, desc = "LSP: Go to References" }
                 )
                 vim.keymap.set(
                     "n",
-                    "<leader>vrs",
+                    "grs",
                     vim.lsp.buf.signature_help,
                     { buffer = event.buf, desc = "LSP: Signature Help" }
                 )
-                vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, { buffer = event.buf, desc = "LSP: Rename" })
+                vim.keymap.set("n", "grn", vim.lsp.buf.rename, { buffer = event.buf, desc = "LSP: Rename" })
                 vim.keymap.set(
                     "n",
-                    "<leader>vra",
+                    "gra",
                     vim.lsp.buf.code_action,
                     { buffer = event.buf, desc = "LSP: Code Actions" }
                 )
