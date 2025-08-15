@@ -1,7 +1,7 @@
 return {
 	{
 		"lewis6991/gitsigns.nvim",
-		event = "BufReadPre",
+		event = { "BufReadPre", "BufReadPost" },
 		config = function()
 			require("gitsigns").setup({
 				signs = {
@@ -41,17 +41,8 @@ return {
 			-- ra Abort the current rebase.
 			-- cm<Space> Populate command line with ":Git merge ".
 
-			map("n", "<leader>vgb", "<cmd>:Git blame<CR>", { desc = "Git blame current file" })
-			map("n", "<leader>vgl", "<cmd>:Gclog<CR>", { desc = "Git log quick fix list" })
-			map(
-				"n",
-				"<leader>vgL",
-				"<cmd>:0Git log --oneline --graph --decorate --parents<CR>",
-				{ desc = "Git log normal log" }
-			)
-
-			map("n", "<leader>vgd", "<cmd>:0Git diff<CR>", { desc = "Git diff" })
-			map("n", "<leader>vgc", "<cmd>:0Git diff --cached<CR>", { desc = "Git diff (staged)" })
+			map("n", "<leader>vl", "<cmd>:Gclog %<CR>", { desc = "Git log quick fix list" })
+			map("n", "<leader>vd", "<cmd>:G diff %<CR>", { desc = "Git diff" })
 
 			local fugitive_augroup = vim.api.nvim_create_augroup("Fugitive", { clear = true })
 
@@ -92,7 +83,7 @@ return {
 						end
 						local base = vim.fn.systemlist("git merge-base main HEAD")[1]
 						if base == "" then
-							vim.notify("Could not find merge base with main", vim.log.levels.ERROR)
+							vim.notify("Could not find merge base with mains", vim.log.levels.ERROR)
 							return
 						end
 						vim.cmd(":Git rebase -i " .. base)
