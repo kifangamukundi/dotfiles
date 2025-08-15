@@ -74,6 +74,8 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
 	end,
 	desc = "Automatically clear registers on VimEnter",
 })
+vim.keymap.set("n", "<C-f>", ":tmux neww ~/.local/bin/fsession<CR>", { desc = "Tmux open project" })
+vim.keymap.set("n", "<C-g>", ":tmux neww ~/.local/bin/fsingle<CR>", { desc = "Tmux open file" })
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
