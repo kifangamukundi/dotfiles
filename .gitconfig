@@ -8,9 +8,12 @@
 	excludesfile = ~/.gitignore_global
 	quotepath = false
 
-[http]
-	postBuffer = 524288000
-	sslVerify = true
+; [http]
+; 	postBuffer = 524288000
+; 	sslVerify = true
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/
 
 [init]
 	defaultBranch = main
