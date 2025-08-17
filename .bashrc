@@ -130,3 +130,11 @@ alias fnetwork='~/.local/bin/fnetwork'
 alias ffile='~/.local/bin/ffile'
 alias fmusic='~/.local/bin/fmusic'
 alias fvideo='~/.local/bin/fvideo'
+
+# Start ssh-agent if not running
+if ! pgrep -u "$USER" ssh-agent >/dev/null; then
+  eval "$(ssh-agent -s)" >/dev/null
+fi
+
+# Add GitHub key if not loaded
+ssh-add -l >/dev/null 2>&1 || ssh-add ~/.ssh/id_ed25519_github >/dev/null 2>&1
