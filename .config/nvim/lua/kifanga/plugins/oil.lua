@@ -7,7 +7,7 @@ return {
 		oil.setup({
 			use_default_keymaps = false,
 			columns = {
-				"icon",
+				-- "icon",
 			},
 			keymaps = {
 				["<CR>"] = "actions.select",
