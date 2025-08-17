@@ -5,4 +5,4 @@ pager: less
 aliases:
   co: pr checkout
 http_unix_socket:
-browser:
+browser: google-chrome
