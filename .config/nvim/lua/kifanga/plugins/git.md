@@ -151,3 +151,33 @@ FIX ACCIDENTAL COMMIT: git reset --soft HEAD~1 then git rebase --continue
 - Tip: wait for review by a team member
 - Tip: once approved click on merge button on github to merge my changes onto main
 - Tip: delete my feature branch and start with another branch for new changes
+
+## VIM FUGITIVE
+
+- s: Stage (add) the file or hunk under the cursor.
+- u: Unstage (reset) the file or hunk under the cursor.
+- X: Discard (clean) the change under the cursor.
+- 2X: During a merge conflict, calls checkout (ours)
+- 3X: During a merge conflict, calls checkout (theirs)
+- =: Toggle an inline diff of the file under the cursor.
+- dv: Vertical Diff split on the file under the cursor.
+- dd: Horizontal Diff split on the file under the cursor.
+- (: Jump to the previous file, hunk, or revision.
+- ): Jump to the next file, hunk, or revision.
+
+- cc: Create a commit.
+- ca: Amend the last commit and edit the message.
+- ce: Amend the last commit without editing the message.
+- c<Space>: Populate command line with ":Git commit ".
+
+- coo: Check out the commit under the cursor.
+- co<Space> Populate command line with ":Git checkout ".
+- cb<Space>: Populate command line with ":Git branch ".
+
+- ru: Perform an interactive rebase against @{upstream}.
+- rp: Perform an interactive rebase against @{push}.
+- rr Continue the current rebase.
+- ra Abort the current rebase.
+- r<Space> Populate command line with ":Git rebase ".
+
+- cm<Space> Populate command line with ":Git merge ".
