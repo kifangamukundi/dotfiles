@@ -1,7 +1,7 @@
 return {
     {
         "lewis6991/gitsigns.nvim",
-        event = { "BufReadPre", "BufReadPost" },
+        event = { "BufReadPre", "BufReadPost", "BufWritePost" },
         config = function()
             require("gitsigns").setup({
                 signs = {
@@ -28,20 +28,6 @@ return {
             local map = vim.keymap.set
 
             map("n", "<leader>g", "<cmd>:0Git<CR>", { desc = "Git status" })
-            -- s Stage (add) the file or hunk under the cursor.
-            -- u Unstage (reset) the file or hunk under the cursor.
-            -- cc Create a commit.
-            -- ca Amend the last commit and edit the message.
-            -- ce Amend the last commit without editing the message.
-            -- cb<Space> Populate command line with ":Git branch ".
-            -- co<Space> Populate command line with ":Git checkout ".
-            -- ru: Perform an interactive rebase against @{upstream}.
-            -- rp: Perform an interactive rebase against @{push}.
-            -- rr Continue the current rebase.
-            -- ra Abort the current rebase.
-            -- r<Space> Populate command line with ":Git rebase ".
-            -- cm<Space> Populate command line with ":Git merge ".
-
             map("n", "<leader>vl", "<cmd>:0Git log --oneline --graph --decorate --parents<CR>", { desc = "Git log" })
 
             local fugitive_augroup = vim.api.nvim_create_augroup("Fugitive", { clear = true })
@@ -62,11 +48,10 @@ return {
                         end
                     end, { buffer = true, desc = "Smart Git pull" })
 
-                    -- diff mode = a visual comparison mode for Git changes. Fugitive: dv or dd
                     -- Fugitive: 2X keep ours
-                    map("n", "<leader>vo", "<cmd>diffget //2<CR>", { desc = "Keep Ours" })
+                    vim.keymap.set("n", "<leader>vo", ":diffget //2<CR>", { buffer = true, desc = "Keep ours" })
                     -- Fugitive: 3X keep theirs
-                    map("n", "<leader>vt", "<cmd>diffget //3<CR>", { desc = "Keep Theirs" })
+                    vim.keymap.set("n", "<leader>vt", ":diffget //3<CR>", { buffer = true, desc = "Keep Theirs" })
                 end,
             })
         end,
