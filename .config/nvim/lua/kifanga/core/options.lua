@@ -1,5 +1,4 @@
 local opt = vim.opt
-local api = vim.api
 
 -- Set a tab character to be 4 spaces wide
 opt.tabstop = 4
@@ -71,15 +70,6 @@ opt.relativenumber = true
 
 -- Show the absolute line number
 opt.number = true
-
--- Custom highlight for line numbers above the cursor
-api.nvim_set_hl(0, "LineNrAbove", { fg = "#51B3EC", bold = true })
-
--- Custom highlight for the current line number
-api.nvim_set_hl(0, "LineNr", { fg = "white", bold = true })
-
--- Custom highlight for line numbers below the cursor
-api.nvim_set_hl(0, "LineNrBelow", { fg = "#FB508F", bold = true })
 
 -- Highlight column 80 for line length guide
 opt.colorcolumn = ""
