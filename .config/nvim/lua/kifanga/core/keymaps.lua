@@ -105,12 +105,12 @@ vim.keymap.set("n", "<leader>x", [["_x]], { desc = "Cut without affecting yank" 
 vim.keymap.set("v", "<leader>d", [["_d]], { desc = "Delete without affecting yank" })
 vim.keymap.set("v", "<leader>c", [["_c]], { desc = "Change without affecting yank" })
 
-vim.keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
-vim.keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
-vim.keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" })
-vim.keymap.set("n", "<leader>sf", "<C-w>_", { desc = "Make split full screen" })
-vim.keymap.set("n", "<leader>sx", "<C-w>q", { desc = "Close current split" })
-vim.keymap.set("n", "<leader>so", "<C-w>o", { desc = "Close other splits" })
+vim.keymap.set("n", "<leader>wv", "<C-w>v", { desc = "Split window vertically" })
+vim.keymap.set("n", "<leader>ws", "<C-w>s", { desc = "Split window horizontally" })
+vim.keymap.set("n", "<leader>we", "<C-w>=", { desc = "Make splits equal size" })
+vim.keymap.set("n", "<leader>wx", "<C-w>c", { desc = "Close current split" })
+vim.keymap.set("n", "<leader>wo", "<C-w>o", { desc = "Close other splits" })
+vim.keymap.set("n", "<leader>wr", "<C-w>r", { desc = "Rotate windows" })
 
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left split" })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to below split" })
@@ -120,7 +120,7 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right split" })
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 vim.keymap.set("n", "<leader>n", ":nohl<CR>", { desc = "Clear search highlights" })
 
-vim.keymap.set("n", "<leader>bc", "<cmd>bufdo bd | enew<CR>", { desc = "Close all and open new buffer" })
+vim.keymap.set("n", "<leader>bx", "<cmd>bufdo bd | enew<CR>", { desc = "Close all and open new buffer" })
 
 -- The Quickfix list helps you jump to a list of places
 -- (like all errors in your project or all results from a big search)
@@ -205,20 +205,6 @@ end, { desc = "Open Location List (Diagnostics)" })
 -- use O to switch the ends for selections
 -- use gu or gU with motion to change case
 -- Select a list of items then put them in one line with gJ
-vim.api.nvim_create_autocmd("ColorScheme", {
-    pattern = "*",
-    callback = function()
-        vim.api.nvim_set_hl(0, "CursorLine", { bg = "#212121" })
-        vim.api.nvim_set_hl(0, "Visual", { bg = "#3c3c3c" })
-
-        vim.api.nvim_set_hl(0, "Search", { bg = "#3c3c3c", fg = "#ffffff", bold = true })
-        vim.api.nvim_set_hl(0, "IncSearch", { bg = "#5f5faf", fg = "#ffffff", bold = true })
-        vim.api.nvim_set_hl(0, "MatchParen", { bg = "#444444", fg = "#ffffff", bold = true })
-
-        -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-        -- vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
-    end,
-})
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
