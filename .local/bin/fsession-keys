@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v tmux &> /dev/null; then
+  echo "Error: tmux is not installed."
+  exit 1
+fi
+
+if ! command -v fzf &> /dev/null; then
+  echo "Error: fzf is not installed."
+  exit 1
+fi
+
+# Grab tmux key bindings from ALL tables
+keys=$(tmux list-keys \
+  | awk '{printf "%-14s %-12s %s\n", $1, $2, substr($0, index($0,$3))}')
+
+if [[ -z "$keys" ]]; then
+  echo "No tmux key bindings found."
+  exit 0
+fi
+
+# Just fuzzy search the formatted list
+echo "$keys" | fzf \
+  --prompt="Search tmux key: " \
+  --header="KeyTable        Key          Command"
