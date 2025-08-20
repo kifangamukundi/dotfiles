@@ -1,0 +1,12 @@
+set editing-mode vi
+set keymap vi
+
+set show-mode-in-prompt On
+
+set vi-cmd-mode-string ((normal))
+set vi-ins-mode-string ((insert))
+
+# Control-k: previous-history
+# Control-j: next-history
+# Control-l: forward-char 
+# Control-h: backward-char 
