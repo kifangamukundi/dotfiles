@@ -1,6 +1,6 @@
 #!/bin/bash
 
-default_color="#5f5faf"
+default_color="#7aa2f7"
 system_color="#e07a5f"
 
 window_color="#e07a5f"
