@@ -4,6 +4,9 @@ case $- in
       *) return;;
 esac
 
+# Use nvim as default editor 
+export EDITOR=nvim
+
 # Don't put duplicate lines or lines starting with space in the history
 HISTCONTROL=ignoreboth
 
