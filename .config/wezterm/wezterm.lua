@@ -29,7 +29,7 @@ config.font = wezterm.font_with_fallback({
     { family = "JetBrains Mono", weight = "ExtraBold" },
 })
 
-config.font_size = 10
+config.font_size = 12
 config.enable_tab_bar = false
 
 -- Rendering Method: OpenGL, Software, WebGpu
