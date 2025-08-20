@@ -125,6 +125,10 @@ xset r rate 300 50
 bind -x '"\C-f": ~/.local/bin/fsession'
 bind -x '"\C-g": ~/.local/bin/fsingle'
 
+# Enhanced grep with sane defaults
+alias grep='grep --color=auto -rniI --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
+alias fd='fd --hidden --exclude .git --exclude node_modules'
+
 alias fkill='~/.local/bin/fkill'
 alias fcontainer='~/.local/bin/fcontainer'
 alias fimage='~/.local/bin/fimage'
