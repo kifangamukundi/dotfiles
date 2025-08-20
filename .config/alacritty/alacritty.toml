@@ -44,8 +44,10 @@ background = "#44475a"
 text = "#f8f8f2"
 
 [cursor]
-style = "Block"
-unfocused_hollow = true
+style = { shape = "Block", blinking = "On" }
+unfocused_hollow = false
+vi_mode_style = { shape = "Beam", blinking = "On" }
+thickness = 0.15
 
 [font]
 size = 12.0
