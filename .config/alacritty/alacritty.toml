@@ -36,8 +36,11 @@ white = "#f8f8f2"
 yellow = "#f1fa8c"
 
 [colors.primary]
-background = "#181818"
 foreground = "#e0def4"
+background = "#181818"
+# background = "#1c1a1a"
+# background = "#121212"
+# background = "#14171a"
 
 [colors.selection]
 background = "#44475a"
