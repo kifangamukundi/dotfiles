@@ -77,81 +77,26 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right split" })
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 vim.keymap.set("n", "<leader>n", ":nohl<CR>", { desc = "Clear search highlights" })
 
-vim.keymap.set("n", "<leader>bx", "<cmd>bufdo bd | enew<CR>", { desc = "Close all and open new buffer" })
+vim.keymap.set("n", "<leader>b", "<cmd>bufdo bd | enew<CR>", { desc = "Close all and open new buffer" })
 
--- The Quickfix list helps you jump to a list of places
--- (like all errors in your project or all results from a big search)
--- that apply to your entire Neovim session.
---For the following references, workspace symbols
-vim.keymap.set("n", "<leader>qn",
-    function()
-        local qflist = vim.fn.getqflist()
-        if #qflist == 0 then
-            vim.notify("Quickfix List is empty", vim.log.levels.INFO, { title = "Quickfix List" })
-            return
-        end
-        if not pcall(vim.cmd.cnext) then pcall(vim.cmd.cfirst) end
-    end, { desc = "Next quickfix item (wrap)" })
+vim.keymap.set("n", "<leader>q", "<Cmd>copen<CR>", { desc = "Open quickfix list" })
+vim.keymap.set("n", "<leader>Q", "<Cmd>cclose<CR>", { desc = "Close quickfix list" })
+-- The Quickfix list
+-- ]q: Mapped to :cnext
+-- [q: Mapped to :cprevious
+-- [Q: Mapped to :crewind
+-- ]Q: Mapped to :clast
+-- :cwindow: Open the quickfix window when there are recognized errors
 
-vim.keymap.set("n", "<leader>qp",
-    function()
-        local qflist = vim.fn.getqflist()
-        if #qflist == 0 then
-            vim.notify("Quickfix List is empty", vim.log.levels.INFO, { title = "Quickfix List" })
-            return
-        end
-        if not pcall(vim.cmd.cprevious) then pcall(vim.cmd.clast) end
-    end, { desc = "Previous quickfix item (wrap)" })
+vim.keymap.set("n", "<leader>l", "<Cmd>lopen<CR>", { desc = "Open loclist list" })
+vim.keymap.set("n", "<leader>L", "<Cmd>lclose<CR>", { desc = "Close loclist list" })
+-- The loclist list
+-- ]l: Mapped to :lnext
+-- [l: Mapped to :lprevious
+-- [L: Mapped to :lrewind
+-- ]L: Mapped to :llast
+-- :lwindow: Open the loclist window when there are recognized errors
 
-vim.keymap.set("n", "<leader>qx", "<Cmd>cclose<CR>", { desc = "Close quickfix list" })
-vim.keymap.set("n", "<leader>qo", "<Cmd>copen<CR>", { desc = "Open quickfix list" })
-
-vim.keymap.set("n", "<leader>qc",
-    function()
-        local qflist = vim.fn.getqflist()
-        if #qflist == 0 then
-            vim.notify("Quickfix List is empty", vim.log.levels.INFO, { title = "Quickfix List" })
-        else
-            vim.fn.setqflist({})
-            vim.notify("Quickfix cleared", vim.log.levels.INFO, { title = "Quickfix List" })
-        end
-    end, { desc = "Clear quickfix list" })
-
--- The Location list is similar to the Quickfix list
--- but is just for the errors or search results in the specific file
--- you're looking at right now
--- For the following diagnostics, document symbols
-vim.keymap.set("n", "<leader>ln",
-    function()
-        local loclist = vim.fn.getloclist(0)
-        if #loclist == 0 then
-            vim.notify("Location List is empty", vim.log.levels.INFO, { title = "Location List" })
-            return
-        end
-        if not pcall(vim.cmd.lnext) then pcall(vim.cmd.lfirst) end
-    end, { desc = "Next location item (wrap)" })
-
-vim.keymap.set("n", "<leader>lp",
-    function()
-        local loclist = vim.fn.getloclist(0)
-        if #loclist == 0 then
-            vim.notify("Location List is empty", vim.log.levels.INFO, { title = "Location List" })
-            return
-        end
-        if not pcall(vim.cmd.lprevious) then pcall(vim.cmd.llast) end
-    end, { desc = "Previous location item (wrap)" })
-
-vim.keymap.set("n", "<leader>lx", "<Cmd>lclose<CR>", { desc = "Close location list" })
-
-vim.keymap.set("n", "<leader>lo",
-    function()
-        vim.diagnostic.setloclist({ open = true, severity_sort = true, })
-        local loclist_items = vim.fn.getloclist(0)
-        if #loclist_items == 0 then
-            vim.notify("Location List is empty, no diagnostics found.", vim.log.levels.INFO,
-                { title = "Diagnostics" })
-        end
-    end, { desc = "Open Location List (Diagnostics)" })
 
 -- Use = sign with motions to format according to rules
 -- Use gv to restore the previously visual selection
