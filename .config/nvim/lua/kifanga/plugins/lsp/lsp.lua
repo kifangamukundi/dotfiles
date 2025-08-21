@@ -15,85 +15,39 @@ return {
             callback = function(event)
                 -- Jumplist control o and control i
                 -- Taglist control t
-                vim.keymap.set(
-                    "n",
-                    "grd",
-                    vim.lsp.buf.declaration,
-                    { buffer = event.buf, desc = "LSP: Go to Declaration" }
-                )
-                vim.keymap.set(
-                    "n",
-                    "gd",
-                    vim.lsp.buf.definition,
-                    { buffer = event.buf, desc = "LSP: Go to Definition" }
-                )
-                vim.keymap.set(
-                    "n",
-                    "grt",
-                    vim.lsp.buf.type_definition,
-                    { buffer = event.buf, desc = "LSP: Go to Type Definition" }
-                )
-                vim.keymap.set(
-                    "n",
-                    "<leader>K",
-                    vim.lsp.buf.hover,
-                    { buffer = event.buf, desc = "LSP: Hover Documentation" }
-                )
-                vim.keymap.set(
-                    "n",
-                    "gri",
-                    vim.lsp.buf.implementation,
-                    { buffer = event.buf, desc = "LSP: Go to Implementation" }
-                )
-                -- This opens quickfix list
-                vim.keymap.set(
-                    "n",
-                    "grr",
-                    vim.lsp.buf.references,
-                    { buffer = event.buf, desc = "LSP: Go to References" }
-                )
-                vim.keymap.set(
-                    "n",
-                    "grs",
-                    vim.lsp.buf.signature_help,
-                    { buffer = event.buf, desc = "LSP: Signature Help" }
-                )
-                vim.keymap.set("n", "grn", vim.lsp.buf.rename, { buffer = event.buf, desc = "LSP: Rename" })
-                vim.keymap.set(
-                    "n",
-                    "gra",
-                    vim.lsp.buf.code_action,
-                    { buffer = event.buf, desc = "LSP: Code Actions" }
-                )
-                -- This opens location list
-                vim.keymap.set(
-                    "n",
-                    "gO",
-                    vim.lsp.buf.document_symbol,
-                    { buffer = event.buf, desc = "LSP: Document Symbols" }
-                )
-                -- This opens quickfix list
-                vim.keymap.set(
-                    "n",
-                    "gW",
-                    vim.lsp.buf.workspace_symbol,
-                    { buffer = event.buf, desc = "LSP: Workspace Symbols" }
-                )
+                vim.keymap.set("n", "<leader>vd", vim.lsp.buf.declaration,
+                    { buffer = event.buf, desc = "LSP: Go to Declaration" })
 
-                -- FIX: Use event.buf and event.data.client_id for format on save
-                vim.api.nvim_create_autocmd("BufWritePre", {
-                    buffer = event.buf,
-                    callback = function()
-                        local client = vim.lsp.get_client_by_id(event.data.client_id)
-                        if client and client.server_capabilities.documentFormattingProvider then
-                            vim.lsp.buf.format({
-                                bufnr = event.buf,
-                                id = client.id,
-                                async = true,
-                            })
-                        end
-                    end,
-                })
+                vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = event.buf, desc = "LSP: Go to Definition" })
+
+                vim.keymap.set("n", "<leader>vt", vim.lsp.buf.type_definition,
+                    { buffer = event.buf, desc = "LSP: Go to Type Definition" })
+
+                vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover,
+                    { buffer = event.buf, desc = "LSP: Hover Documentation" })
+
+                vim.keymap.set("n", "<leader>vi", vim.lsp.buf.implementation,
+                    { buffer = event.buf, desc = "LSP: Go to Implementation" })
+
+                -- This opens quickfix list
+                vim.keymap.set("n", "<leader>vr", vim.lsp.buf.references,
+                    { buffer = event.buf, desc = "LSP: Go to References" })
+
+                vim.keymap.set("n", "<leader>vs", vim.lsp.buf.signature_help,
+                    { buffer = event.buf, desc = "LSP: Signature Help" })
+
+                vim.keymap.set("n", "<leader>vn", vim.lsp.buf.rename, { buffer = event.buf, desc = "LSP: Rename" })
+
+                vim.keymap.set("n", "<leader>vc", vim.lsp.buf.code_action,
+                    { buffer = event.buf, desc = "LSP: Code Actions" })
+
+                -- This opens location list
+                vim.keymap.set("n", "<leader>vd", vim.lsp.buf.document_symbol,
+                    { buffer = event.buf, desc = "LSP: Document Symbolseses" })
+
+                -- This opens quickfix list
+                vim.keymap.set("n", "<leader>vw", vim.lsp.buf.workspace_symbol,
+                    { buffer = event.buf, desc = "LSP: Workspace Symbols" })
 
                 local function client_supports_method(client, method, bufnr)
                     return client:supports_method(method, bufnr)
@@ -133,6 +87,21 @@ return {
                         end,
                     })
 
+                    -- FIX: Use event.buf and event.data.client_id for format on save
+                    vim.api.nvim_create_autocmd("BufWritePre", {
+                        buffer = event.buf,
+                        callback = function()
+                            local client = vim.lsp.get_client_by_id(event.data.client_id)
+                            if client and client.server_capabilities.documentFormattingProvider then
+                                vim.lsp.buf.format({
+                                    bufnr = event.buf,
+                                    id = client.id,
+                                    async = true,
+                                })
+                            end
+                        end,
+                    })
+
                     vim.api.nvim_create_autocmd("QuitPre", {
                         buffer = event.buf,
                         group = diag_augroup,
@@ -155,7 +124,7 @@ return {
                     client
                     and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
                 then
-                    vim.keymap.set("n", "<leader>vrh", function()
+                    vim.keymap.set("n", "<leader>vh", function()
                         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
                     end, { buffer = event.buf, desc = "LSP: [T]oggle Inlay [H]ints" })
                 end
