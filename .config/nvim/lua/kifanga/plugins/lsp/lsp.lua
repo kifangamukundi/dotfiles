@@ -43,7 +43,7 @@ return {
 
                 -- This opens location list
                 vim.keymap.set("n", "<leader>vd", vim.lsp.buf.document_symbol,
-                    { buffer = event.buf, desc = "LSP: Document Symbolseses" })
+                    { buffer = event.buf, desc = "LSP: Document Symbols" })
 
                 -- This opens quickfix list
                 vim.keymap.set("n", "<leader>vw", vim.lsp.buf.workspace_symbol,
@@ -62,18 +62,18 @@ return {
                         event.buf
                     )
                 then
-                    local highlight_augroup = vim.api.nvim_create_augroup("kifanga-lsp-highlight", { clear = false })
-                    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-                        buffer = event.buf,
-                        group = highlight_augroup,
-                        callback = vim.lsp.buf.document_highlight,
-                    })
-
-                    vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-                        buffer = event.buf,
-                        group = highlight_augroup,
-                        callback = vim.lsp.buf.clear_references,
-                    })
+                    -- local highlight_augroup = vim.api.nvim_create_augroup("kifanga-lsp-highlight", { clear = false })
+                    -- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+                    --     buffer = event.buf,
+                    --     group = highlight_augroup,
+                    --     callback = vim.lsp.buf.document_highlight,
+                    -- })
+                    --
+                    -- vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+                    --     buffer = event.buf,
+                    --     group = highlight_augroup,
+                    --     callback = vim.lsp.buf.clear_references,
+                    -- })
 
                     local diag_augroup = vim.api.nvim_create_augroup("kifanga-lsp-diags", { clear = false })
 
@@ -126,7 +126,7 @@ return {
                 then
                     vim.keymap.set("n", "<leader>vh", function()
                         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-                    end, { buffer = event.buf, desc = "LSP: [T]oggle Inlay [H]ints" })
+                    end, { buffer = event.buf, desc = "LSP: toggle Inlay hints" })
                 end
             end,
         })
@@ -137,10 +137,10 @@ return {
             underline = { severity = vim.diagnostic.severity.ERROR },
             signs = {
                 text = {
-                    [vim.diagnostic.severity.ERROR] = "󰅚 ",
-                    [vim.diagnostic.severity.WARN] = "󰀪 ",
-                    [vim.diagnostic.severity.INFO] = "󰋽 ",
-                    [vim.diagnostic.severity.HINT] = "󰌶 ",
+                    [vim.diagnostic.severity.ERROR] = "E ",
+                    [vim.diagnostic.severity.WARN] = "W ",
+                    [vim.diagnostic.severity.INFO] = "I ",
+                    [vim.diagnostic.severity.HINT] = "H ",
                 },
             },
             virtual_text = {
