@@ -19,7 +19,7 @@ config.mouse_bindings = {
 	},
 }
 
-config.window_background_opacity = 0.97
+config.window_background_opacity = 1.0
 
 config.color_scheme = "Dracula+"
 
