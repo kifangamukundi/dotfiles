@@ -42,6 +42,9 @@ return {
             },
         })
 
+        -- Register fzf-lua as UI backend for vim.ui.select
+        fzf.register_ui_select()
+
         local map = vim.keymap.set
 
         map("n", "<leader>ff", fzf.files, { desc = "Find Files" })
@@ -54,6 +57,9 @@ return {
         map("n", "<leader>fr", fzf.registers, { desc = "Registers" })
         map("n", "<leader>fk", fzf.keymaps, { desc = "Keymaps" })
         map("n", "<leader>fc", fzf.commands, { desc = "Commands" })
-        map("n", "<leader>fs", fzf.lsp_document_symbols, { desc = "LSP Symbols" })
+        map("n", "<leader>vc", fzf.lsp_code_actions, { desc = "LSP Code Actions" })
+        map("n", "<leader>vs", fzf.lsp_document_symbols, { desc = "LSP Document Symbols" })
+        map("n", "<leader>vw", fzf.lsp_workspace_symbols, { desc = "LSP Workspace Symbols" })
+        map("n", "<leader>vr", fzf.lsp_references, { desc = "LSP References" })
     end,
 }
