@@ -30,24 +30,24 @@ return {
                     { buffer = event.buf, desc = "LSP: Go to Implementation" })
 
                 -- This opens quickfix list
-                vim.keymap.set("n", "<leader>vr", vim.lsp.buf.references,
-                    { buffer = event.buf, desc = "LSP: Go to References" })
+                -- vim.keymap.set("n", "<leader>vr", vim.lsp.buf.references,
+                --     { buffer = event.buf, desc = "LSP: Go to References" })
 
-                vim.keymap.set("n", "<leader>vs", vim.lsp.buf.signature_help,
+                vim.keymap.set("n", "<leader>vh", vim.lsp.buf.signature_help,
                     { buffer = event.buf, desc = "LSP: Signature Help" })
 
                 vim.keymap.set("n", "<leader>vn", vim.lsp.buf.rename, { buffer = event.buf, desc = "LSP: Rename" })
 
-                vim.keymap.set("n", "<leader>vc", vim.lsp.buf.code_action,
-                    { buffer = event.buf, desc = "LSP: Code Actions" })
+                -- vim.keymap.set("n", "<leader>vc", vim.lsp.buf.code_action,
+                --     { buffer = event.buf, desc = "LSP: Code Actions" })
 
                 -- This opens location list
-                vim.keymap.set("n", "<leader>vd", vim.lsp.buf.document_symbol,
-                    { buffer = event.buf, desc = "LSP: Document Symbols" })
+                -- vim.keymap.set("n", "<leader>vs", vim.lsp.buf.document_symbol,
+                --     { buffer = event.buf, desc = "LSP: Document Symbols" })
 
                 -- This opens quickfix list
-                vim.keymap.set("n", "<leader>vw", vim.lsp.buf.workspace_symbol,
-                    { buffer = event.buf, desc = "LSP: Workspace Symbols" })
+                -- vim.keymap.set("n", "<leader>vw", vim.lsp.buf.workspace_symbol,
+                --     { buffer = event.buf, desc = "LSP: Workspace Symbols" })
 
                 local function client_supports_method(client, method, bufnr)
                     return client:supports_method(method, bufnr)
@@ -124,7 +124,7 @@ return {
                     client
                     and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
                 then
-                    vim.keymap.set("n", "<leader>vh", function()
+                    vim.keymap.set("n", "<leader>vH", function()
                         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
                     end, { buffer = event.buf, desc = "LSP: toggle Inlay hints" })
                 end
