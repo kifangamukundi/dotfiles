@@ -11,7 +11,6 @@ for _, mode in ipairs(modes) do
     end
 end
 
--- The "+ register" is the vim equivalent to a CTRL+C in another program, while the "* register" is the "mouse selection and middle click" equivalent (in a Gnu/Linux OS).
 -- Function to clear Vim registers, excluding the system clipboard
 function ClearRegisters()
     local registers = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
@@ -97,6 +96,10 @@ vim.keymap.set("n", "<leader>L", "<Cmd>lclose<CR>", { desc = "Close loclist list
 -- ]L: Mapped to :llast
 -- :lwindow: Open the loclist window when there are recognized errors
 
+-- ]d jumps to the next diagnostic in the buffer.
+-- [d jumps to the previous diagnostic in the buffer.
+-- ]D jumps to the last diagnostic in the buffer.
+-- [D jumps to the first diagnostic in the buffer.
 
 -- Use = sign with motions to format according to rules
 -- Use gv to restore the previously visual selection
@@ -113,45 +116,23 @@ vim.api.nvim_create_autocmd("TextYankPost",
         callback = function() vim.hl.on_yank() end,
     })
 
--- Yank into a NAMED register (general purpose): <leader>r{lowercase_register_name}y{motion/text_object}
-for i = 97, 122 do -- ASCII values for 'a' through 'z'
-    local char = string.char(i)
-    vim.keymap.set({ "n", "v" }, "<leader>r" .. char .. "y", '"' .. char .. "y",
-        { desc = "Yank to register '" .. char .. "'" })
-end
+-- Yank
+-- "{register}y{motion/text_object}
+-- Works with 'a' through 'z', 'A' through 'Z', '0' through '9',
+-- and special registers: ", +, *, _
 
--- Append to a NAMED register: <leader>r{uppercase_register_name}y{motion/text_object}
-for i = 65, 90 do -- ASCII values for 'A' through 'Z'
-    local char = string.char(i)
-    vim.keymap.set({ "n", "v" }, "<leader>r" .. char .. "y", '"' .. char .. "y",
-        { desc = "Append yank to register '" .. string.lower(char) .. "'" })
-end
+-- Delete
+-- "{register}d{motion/text_object}
+-- Works with 'a' through 'z', 'A' through 'Z', '1' through '9',
+-- and special registers: ", +, *, _
 
--- Delete into a NAMED register: <leader>r{lowercase_register_name}d{motion/text_object}
-for i = 97, 122 do -- ASCII values for 'a' through 'z'
-    local char = string.char(i)
-    vim.keymap.set({ "n", "v" }, "<leader>r" .. char .. "d", '"' .. char .. "d",
-        { desc = "Delete to register '" .. char .. "'" })
-end
+-- Paste
+-- "{register}p    put after cursor
+-- "{register}P    put before cursor
+-- Works with 'a' through 'z', 'A' through 'Z', '0' through '9',
+-- and special registers: ", %, #, :, ., /, +, *
 
--- Delete to a NAMED register and APPEND: <leader>r{uppercase_register_name}d{motion/text_object}
-for i = 65, 90 do -- ASCII values for 'A' through 'Z'
-    local char = string.char(i)
-    vim.keymap.set({ "n", "v" }, "<leader>r" .. char .. "d", '"' .. char .. "d",
-        { desc = "Append delete to register '" .. string.lower(char) .. "'" })
-end
-
--- Paste from any register: <leader>r{register_name}p (paste after)
--- <leader>r{register_name}P (paste before)
--- This includes named, numbered, system, and special registers.
--- Note: 'A' or 'B' are uppercase, but when pasting, it refers to the content of 'a' or 'b'.
-local all_paste_registers = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
-    "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", "*", "+", ".", "%",
-    "#", ":", "_", }
-
-for _, reg in ipairs(all_paste_registers) do
-    vim.keymap.set({ "n", "v" }, "<leader>r" .. reg .. "p", '"' .. reg .. "p",
-        { desc = "Paste from register '" .. reg .. "'" })
-    vim.keymap.set({ "n", "v" }, "<leader>r" .. reg .. "P", '"' .. reg .. "P",
-        { desc = "Paste from register '" .. reg .. "' (before)" })
-end
+-- Replace
+-- "{register}r{char}
+-- Works with 'a' through 'z', 'A' through 'Z', '0' through '9',
+-- and special registers: ", %, /, :, ., +, *
