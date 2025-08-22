@@ -9,7 +9,7 @@ return {
 
         local map = vim.keymap.set
 
-        map("n", "<leader>vR", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" })
-        map("n", "<leader>vS", "<cmd>SessionSave<CR>", { desc = "Save session for auto session root dir" })
+        map("n", "<leader>r", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" })
+        map("n", "<leader>s", "<cmd>SessionSave<CR>", { desc = "Save session for auto session root dir" })
     end,
 }
