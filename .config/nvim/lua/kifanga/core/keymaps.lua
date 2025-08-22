@@ -62,16 +62,76 @@ vim.keymap.set("n", "<leader>x", [["_x]], { desc = "Cut without affecting yank" 
 vim.keymap.set("v", "<leader>d", [["_d]], { desc = "Delete without affecting yank" })
 vim.keymap.set("v", "<leader>c", [["_c]], { desc = "Change without affecting yank" })
 
-vim.keymap.set("n", "<C-a>", "<C-w>v", { desc = "Split window vertically" })
-vim.keymap.set("n", "<C-s>", "<C-w>s", { desc = "Split window horizontally" })
-vim.keymap.set("n", "<C-e>", "<C-w>=", { desc = "Make splits equal size" })
-vim.keymap.set("n", "<C-c>", "<C-w>c", { desc = "Close current split" })
-vim.keymap.set("n", "<C-x>", "<C-w>o", { desc = "Close other splits" })
+-- <C-a> → Increment number under cursor
+-- <C-b> → Scroll back one full screen
+-- <C-c> → Interrupt / cancel (like <Esc>)
+-- <C-d> → Scroll down half a screen
+-- <C-e> → Scroll window down one line
+-- <C-f> → Scroll forward one full screen
+-- <C-g> → Show cursor position and file info
+-- <C-h> → Backspace in Insert mode (delete before cursor)
+-- <C-i> → Jump forward in the jump list (same as <Tab>)
+-- <C-j> → Line break in Insert mode
+-- <C-k> → In Insert mode, delete to end of line (part of digraphs too)
+-- <C-l> → Redraw screen, remove search highlighting
+-- <C-m> → Same as <CR> (Enter)
+-- <C-n> → Insert mode: next completion match
+-- <C-o> → Jump backward in the jump list
+-- <C-p> → Insert mode: previous completion match
+-- <C-q> → In some setups, start recording literal control codes (can also freeze terminal if flow control is on)
+-- <C-r> → Redo last change
+-- <C-t> → Insert mode: decrease indent
+-- <C-u> → Scroll up half a screen
+-- <C-v> → Insert next literal character (quote a key)
+-- <C-w> → Window command prefix (split management)
+-- <C-x> → Decrement number under cursor
+-- <C-y> → Scroll window up one line
+-- <C-z> → Suspend Vim (send to background, job control)
 
-vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left split" })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to below split" })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to above split" })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right split" })
+-- Use `s` as window prefix instead of <C-w>
+vim.cmd [[nmap s <C-w>]]
+
+-- <C-w>c → Close current window
+-- <C-w>o → Close all other windows ("only")
+-- <C-w>s → Split window horizontally
+-- <C-w>v → Split window vertically
+-- <C-w>= → Make all windows equal size
+-- <C-w>+ → Increase window height
+-- <C-w>- → Decrease window height
+-- <C-w>< → Decrease window width
+-- <C-w>> → Increase window width
+
+-- <C-w>h → Move to left window
+-- <C-w>j → Move to below window
+-- <C-w>k → Move to above window
+-- <C-w>l → Move to right window
+-- <C-w>w → Cycle through windows
+-- <C-w>p → Jump to previous window
+-- <C-w>t → Jump to top-left window
+-- <C-w>b → Jump to bottom-right window
+
+-- <C-w>K → Move window to top (full-height)
+-- <C-w>J → Move window to bottom (full-height)
+-- <C-w>H → Move window to far left (full-width)
+-- <C-w>L → Move window to far right (full-width)
+
+-- <C-w>T → Break window into its own tab page
+-- <C-w>n → Open new empty window (same as :new)
+-- <C-w>q → Quit current window (same as :quit)
+
+-- <C-w>x → Exchange current window with next
+-- <C-w>r → Rotate windows downwards/rightwards
+-- <C-w>R → Rotate windows upwards/leftwards
+-- <C-w>O → Close all other windows in the current tab
+-- <C-w>z → Close preview window
+-- <C-w>P → Go to preview window
+-- <C-w>f → Edit file name under cursor in a new window
+-- <C-w>F → Edit file under cursor in a new window (jump to line)
+-- <C-w>} → Show tag under cursor in preview window
+-- <C-w>] → Jump to tag under cursor in a new window
+-- <C-w>^ → Jump to alternate file in new window
+-- <C-w>_ → Maximize current window height
+-- <C-w>| → Maximize current window width
 
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 vim.keymap.set("n", "<leader>n", ":nohl<CR>", { desc = "Clear search highlights" })
