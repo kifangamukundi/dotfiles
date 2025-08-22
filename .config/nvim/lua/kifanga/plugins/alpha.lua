@@ -8,7 +8,7 @@ return {
         dashboard.section.header.val = { "Welcome, Kifanga Mukundi" }
 
         dashboard.section.buttons.val = {
-            dashboard.button("<leader>vR", "Restore Session", ":SessionRestore <CR>"),
+            dashboard.button("<leader>r", "Restore Session", ":SessionRestore <CR>"),
         }
 
         alpha.setup(dashboard.opts)
