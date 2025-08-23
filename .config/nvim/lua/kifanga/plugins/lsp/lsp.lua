@@ -13,39 +13,67 @@ return {
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("kifanga-lsp-attach", { clear = true }),
             callback = function(event)
-                -- Jumplist control o and control i
-                -- Taglist control t
-                vim.keymap.set("n", "<leader>vd", vim.lsp.buf.declaration,
+                -- Trigger completion
+                -- insert-mode: CTRL-X CTRL-O
+                -- Next: CTRL-N
+                -- Previous: CTRL-P
+                -- Accept: CTRL-Y
+
+                -- Default: unknown but like grd
+                -- custom: <leader>vd
+                vim.keymap.set("n", "grd", vim.lsp.buf.declaration,
                     { buffer = event.buf, desc = "LSP: Go to Declaration" })
 
-                vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = event.buf, desc = "LSP: Go to Definition" })
+                -- CTRL-] or CTRL-w-]: Jump to the definition of the keyword under the cursor.
+                -- CTRL-t: Go back from where you came from
+                -- custom: gd
+                vim.keymap.set({ "n", "v" }, "gd", vim.lsp.buf.definition,
+                    { buffer = event.buf, desc = "LSP: Go to Definition" })
 
-                vim.keymap.set("n", "<leader>vt", vim.lsp.buf.type_definition,
+                -- - "gra" is mapped in Normal and Visual mode to |vim.lsp.buf.code_action()|
+                -- - "gO" is mapped in Normal mode to |vim.lsp.buf.document_symbol()|
+
+                -- Default: grt
+                -- custom: <leader>vt
+                vim.keymap.set("n", "grt", vim.lsp.buf.type_definition,
                     { buffer = event.buf, desc = "LSP: Go to Type Definition" })
 
-                vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover,
+                -- Default: K
+                vim.keymap.set("n", "K", vim.lsp.buf.hover,
                     { buffer = event.buf, desc = "LSP: Hover Documentation" })
 
-                vim.keymap.set("n", "<leader>vi", vim.lsp.buf.implementation,
+                -- Default: gri
+                -- custom: <leader>vi
+                vim.keymap.set("n", "gri", vim.lsp.buf.implementation,
                     { buffer = event.buf, desc = "LSP: Go to Implementation" })
 
-                -- This opens quickfix list
-                -- vim.keymap.set("n", "<leader>vr", vim.lsp.buf.references,
+                -- Default: grr
+                -- custom: <leader>vr
+                -- vim.keymap.set("n", "grr", vim.lsp.buf.references,
                 --     { buffer = event.buf, desc = "LSP: Go to References" })
 
-                vim.keymap.set("n", "<leader>vh", vim.lsp.buf.signature_help,
+                -- Default: insert-mode: CTRL-S
+                -- Default: normal-mode unknown but like grs
+                -- custom normal-mode: <leader>vs
+                vim.keymap.set("n", "grs", vim.lsp.buf.signature_help,
                     { buffer = event.buf, desc = "LSP: Signature Help" })
 
-                vim.keymap.set("n", "<leader>vn", vim.lsp.buf.rename, { buffer = event.buf, desc = "LSP: Rename" })
+                -- Default: grn
+                -- custom: <leader>vn
+                vim.keymap.set("n", "grn", vim.lsp.buf.rename, { buffer = event.buf, desc = "LSP: Rename" })
 
-                -- vim.keymap.set("n", "<leader>vc", vim.lsp.buf.code_action,
+                -- Default: gra
+                -- custom: <leader>va
+                -- vim.keymap.set("n", "gra", vim.lsp.buf.code_action,
                 --     { buffer = event.buf, desc = "LSP: Code Actions" })
 
-                -- This opens location list
-                -- vim.keymap.set("n", "<leader>vs", vim.lsp.buf.document_symbol,
+                -- Default: gO
+                -- custom: <leader>vo
+                -- vim.keymap.set("n", "gO", vim.lsp.buf.document_symbol,
                 --     { buffer = event.buf, desc = "LSP: Document Symbols" })
 
-                -- This opens quickfix list
+                -- Default: unknown but like gW
+                -- custom: <leader>vw
                 -- vim.keymap.set("n", "<leader>vw", vim.lsp.buf.workspace_symbol,
                 --     { buffer = event.buf, desc = "LSP: Workspace Symbols" })
 
@@ -124,7 +152,7 @@ return {
                     client
                     and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
                 then
-                    vim.keymap.set("n", "<leader>vH", function()
+                    vim.keymap.set("n", "<leader>vh", function()
                         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
                     end, { buffer = event.buf, desc = "LSP: toggle Inlay hints" })
                 end
