@@ -57,9 +57,21 @@ return {
         map("n", "<leader>fr", fzf.registers, { desc = "Registers" })
         map("n", "<leader>fk", fzf.keymaps, { desc = "Keymaps" })
         map("n", "<leader>fc", fzf.commands, { desc = "Commands" })
-        map("n", "<leader>vc", fzf.lsp_code_actions, { desc = "LSP Code Actions" })
-        map("n", "<leader>vs", fzf.lsp_document_symbols, { desc = "LSP Document Symbols" })
-        map("n", "<leader>vw", fzf.lsp_workspace_symbols, { desc = "LSP Workspace Symbols" })
-        map("n", "<leader>vr", fzf.lsp_references, { desc = "LSP References" })
+
+        -- Default: gra
+        -- custom: <leader>va
+        map("n", "gra", fzf.lsp_code_actions, { desc = "LSP Code Actions" })
+
+        -- Default: gO
+        -- custom: <leader>vo
+        map("n", "gO", fzf.lsp_document_symbols, { desc = "LSP Document Symbols" })
+
+        -- Default: unknown but like gW
+        -- custom: <leader>vw
+        map("n", "gW", fzf.lsp_workspace_symbols, { desc = "LSP Workspace Symbols" })
+
+        -- Default: grr
+        -- custom: <leader>vr
+        map("n", "grr", fzf.lsp_references, { desc = "LSP References" })
     end,
 }
