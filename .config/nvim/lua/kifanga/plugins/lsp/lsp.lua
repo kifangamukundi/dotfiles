@@ -111,6 +111,7 @@ return {
                         callback = function()
                             if not vim.g.quitting then
                                 vim.diagnostic.setloclist({ open = false })
+                                vim.diagnostic.setqflist({ open = false })
                             end
                         end,
                     })
