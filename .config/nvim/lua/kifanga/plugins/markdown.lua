@@ -19,8 +19,7 @@ return {
         config = function()
             vim.g.mkdp_filetypes = { "markdown" }
 
-            local map = vim.keymap.set
-            map("n", "<leader>mp", "<Cmd>MarkdownPreviewToggle<CR>", {
+            vim.keymap.set("n", "<leader>vp", "<Cmd>MarkdownPreviewToggle<CR>", {
                 desc = "Toggle Markdown Preview",
                 buffer = true,
             })
