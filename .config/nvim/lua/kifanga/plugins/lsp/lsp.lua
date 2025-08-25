@@ -22,8 +22,8 @@ return {
                 -- Previous: CTRL-P
                 -- Accept: CTRL-Y
 
-                -- Default: unknown but like grd
-                vim.keymap.set("n", "grd", vim.lsp.buf.declaration,
+                -- Default: unknown but like grD
+                vim.keymap.set("n", "grD", vim.lsp.buf.declaration,
                     { buffer = event.buf, desc = "LSP: Go to Declaration" })
 
                 -- CTRL-] or CTRL-w-]: Jump to the definition of the keyword under the cursor.
@@ -65,11 +65,12 @@ return {
                 --     { buffer = event.buf, desc = "LSP: Code Actions" })
 
                 -- Default: gO
-                -- vim.keymap.set("n", "gO", vim.lsp.buf.document_symbol,
+                -- Custom: gD
+                -- vim.keymap.set("n", "gD", vim.lsp.buf.document_symbol,
                 --     { buffer = event.buf, desc = "LSP: Document Symbols" })
 
                 -- Default: unknown but like gW
-                -- vim.keymap.set("n", "<leader>vw", vim.lsp.buf.workspace_symbol,
+                -- vim.keymap.set("n", "gW", vim.lsp.buf.workspace_symbol,
                 --     { buffer = event.buf, desc = "LSP: Workspace Symbols" })
 
                 local function client_supports_method(client, method, bufnr)
