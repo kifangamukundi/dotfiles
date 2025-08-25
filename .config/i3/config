@@ -33,15 +33,15 @@ for_window [class="AlacrittyLaunch"] floating enable, move position center
 for_window [class="^.*"] border pixel 2
 
 assign [class="^Alacritty$"] 1
-# assign [class="org.wezfurlong.wezterm"] 2
-assign [class="Google-chrome"] 3
-assign [class="firefox-esr"] 4
-assign [class="Vlc" window_role="vlc-video"] 5
+assign [class="Google-chrome"] 2
+assign [class="firefox-esr"] 3
+assign [class="Vlc" window_role="vlc-video"] 4
+assign [class="org.wezfurlong.wezterm"] 5
 
 exec --no-startup-id alacritty
-# exec --no-startup-id wezterm 
 exec --no-startup-id google-chrome-stable
 # exec --no-startup-id firefox-esr
+# exec --no-startup-id wezterm 
 
 exec --no-startup-id i3-msg "workspace 1"
 
