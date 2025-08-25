@@ -13,6 +13,9 @@ return {
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("kifanga-lsp-attach", { clear = true }),
             callback = function(event)
+                -- Trigger path completion
+                -- insert-mode: CTRL-X CTRL-F
+
                 -- Trigger completion
                 -- insert-mode: CTRL-X CTRL-O
                 -- Next: CTRL-N
@@ -20,7 +23,6 @@ return {
                 -- Accept: CTRL-Y
 
                 -- Default: unknown but like grd
-                -- custom: <leader>vd
                 vim.keymap.set("n", "grd", vim.lsp.buf.declaration,
                     { buffer = event.buf, desc = "LSP: Go to Declaration" })
 
@@ -34,7 +36,6 @@ return {
                 -- - "gO" is mapped in Normal mode to |vim.lsp.buf.document_symbol()|
 
                 -- Default: grt
-                -- custom: <leader>vt
                 vim.keymap.set("n", "grt", vim.lsp.buf.type_definition,
                     { buffer = event.buf, desc = "LSP: Go to Type Definition" })
 
@@ -43,37 +44,31 @@ return {
                     { buffer = event.buf, desc = "LSP: Hover Documentation" })
 
                 -- Default: gri
-                -- custom: <leader>vi
                 vim.keymap.set("n", "gri", vim.lsp.buf.implementation,
                     { buffer = event.buf, desc = "LSP: Go to Implementation" })
 
                 -- Default: grr
-                -- custom: <leader>vr
                 -- vim.keymap.set("n", "grr", vim.lsp.buf.references,
                 --     { buffer = event.buf, desc = "LSP: Go to References" })
 
                 -- Default: insert-mode: CTRL-S
-                -- Default: normal-mode unknown but like grs
-                -- custom normal-mode: <leader>vs
-                vim.keymap.set("n", "grs", vim.lsp.buf.signature_help,
+                -- Default: normal-mode unknown but like <C-s>
+                -- custom normal-mode: <C-s>
+                vim.keymap.set({ "i", "n" }, "<C-s>", vim.lsp.buf.signature_help,
                     { buffer = event.buf, desc = "LSP: Signature Help" })
 
                 -- Default: grn
-                -- custom: <leader>vn
                 vim.keymap.set("n", "grn", vim.lsp.buf.rename, { buffer = event.buf, desc = "LSP: Rename" })
 
                 -- Default: gra
-                -- custom: <leader>va
                 -- vim.keymap.set("n", "gra", vim.lsp.buf.code_action,
                 --     { buffer = event.buf, desc = "LSP: Code Actions" })
 
                 -- Default: gO
-                -- custom: <leader>vo
                 -- vim.keymap.set("n", "gO", vim.lsp.buf.document_symbol,
                 --     { buffer = event.buf, desc = "LSP: Document Symbols" })
 
                 -- Default: unknown but like gW
-                -- custom: <leader>vw
                 -- vim.keymap.set("n", "<leader>vw", vim.lsp.buf.workspace_symbol,
                 --     { buffer = event.buf, desc = "LSP: Workspace Symbols" })
 
@@ -120,7 +115,7 @@ return {
                     vim.api.nvim_create_autocmd("BufWritePre", {
                         buffer = event.buf,
                         callback = function()
-                            local client = vim.lsp.get_client_by_id(event.data.client_id)
+                            -- local client = vim.lsp.get_client_by_id(event.data.client_id)
                             if client and client.server_capabilities.documentFormattingProvider then
                                 vim.lsp.buf.format({
                                     bufnr = event.buf,
@@ -143,7 +138,7 @@ return {
                         group = vim.api.nvim_create_augroup("kifanga-lsp-detach", { clear = true }),
                         callback = function(event2)
                             vim.lsp.buf.clear_references()
-                            vim.api.nvim_clear_autocmds({ group = "kifanga-lsp-highlight", buffer = event2.buf })
+                            vim.api.nvim_clear_autocmds({ group = highlight_augroup, buffer = event2.buf })
                             -- vim.diagnostic.setloclist({})
                         end,
                     })
