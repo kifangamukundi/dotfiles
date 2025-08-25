@@ -49,7 +49,6 @@ return {
         vim.keymap.set("n", "<leader>fg", fzf.git_files, { desc = "Find Git Files" })
         vim.keymap.set("n", "<leader>fl", fzf.live_grep, { desc = "Live Grep" })
         vim.keymap.set("n", "<leader>fb", fzf.buffers, { desc = "Find Buffers" })
-        vim.keymap.set("n", "<leader>fd", fzf.diagnostics_document, { desc = "Document Diagnostics" })
         vim.keymap.set("n", "<leader>fh", fzf.help_tags, { desc = "Help Tags" })
         vim.keymap.set("n", "<leader>fm", fzf.marks, { desc = "Marks" })
         vim.keymap.set("n", "<leader>fr", fzf.registers, { desc = "Registers" })
@@ -58,11 +57,18 @@ return {
         vim.keymap.set("n", "<leader>fp", fzf.manpages, { desc = "Man pages" })
         vim.keymap.set("n", "<leader>fj", fzf.jumps, { desc = "Jumps" })
 
+        -- Default: unknown but like grd
+        vim.keymap.set("n", "grd", fzf.diagnostics_document, { desc = "Document Diagnostics" })
+
+        -- Default: unknown but like grw
+        vim.keymap.set("n", "grw", fzf.diagnostics_workspace, { desc = "Workspace Diagnostics" })
+
         -- Default: gra
         vim.keymap.set("n", "gra", fzf.lsp_code_actions, { desc = "LSP Code Actions" })
 
         -- Default: gO
-        vim.keymap.set("n", "gO", fzf.lsp_document_symbols, { desc = "LSP Document Symbols" })
+        -- Default: gD
+        vim.keymap.set("n", "gD", fzf.lsp_document_symbols, { desc = "LSP Document Symbols" })
 
         -- Default: unknown but like gW
         vim.keymap.set("n", "gW", fzf.lsp_workspace_symbols, { desc = "LSP Workspace Symbols" })
