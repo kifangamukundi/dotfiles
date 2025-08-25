@@ -25,10 +25,9 @@ return {
     {
         "tpope/vim-fugitive",
         config = function()
-            local map = vim.keymap.set
-
-            map("n", "<leader>g", "<cmd>:0Git<CR>", { desc = "Git status" })
-            map("n", "<leader>vl", "<cmd>:0Git log --oneline --graph --decorate --parents<CR>", { desc = "Git log" })
+            vim.keymap.set("n", "<leader>g", "<cmd>:0Git<CR>", { desc = "Git status" })
+            vim.keymap.set("n", "<leader>vl", "<cmd>:0Git log --oneline --graph --decorate --parents<CR>",
+                { desc = "Git log" })
 
             local fugitive_augroup = vim.api.nvim_create_augroup("Fugitive", { clear = true })
 
