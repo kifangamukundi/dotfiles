@@ -45,33 +45,29 @@ return {
         -- Register fzf-lua as UI backend for vim.ui.select
         fzf.register_ui_select()
 
-        local map = vim.keymap.set
-
-        map("n", "<leader>ff", fzf.files, { desc = "Find Files" })
-        map("n", "<leader>fg", fzf.git_files, { desc = "Find Git Files" })
-        map("n", "<leader>fl", fzf.live_grep, { desc = "Live Grep" })
-        map("n", "<leader>fb", fzf.buffers, { desc = "Find Buffers" })
-        map("n", "<leader>fd", fzf.diagnostics_document, { desc = "Document Diagnostics" })
-        map("n", "<leader>fh", fzf.help_tags, { desc = "Help Tags" })
-        map("n", "<leader>fm", fzf.marks, { desc = "Marks" })
-        map("n", "<leader>fr", fzf.registers, { desc = "Registers" })
-        map("n", "<leader>fk", fzf.keymaps, { desc = "Keymaps" })
-        map("n", "<leader>fc", fzf.commands, { desc = "Commands" })
+        vim.keymap.set("n", "<leader>ff", fzf.files, { desc = "Find Files" })
+        vim.keymap.set("n", "<leader>fg", fzf.git_files, { desc = "Find Git Files" })
+        vim.keymap.set("n", "<leader>fl", fzf.live_grep, { desc = "Live Grep" })
+        vim.keymap.set("n", "<leader>fb", fzf.buffers, { desc = "Find Buffers" })
+        vim.keymap.set("n", "<leader>fd", fzf.diagnostics_document, { desc = "Document Diagnostics" })
+        vim.keymap.set("n", "<leader>fh", fzf.help_tags, { desc = "Help Tags" })
+        vim.keymap.set("n", "<leader>fm", fzf.marks, { desc = "Marks" })
+        vim.keymap.set("n", "<leader>fr", fzf.registers, { desc = "Registers" })
+        vim.keymap.set("n", "<leader>fk", fzf.keymaps, { desc = "Keymaps" })
+        vim.keymap.set("n", "<leader>fc", fzf.commands, { desc = "Commands" })
+        vim.keymap.set("n", "<leader>fp", fzf.manpages, { desc = "Man pages" })
+        vim.keymap.set("n", "<leader>fj", fzf.jumps, { desc = "Jumps" })
 
         -- Default: gra
-        -- custom: <leader>va
-        map("n", "gra", fzf.lsp_code_actions, { desc = "LSP Code Actions" })
+        vim.keymap.set("n", "gra", fzf.lsp_code_actions, { desc = "LSP Code Actions" })
 
         -- Default: gO
-        -- custom: <leader>vo
-        map("n", "gO", fzf.lsp_document_symbols, { desc = "LSP Document Symbols" })
+        vim.keymap.set("n", "gO", fzf.lsp_document_symbols, { desc = "LSP Document Symbols" })
 
         -- Default: unknown but like gW
-        -- custom: <leader>vw
-        map("n", "gW", fzf.lsp_workspace_symbols, { desc = "LSP Workspace Symbols" })
+        vim.keymap.set("n", "gW", fzf.lsp_workspace_symbols, { desc = "LSP Workspace Symbols" })
 
         -- Default: grr
-        -- custom: <leader>vr
-        map("n", "grr", fzf.lsp_references, { desc = "LSP References" })
+        vim.keymap.set("n", "grr", fzf.lsp_references, { desc = "LSP References" })
     end,
 }
