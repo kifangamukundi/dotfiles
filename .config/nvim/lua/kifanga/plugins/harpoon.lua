@@ -4,7 +4,6 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
         local harpoon = require("harpoon")
-        local map = vim.keymap.set
 
         harpoon:setup({
             settings = {
@@ -19,27 +18,27 @@ return {
             ui_width_ratio = 0.60,
         }
 
-        map("n", "<leader>a", function()
+        vim.keymap.set("n", "<leader>a", function()
             harpoon:list():add()
         end, { desc = "Harpoon: Add file" })
 
-        -- map("n", "<leader>hc", function()
+        -- vim.keymap.set("n", "<leader>hc", function()
         -- 	harpoon:list():clear()
         -- end, { desc = "Harpoon: Clear list" })
 
-        map("n", "<leader>h", function()
+        vim.keymap.set("n", "<leader>h", function()
             harpoon.ui:toggle_quick_menu(harpoon:list(), toggle_opts)
         end, { desc = "Harpoon: Open menu" })
 
-        -- map("n", "<leader>hn", function()
+        -- vim.keymap.set("n", "<leader>hn", function()
         -- 	harpoon:list():next()
         -- end, { desc = "Harpoon: Next file" })
-        -- map("n", "<leader>hp", function()
+        -- vim.keymap.set("n", "<leader>hp", function()
         -- 	harpoon:list():prev()
         -- end, { desc = "Harpoon: Previous file" })
 
-        for i = 1, 9 do
-            map("n", "<leader>" .. i, function()
+        for i = 1, 5 do
+            vim.keymap.set("n", "<leader>" .. i, function()
                 harpoon:list():select(i)
             end, { desc = "Harpoon: Select file " .. i })
         end
