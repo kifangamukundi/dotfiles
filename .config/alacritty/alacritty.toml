@@ -26,7 +26,7 @@ background = "#f1fa8c"
 foreground = "#282a36"
 
 [colors.normal]
-black = "#282a36"
+black = "#ff00ff"
 blue = "#6272a4"
 cyan = "#8be9fd"
 green = "#50fa7b"
@@ -37,8 +37,7 @@ yellow = "#f1fa8c"
 
 [colors.primary]
 foreground = "#e0def4"
-background = "#181818"
-# background = "#121212" 
+background = "#1a1a1a"
 
 [colors.selection]
 background = "#44475a"
@@ -74,7 +73,7 @@ history = 10000
 multiplier = 3
 
 [window]
-opacity = 1.00
+opacity = 0.95
 
 [window.padding]
 x = 0
