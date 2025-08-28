@@ -36,9 +36,9 @@ return {
                 pattern = "fugitive://*",
                 callback = function()
                     vim.opt_local.bufhidden = "delete"
-                    vim.keymap.set("n", "<leader>vp", ":Git push<CR>", { buffer = true, desc = "Git push" })
+                    vim.keymap.set("n", "<leader>p", ":Git push<CR>", { buffer = true, desc = "Git push" })
 
-                    vim.keymap.set("n", "<leader>vu", function()
+                    vim.keymap.set("n", "<leader>u", function()
                         local branch = vim.fn.systemlist("git rev-parse --abbrev-ref HEAD")[1]
                         if branch == "main" then
                             vim.cmd(":Git pull --ff-only")
@@ -48,9 +48,9 @@ return {
                     end, { buffer = true, desc = "Smart Git pull" })
 
                     -- Fugitive: 2X keep ours
-                    vim.keymap.set("n", "<leader>vo", ":diffget //2<CR>", { buffer = true, desc = "Keep ours" })
+                    vim.keymap.set("n", "<leader>o", ":diffget //2<CR>", { buffer = true, desc = "Keep ours" })
                     -- Fugitive: 3X keep theirs
-                    vim.keymap.set("n", "<leader>vt", ":diffget //3<CR>", { buffer = true, desc = "Keep Theirs" })
+                    vim.keymap.set("n", "<leader>t", ":diffget //3<CR>", { buffer = true, desc = "Keep Theirs" })
                 end,
             })
         end,
