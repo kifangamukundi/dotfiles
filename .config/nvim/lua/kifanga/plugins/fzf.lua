@@ -45,17 +45,20 @@ return {
         -- Register fzf-lua as UI backend for vim.ui.select
         fzf.register_ui_select()
 
-        vim.keymap.set("n", "<leader>ff", fzf.files, { desc = "Find Files" })
-        vim.keymap.set("n", "<leader>fg", fzf.git_files, { desc = "Find Git Files" })
-        vim.keymap.set("n", "<leader>fl", fzf.live_grep, { desc = "Live Grep" })
-        vim.keymap.set("n", "<leader>fb", fzf.buffers, { desc = "Find Buffers" })
-        vim.keymap.set("n", "<leader>fh", fzf.help_tags, { desc = "Help Tags" })
-        vim.keymap.set("n", "<leader>fm", fzf.marks, { desc = "Marks" })
-        vim.keymap.set("n", "<leader>fr", fzf.registers, { desc = "Registers" })
-        vim.keymap.set("n", "<leader>fk", fzf.keymaps, { desc = "Keymaps" })
-        vim.keymap.set("n", "<leader>fc", fzf.commands, { desc = "Commands" })
-        vim.keymap.set("n", "<leader>fp", fzf.manpages, { desc = "Man pages" })
-        vim.keymap.set("n", "<leader>fj", fzf.jumps, { desc = "Jumps" })
+        vim.keymap.set("n", "<leader>f", fzf.files, { desc = "Find Files" })
+        vim.keymap.set("n", "<C-p>", fzf.git_files, { desc = "Find Git Files" })
+        vim.keymap.set("n", "<leader>k", fzf.grep, { desc = "Find Grep" })
+        vim.keymap.set("n", "<leader>vw", fzf.grep_cword, { desc = "Search for word under cursor" })
+        vim.keymap.set("n", "<leader>vW", fzf.grep_cWORD, { desc = "Search for WORD under cursor" })
+        vim.keymap.set("n", "<leader>vh", fzf.help_tags, { desc = "Help Tags" })
+
+        vim.keymap.set("n", "<leader>vb", fzf.buffers, { desc = "Find Buffers" })
+        vim.keymap.set("n", "<leader>vm", fzf.marks, { desc = "Marks" })
+        vim.keymap.set("n", "<leader>vr", fzf.registers, { desc = "Registers" })
+        vim.keymap.set("n", "<leader>vj", fzf.jumps, { desc = "Jumps" })
+        vim.keymap.set("n", "<leader>vk", fzf.keymaps, { desc = "Keymaps" })
+        vim.keymap.set("n", "<leader>vc", fzf.commands, { desc = "Commands" })
+        vim.keymap.set("n", "<leader>vp", fzf.manpages, { desc = "Man pages" })
 
         -- Default: unknown but like grd
         vim.keymap.set("n", "grd", fzf.diagnostics_document, { desc = "Document Diagnostics" })
