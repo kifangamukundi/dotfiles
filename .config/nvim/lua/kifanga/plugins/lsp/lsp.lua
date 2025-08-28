@@ -149,7 +149,7 @@ return {
                     client
                     and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
                 then
-                    vim.keymap.set("n", "<leader>vh", function()
+                    vim.keymap.set("n", "<leader>vH", function()
                         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
                     end, { buffer = event.buf, desc = "LSP: toggle Inlay hints" })
                 end
