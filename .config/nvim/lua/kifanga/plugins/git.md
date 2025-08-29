@@ -181,3 +181,5 @@ FIX ACCIDENTAL COMMIT: git reset --soft HEAD~1 then git rebase --continue
 - r<Space> Populate command line with ":Git rebase ".
 
 - cm<Space> Populate command line with ":Git merge ".
+
+- gp: close fugitive status page
