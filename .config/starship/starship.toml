@@ -1,11 +1,11 @@
 # Character module configuration
 [character]
-success_symbol = "[➜](bold green)"
-error_symbol = "[➜](bold red)"
+success_symbol = "[➜](bold #95b1ac)"
+error_symbol = "[➜](bold #eb6f92)"
 
 # Username module configuration
 [username]
-style_user = "green bold"
+style_user = "#3e8fb0 bold"
 style_root = "red bold"
 format = "[$user]($style) "
 show_always = true
@@ -13,7 +13,7 @@ show_always = true
 # Hostname module configuration
 [hostname]
 format = 'on [$hostname]($style) '
-style = "bold yellow"
+style = "bold #f6c177"
 trim_at = "."
 ssh_only = true
 disabled = false
@@ -23,8 +23,8 @@ disabled = false
 truncation_length = 10
 truncate_to_repo = true
 read_only = " locked"
-read_only_style = "bold red"
-style = "bold cyan"
+read_only_style = "bold #eb6f92"
+style = "bold #95b1ac"
 
 # Command duration module configuration
 [cmd_duration]
@@ -36,28 +36,28 @@ disabled = true
 # Git branch module configuration
 [git_branch]
 format = '(\([git:$branch]($style)\)) '
-style = "bold purple"
+style = "bold #eb6f92"
 disabled = false
 
 # Golang module configuration
 [golang]
 symbol = "go "
 format = '\([$symbol($version)]($style)\) '
-style = "bold cyan"
+style = "bold #ea9a97"
 disabled = false
 
 # rust module configuration
 [rust]
 symbol = "rust "
 format = '\([$symbol($version)]($style)\) '
-style = "bold cyan"
+style = "bold #ea9a97"
 disabled = false
 
 # Node.js module configuration
 [nodejs]
 symbol = "node "
 format = '\([$symbol($version)]($style)\) '
-style = "bold cyan"
+style = "bold #ea9a97"
 detect_files = ["package.json"]
 disabled = false
 
@@ -65,21 +65,21 @@ disabled = false
 [python]
 symbol = "python "
 format = '\([$symbol($version) $virtualenv]($style)\) '
-style = "bold cyan"
+style = "bold #ea9a97"
 disabled = false
 
 # php module configuration
 [php]
 symbol = "php "
 format = '\([$symbol($version)]($style)\) '
-style = "bold cyan"
+style = "bold #ea9a97"
 disabled = false
 
 # Docker context module configuration
 [docker_context]
 symbol = "docker " 
 format = '\([$symbol($context)]($style)\) '
-style = "bold cyan"
+style = "bold #ea9a97"
 only_with_files = true
 detect_files = ["docker-compose.yml", "Dockerfile"]
 disabled = false
@@ -88,12 +88,12 @@ disabled = false
 [shlvl]
 symbol = "shell "
 format = '\([$symbol($shlvl)]($style)\) '
-style = "bold cyan"
+style = "bold #ea9a97"
 disabled = false
 
 # Package module configuration
 [package]
 symbol = "package "
 format = '\([$symbol($package $version)]($style)\) '
-style = "bold yellow"
+style = "bold #f6c177"
 disabled = false

@@ -4,9 +4,9 @@ function ColorMyPencils(color)
     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#212121" })
 
-    vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#51B3EC", bold = true })
-    vim.api.nvim_set_hl(0, "LineNr", { fg = "white", bold = true })
-    vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#FB508F", bold = true })
+    vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#3e8fb0", bold = true })
+    vim.api.nvim_set_hl(0, "LineNr", { fg = "#f6c177", bold = true })
+    vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#eb6f92", bold = true })
 
     vim.api.nvim_set_hl(0, "CursorLine", { bg = "#212121" })
     vim.api.nvim_set_hl(0, "Visual", { bg = "#3c3c3c" })
@@ -28,7 +28,9 @@ return {
             styles = {
                 transparency = true,
             },
-            disable_background = true,
+            enable = {
+                transparency = true,
+            },
         })
         vim.cmd("colorscheme rose-pine")
         ColorMyPencils()

@@ -1,11 +1,11 @@
 #!/bin/bash
 
-default_color="#7aa2f7"
-system_color="#e07a5f"
+default_color="#3e8fb0"
+system_color="#eb6f92"
 
-window_color="#e07a5f"
-resize_color="#e07a5f"
-media_color="#e07a5f"
+window_color="#eb6f92"
+resize_color="#eb6f92"
+media_color="#eb6f92"
 unknown_color="#d65d0e"
 
 # Default mode
