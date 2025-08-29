@@ -7,6 +7,10 @@ esac
 # Use nvim as default editor 
 export EDITOR=nvim
 
+# Enhanced grep with sane defaults
+alias grep='grep --color=auto -rniI --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
+alias fd='fd --hidden --exclude .git --exclude node_modules'
+
 # Don't put duplicate lines or lines starting with space in the history
 HISTCONTROL=ignoreboth
 
