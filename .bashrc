@@ -126,7 +126,6 @@ xset r rate 300 50
 
 # Bind Ctrl+f to tmux session
 bind -x '"\C-f": ~/.local/bin/fsession'
-bind -x '"\C-g": ~/.local/bin/fsingle'
 
 alias fkill='~/.local/bin/fkill'
 alias fcontainer='~/.local/bin/fcontainer'
