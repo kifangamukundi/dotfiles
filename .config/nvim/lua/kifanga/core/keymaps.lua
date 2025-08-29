@@ -33,7 +33,6 @@ vim.api.nvim_create_autocmd({ "VimEnter" },
     })
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww fsession<CR>", { desc = "Tmux open project" })
-vim.keymap.set("n", "<C-g>", "<cmd>silent !tmux neww fsingle<CR>", { desc = "Tmux open file" })
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
