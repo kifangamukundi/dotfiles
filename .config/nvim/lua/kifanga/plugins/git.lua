@@ -26,8 +26,9 @@ return {
         "tpope/vim-fugitive",
         config = function()
             vim.keymap.set("n", "<leader>g", "<cmd>:0Git<CR>", { desc = "Git status" })
-            vim.keymap.set("n", "<leader>vl", "<cmd>:0Git log --oneline --graph --decorate --parents<CR>",
-                { desc = "Git log" })
+            vim.keymap.set("n", "<leader>vl", "<cmd>:0Gclog<CR>", { desc = "Git log" })
+            vim.keymap.set("n", "<leader>vo", "<cmd>diffget //2<CR>", { desc = "Keep ours OR (2X on fugitive)" })
+            vim.keymap.set("n", "<leader>vt", "<cmd>diffget //3<CR>", { desc = "Keep Theirs OR (3X on fugitive)" })
 
             local fugitive_augroup = vim.api.nvim_create_augroup("Fugitive", { clear = true })
 
@@ -46,11 +47,6 @@ return {
                             vim.cmd(":Git pull --rebase origin main")
                         end
                     end, { buffer = true, desc = "Smart Git pull" })
-
-                    -- Fugitive: 2X keep ours
-                    vim.keymap.set("n", "<leader>o", ":diffget //2<CR>", { buffer = true, desc = "Keep ours" })
-                    -- Fugitive: 3X keep theirs
-                    vim.keymap.set("n", "<leader>t", ":diffget //3<CR>", { buffer = true, desc = "Keep Theirs" })
                 end,
             })
         end,
