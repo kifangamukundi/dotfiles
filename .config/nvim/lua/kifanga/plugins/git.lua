@@ -26,7 +26,8 @@ return {
         "tpope/vim-fugitive",
         config = function()
             vim.keymap.set("n", "<leader>g", "<cmd>:0Git<CR>", { desc = "Git status" })
-            vim.keymap.set("n", "<leader>vl", "<cmd>:0Gclog<CR>", { desc = "Git log" })
+            vim.keymap.set("n", "<leader>vl", "<cmd>:0Git log --oneline --graph --decorate --parents<CR>",
+                { desc = "Git log" })
             vim.keymap.set("n", "<leader>vo", "<cmd>diffget //2<CR>", { desc = "Keep ours OR (2X on fugitive)" })
             vim.keymap.set("n", "<leader>vt", "<cmd>diffget //3<CR>", { desc = "Keep Theirs OR (3X on fugitive)" })
 
