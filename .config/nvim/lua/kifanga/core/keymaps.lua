@@ -88,7 +88,7 @@ vim.keymap.set("v", "<leader>c", [["_c]], { desc = "Change without affecting yan
 -- <C-z> → Suspend Vim (send to background, job control)
 
 -- Use `s` as window prefix instead of <C-w>
-vim.cmd [[nmap s <C-w>]]
+vim.cmd [[nmap s <Nop>]]
 
 -- <C-w>c → Close current window
 -- <C-w>o → Close all other windows ("only")
@@ -135,7 +135,7 @@ vim.cmd [[nmap s <C-w>]]
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 vim.keymap.set("n", "<leader>n", ":nohl<CR>", { desc = "Clear search highlights" })
 
-vim.keymap.set("n", "<leader>b", "<cmd>bufdo bd | enew<CR>", { desc = "Close all and open new buffer" })
+vim.keymap.set("n", "<leader>va", "<cmd>bufdo bd | enew<CR>", { desc = "Close all and open new buffer" })
 
 vim.keymap.set("n", "<leader>q", "<Cmd>copen<CR>", { desc = "Open quickfix list" })
 vim.keymap.set("n", "<leader>Q", "<Cmd>cclose<CR>", { desc = "Close quickfix list" })
