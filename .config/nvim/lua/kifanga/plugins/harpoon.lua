@@ -26,6 +26,9 @@ return {
         -- 	harpoon:list():clear()
         -- end, { desc = "Harpoon: Clear list" })
 
+        vim.keymap.set("n", "<C-e>", function()
+            harpoon.ui:toggle_quick_menu(harpoon:list(), toggle_opts)
+        end, { desc = "Harpoon: Open menu Control" })
         vim.keymap.set("n", "<leader>h", function()
             harpoon.ui:toggle_quick_menu(harpoon:list(), toggle_opts)
         end, { desc = "Harpoon: Open menu" })
@@ -37,7 +40,7 @@ return {
         -- 	harpoon:list():prev()
         -- end, { desc = "Harpoon: Previous file" })
 
-        for i = 1, 5 do
+        for i = 1, 4 do
             vim.keymap.set("n", "<leader>" .. i, function()
                 harpoon:list():select(i)
             end, { desc = "Harpoon: Select file " .. i })
