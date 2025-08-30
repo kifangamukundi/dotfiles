@@ -88,7 +88,8 @@ vim.keymap.set("v", "<leader>c", [["_c]], { desc = "Change without affecting yan
 -- <C-z> → Suspend Vim (send to background, job control)
 
 -- Use `s` as window prefix instead of <C-w>
-vim.cmd [[nmap s <C-w>]]
+vim.cmd [[nmap s <Nop>]]
+vim.cmd [[vmap s <Nop>]]
 
 -- <C-w>c → Close current window
 -- <C-w>o → Close all other windows ("only")
