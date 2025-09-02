@@ -14,8 +14,11 @@ truncate_string() {
 
 if pgrep -x "vlc" > /dev/null; then
   artist=$(playerctl --player=vlc metadata --format "{{ artist }}")
+  title=$(playerctl --player=vlc metadata --format "{{ title }}")
   truncated_artist=$(truncate_string "$artist" "$MAX_LENGTH")
-  echo "$truncated_artist"
+  truncated_title=$(truncate_string "$title" "$MAX_LENGTH")
+  # echo "$truncated_artist"
+  echo "$truncated_title" ":" "$truncated_artist"
 else
   echo "Silence"
 fi
