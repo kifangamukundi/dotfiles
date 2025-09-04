@@ -7,7 +7,7 @@ return {
             auto_restore = false,
         })
 
-        vim.keymap.set("n", "<leader>r", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" })
-        vim.keymap.set("n", "<leader>s", "<cmd>SessionSave<CR>", { desc = "Save session for auto session root dir" })
+        vim.keymap.set("n", "<leader>r", "<cmd>AutoSession<CR>", { desc = "Restore session for cwd" })
+        vim.keymap.set("n", "<leader>s", "<cmd>AutoSession save<CR>", { desc = "Save session for auto session root dir" })
     end,
 }
