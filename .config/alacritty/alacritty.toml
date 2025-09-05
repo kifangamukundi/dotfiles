@@ -37,8 +37,12 @@ yellow = "#f1fa8c"
 
 [colors.primary]
 foreground = "#e0def4"
-# background = "#1a1a1a"
-background = "#0E0B00"
+# background = "#0E0B00"  # my original color (near black with faint brown)
+# background = "#16120B"  # softer, transparent-like brownish black
+background = "#1A1510"  # dark coffee brown, slightly warmer
+# background = "#1C1812"  # muted sepia black, blends well with rose-pine
+# background = "#201A14"  # earthy cocoa brown, still very dark
+# background = "#241C16"  # warm shadow brown, a bit richer
 
 [colors.selection]
 background = "#44475a"

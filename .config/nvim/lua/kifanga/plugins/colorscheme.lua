@@ -2,7 +2,7 @@ function ColorMyPencils(color)
     color = color or "rose-pine"
     vim.cmd.colorscheme(color)
     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#262626" })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
     vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#3e8fb0", bold = true })
     vim.api.nvim_set_hl(0, "LineNr", { fg = "#f6c177", bold = true })
