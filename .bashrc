@@ -7,6 +7,21 @@ esac
 # Use nvim as default editor 
 export EDITOR=nvim
 
+# Start ssh-agent if not already running and save its environment
+if ! pgrep -u "$USER" ssh-agent >/dev/null; then
+    eval "$(ssh-agent -s)" > "$HOME/.ssh-agent-env"
+fi
+
+# Always source the agent environment (important: right after starting it)
+if [ -f "$HOME/.ssh-agent-env" ]; then
+    . "$HOME/.ssh-agent-env"
+fi
+
+# Add keys if not loaded
+if ! ssh-add -l >/dev/null 2>&1; then
+    ssh-add ~/.ssh/id_ed25519_github
+fi
+
 # Enhanced grep with sane defaults
 alias grep='grep --color=auto -rniI --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
 alias fd='fd --hidden --exclude .git --exclude node_modules'
@@ -139,11 +154,3 @@ alias fnetwork='~/.local/bin/fnetwork'
 alias ffile='~/.local/bin/ffile'
 alias fmusic='~/.local/bin/fmusic'
 alias fvideo='~/.local/bin/fvideo'
-
-# Start ssh-agent if not running
-if ! pgrep -u "$USER" ssh-agent >/dev/null; then
-  eval "$(ssh-agent -s)" >/dev/null
-fi
-
-# Add GitHub key if not loaded
-ssh-add -l >/dev/null 2>&1 || ssh-add ~/.ssh/id_ed25519_github >/dev/null 2>&1
