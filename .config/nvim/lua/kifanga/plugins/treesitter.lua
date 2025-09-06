@@ -5,13 +5,9 @@ return {
     dependencies = {
         "windwp/nvim-ts-autotag",
         "nvim-treesitter/nvim-treesitter-textobjects",
-        "nvim-treesitter/nvim-treesitter-context",
     },
     config = function()
         local treesitter = require("nvim-treesitter.configs")
-        local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
-
-        local context = require("treesitter-context")
 
         treesitter.setup({
             ensure_installed = {
@@ -76,28 +72,5 @@ return {
                 },
             },
         })
-
-        context.setup({
-            enable = true,
-            max_lines = 3,
-            trim_scope = "outer",
-            mode = "cursor",
-            multiline_threshold = 20,
-            separator = nil,
-            zindex = 20,
-        })
-
-        vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next,
-            { desc = "Repeat last treesitter move next" })
-        vim.keymap.set(
-            { "n", "x", "o" },
-            ",",
-            ts_repeat_move.repeat_last_move_previous,
-            { desc = "Repeat last treesitter move previous" }
-        )
-        vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f_expr, { expr = true })
-        vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
-        vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
-        vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
     end,
 }
