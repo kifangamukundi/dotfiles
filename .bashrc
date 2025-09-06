@@ -141,7 +141,7 @@ eval "$(fzf --bash)"
 
 # Remap escape to the Caps Lock key
 setxkbmap -option caps:swapescape
-xset r rate 300 50
+xset r rate 200 60
 
 # Bind Ctrl+f to tmux session
 bind -x '"\C-f": ~/.local/bin/fsession'

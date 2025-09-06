@@ -84,7 +84,7 @@ opt.updatetime = 100
 opt.timeoutlen = 2000
 
 -- Time in ms to wait for key codes
-opt.ttimeoutlen = 500
+opt.ttimeoutlen = 100
 
 -- Allow backspace over everything
 opt.backspace = "indent,eol,start"
