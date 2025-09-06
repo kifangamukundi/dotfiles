@@ -31,6 +31,10 @@ bindsym $mod+d exec --no-startup-id alacritty --class AlacrittyLaunch -e bash -c
 
 for_window [class="AlacrittyLaunch"] floating enable, move position center
 for_window [class="^.*"] border pixel 2
+for_window [class="Google-chrome"] fullscreen enable
+for_window [class="firefox-esr"] fullscreen enable
+for_window [class="Vlc"] fullscreen enable
+for_window [class="org.wezfurlong.wezterm"] fullscreen enable
 
 assign [class="^Alacritty$"] 1
 assign [class="Google-chrome"] 2
@@ -138,10 +142,14 @@ mode "media" {
 }
 
 # Basic directional focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+# bindsym $mod+h focus left
+# bindsym $mod+j focus down
+# bindsym $mod+k focus up
+# bindsym $mod+l focus right
+
+# New workspace bindings
+bindsym $mod+j workspace number 1
+bindsym $mod+k workspace number 2
 
 bindsym $mod+backslash split h
 bindsym $mod+minus split v
