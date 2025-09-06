@@ -5,10 +5,13 @@ return {
     dependencies = {
         "windwp/nvim-ts-autotag",
         "nvim-treesitter/nvim-treesitter-textobjects",
+        "nvim-treesitter/nvim-treesitter-context",
     },
     config = function()
         local treesitter = require("nvim-treesitter.configs")
         local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+
+        local context = require("treesitter-context")
 
         treesitter.setup({
             ensure_installed = {
@@ -72,6 +75,16 @@ return {
                     include_surrounding_whitespace = true,
                 },
             },
+        })
+
+        context.setup({
+            enable = true,
+            max_lines = 3,
+            trim_scope = "outer",
+            mode = "cursor",
+            multiline_threshold = 20,
+            separator = nil,
+            zindex = 20,
         })
 
         vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next,

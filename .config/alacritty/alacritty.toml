@@ -26,14 +26,14 @@ background = "#f1fa8c"
 foreground = "#282a36"
 
 [colors.normal]
-black = "#ff00ff"
-blue = "#6272a4"
-cyan = "#8be9fd"
-green = "#50fa7b"
-magenta = "#ff79c6"
-red = "#ff5555"
-white = "#f8f8f2"
-yellow = "#f1fa8c"
+black   = "#1A1A1A"  # softened black (not crushing details)
+red     = "#FF4C4C"  # vibrant but not eye-searing
+green   = "#4CFF4C"  # clean green with balance
+yellow  = "#FFD64C"  # golden yellow, less neon than pure
+blue    = "#4C6FFF"  # slightly softened pure blue
+magenta = "#FF4CFF"  # bright magenta, but not full neon
+cyan    = "#4CFFFF"  # aqua cyan, easy on eyes
+white   = "#E6E6E6"  # soft white, avoids #FFFFFF glare
 
 [colors.primary]
 foreground = "#e0def4"
