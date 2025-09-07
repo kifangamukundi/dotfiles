@@ -30,16 +30,14 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+d exec --no-startup-id alacritty --class AlacrittyLaunch -e bash -c "~/.local/bin/fapp | xargs -r -I{} setsid bash -c '{} >/dev/null 2>&1 &'"
 
 for_window [class="AlacrittyLaunch"] floating enable, move position center
+# since mpv does not have class method attribute
+for_window [instance="MPV-Video-Player"] move to workspace 3
 for_window [class="^.*"] border pixel 2
-for_window [class="Google-chrome"] fullscreen enable
-for_window [class="firefox-esr"] fullscreen enable
-for_window [class="Vlc"] fullscreen enable
-for_window [class="org.wezfurlong.wezterm"] fullscreen enable
+# for_window [class="Google-chrome"] fullscreen enable
 
 assign [class="^Alacritty$"] 1
 assign [class="Google-chrome"] 2
-assign [class="firefox-esr"] 3
-assign [class="Vlc" window_role="vlc-video"] 4
+assign [class="firefox-esr"] 4
 assign [class="org.wezfurlong.wezterm"] 5
 
 exec --no-startup-id alacritty

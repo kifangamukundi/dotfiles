@@ -1,48 +1,118 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
 
-if ! command -v fzf &> /dev/null; then
-  echo "Error: fzf is not installed."
-  exit 1
-fi
+# Dependencies check
+for cmd in fzf fd mpv socat yt-dlp; do
+    command -v "$cmd" >/dev/null || { echo "Error: $cmd is not installed."; exit 1; }
+done
 
-shows_dir="$HOME/play/videos/shows"
+VIDEO_DIR="$HOME/play/videos/shows"
+MPV_SOCKET="/tmp/mpvsocket"
 
-start_vlc_season() {
-  local season_dir="$1"
+# --- Core Functions ---
 
-  pkill -x "vlc" &>/dev/null || true
-
-  cd "$season_dir" || {
-    echo "Error: Directory '$season_dir' not found."
-    return 1
-  }
-
-  nohup cvlc --intf rc --rc-host=localhost:4212 ./* &> /dev/null &
+# Function to quit the running MPV instance and clean up its socket.
+kill_mpv() {
+    if [[ -e "$MPV_SOCKET" ]]; then
+        if pgrep -f "mpv --input-ipc-server=$MPV_SOCKET" >/dev/null; then
+            echo '{ "command": ["quit"] }' | socat - "$MPV_SOCKET"
+            sleep 0.1
+        fi
+        rm -f "$MPV_SOCKET"
+    fi
+}
+# Function to start MPV with a local playlist directory.
+start_mpv() {
+    local playlist_dir="$1"
+    kill_mpv
+    nohup mpv --input-ipc-server="$MPV_SOCKET" --x11-name="MPV-Video-Player" --idle --playlist="$playlist_dir" &>/dev/null &
 }
 
-select_show() {
-  local selection
-  selection=$(fd --max-depth 1 --type d --base-directory "$shows_dir" . | sed 's|^./||' | fzf --prompt="Select Show> ")
+# Function to start MPV with a YouTube URL.
+play_yt_stream() {
+    kill_mpv
+    read -rp "Enter YouTube URL: " url
+    [[ -z "$url" ]] && return
 
-  [[ -z "$selection" ]] && echo "No show selected." && return
-  local show_dir="$shows_dir/$selection"
-  select_season "$show_dir"
+    if ! yt-dlp --get-title "$url" &>/dev/null; then
+        echo "Error: Invalid YouTube URL or network issue."
+        return
+    fi
+    
+    nohup mpv --input-ipc-server="$MPV_SOCKET" --x11-name="MPV-Video-Player" "$url" &>/dev/null &
+    playback_controls
+}
+
+# --- Menu Functions ---
+
+# Select and play a TV show season.
+select_show() {
+    local show
+    show=$(fd --max-depth 1 --type d --base-directory "$VIDEO_DIR" . | sed 's|^./||' | fzf --prompt="Select Show> ")
+    [[ -z "$show" ]] && return
+    select_season "$VIDEO_DIR/$show"
 }
 
 select_season() {
-  local show_dir="$1"
-  local selection
-  selection=$(fd --max-depth 1 --type d --base-directory "$show_dir" . | sed 's|^./||' | fzf --prompt="Select Season> ")
-
-  [[ -z "$selection" ]] && echo "No season selected." && return
-  local season_dir="$show_dir/$selection"
-  start_vlc_season "$season_dir"
+    local season_dir
+    season_dir=$(fd --max-depth 1 --type d --base-directory "$1" . | sed 's|^./||' | fzf --prompt="Select Season> ")
+    [[ -z "$season_dir" ]] && return
+    start_mpv "$1/$season_dir"
+    playback_controls
 }
 
+# Provide a menu for playback controls.
+playback_controls() {
+    while true; do
+        if ! pgrep -f "mpv --input-ipc-server=$MPV_SOCKET" >/dev/null; then
+            echo "MPV is not running. Returning to main menu."
+            sleep 2
+            return
+        fi
+
+        local action
+        action=$(printf "%s\n" \
+            "Play/Pause" "Stop" "Next" "Previous" \
+            "Volume Up" "Volume Down" "Set Volume" \
+            "Shuffle" "Repeat" \
+            "Back to Main Menu" | fzf --prompt="Playback Controls> ")
+
+        [[ -z "$action" || "$action" == "Back to Main Menu" ]] && return
+
+        case "$action" in
+            "Play/Pause") echo '{ "command": ["cycle", "pause"] }' | socat - "$MPV_SOCKET" ;;
+            "Stop") echo '{ "command": ["stop"] }' | socat - "$MPV_SOCKET" ;;
+            "Next") echo '{ "command": ["playlist-next"] }' | socat - "$MPV_SOCKET" ;;
+            "Previous") echo '{ "command": ["playlist-prev"] }' | socat - "$MPV_SOCKET" ;;
+            "Volume Up") echo '{ "command": ["add", "volume", 5] }' | socat - "$MPV_SOCKET" ;;
+            "Volume Down") echo '{ "command": ["add", "volume", -5] }' | socat - "$MPV_SOCKET" ;;
+            "Set Volume")
+                read -rp "Enter volume (0-100): " vol
+                [[ "$vol" =~ ^[0-9]{1,3}$ ]] && echo "{ \"command\": [\"set_property\", \"volume\", $vol] }" | socat - "$MPV_SOCKET"
+                ;;
+            "Shuffle") echo '{ "command": ["cycle", "shuffle"] }' | socat - "$MPV_SOCKET" ;;
+            "Repeat") echo '{ "command": ["cycle", "loop-playlist"] }' | socat - "$MPV_SOCKET" ;;
+        esac
+    done
+}
+
+# The main loop for the application.
 main_menu() {
-  select_show
+    while true; do
+        local choice
+        choice=$(printf "%s\n" \
+            "Play Show/Season" \
+            "Play YouTube Stream" \
+            "Playback Controls" \
+            "Exit" | fzf --prompt="Video Menu> ")
+
+        case "$choice" in
+            "Play Show/Season") select_show ;;
+            "Play YouTube Stream") play_yt_stream ;;
+            "Playback Controls") playback_controls ;;
+            "Exit" | "") echo "Goodbye!"; exit 0 ;;
+        esac
+    done
 }
 
 main_menu

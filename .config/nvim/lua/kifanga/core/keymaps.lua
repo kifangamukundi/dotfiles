@@ -11,27 +11,6 @@ for _, mode in ipairs(modes) do
     end
 end
 
--- Function to clear Vim registers, excluding the system clipboard
-function ClearRegisters()
-    local registers = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
-        "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", }
-    for _, reg in ipairs(registers) do vim.fn.setreg(reg, "") end
-end
-
--- Autocmd clean up group on startup
-local cleanup_group = vim.api.nvim_create_augroup("clean-up-group", { clear = true })
-
-vim.api.nvim_create_autocmd({ "VimEnter" },
-    { group = cleanup_group, command = "clearjumps", desc = "Automatically clear jump list on VimEnter", })
-
-vim.api.nvim_create_autocmd({ "VimEnter" },
-    {
-        group = cleanup_group,
-        callback = function() ClearRegisters() end,
-        desc =
-        "Automatically clear registers on VimEnter",
-    })
-
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww fsession<CR>", { desc = "Tmux open project" })
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })

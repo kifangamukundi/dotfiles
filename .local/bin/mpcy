@@ -1,0 +1,6 @@
+#!/bin/bash
+url="$1"
+stream_url=$(yt-dlp -f bestaudio -g "$url")
+mpc clear
+mpc add "$stream_url"
+mpc play

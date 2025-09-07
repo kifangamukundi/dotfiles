@@ -19,5 +19,5 @@ WALLPAPER_DIR="$HOME/.config/i3/wallpapers"
 
 while true; do
     feh --bg-scale "$(find "$WALLPAPER_DIR" -type f | shuf -n1)"
-    sleep 60
+    sleep 600
 done
