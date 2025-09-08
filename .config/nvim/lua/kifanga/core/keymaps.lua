@@ -11,6 +11,14 @@ for _, mode in ipairs(modes) do
     end
 end
 
+-- Disable substitute command
+vim.keymap.set({ "n", "v" }, "s", "<Nop>")
+vim.keymap.set({ "n", "v" }, "S", "<Nop>")
+
+vim.keymap.set("n", "Q", "<Nop>")
+
+vim.keymap.set("i", "<C-[>", "<Esc>", { silent = true, desc = "Exit Insert mode" })
+
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww fsession<CR>", { desc = "Tmux open project" })
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
@@ -35,10 +43,17 @@ vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clip
 vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Yank entire line to clipboard" })
 vim.keymap.set("n", "<leader>d", '"_d', { desc = "Delete with motion (no yank)" })
 vim.keymap.set("n", "<leader>c", '"_c', { desc = "Change with motion (no yank)" })
-vim.keymap.set("n", "<leader>x", [["_x]], { desc = "Cut without affecting yank" })
+-- vim.keymap.set("n", "<leader>x", [["_x]], { desc = "Cut without affecting yank" })
 
 vim.keymap.set("v", "<leader>d", [["_d]], { desc = "Delete without affecting yank" })
 vim.keymap.set("v", "<leader>c", [["_c]], { desc = "Change without affecting yank" })
+
+vim.keymap.set("n", "<leader>b", "<cmd>bufdo bd | enew<CR>", { desc = "Close all and open new buffer" })
+
+vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make file executable" })
+vim.keymap.set("n", "<leader>X", "<cmd>!chmod -x %<CR>", { silent = true, desc = "Remove executable permission" })
+
+vim.keymap.set("n", "<leader>S", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- <C-a> → Increment number under cursor
 -- <C-b> → Scroll back one full screen
@@ -65,10 +80,6 @@ vim.keymap.set("v", "<leader>c", [["_c]], { desc = "Change without affecting yan
 -- <C-x> → Decrement number under cursor
 -- <C-y> → Scroll window up one line
 -- <C-z> → Suspend Vim (send to background, job control)
-
--- Use `s` as window prefix instead of <C-w>
-vim.cmd [[nmap s <Nop>]]
-vim.cmd [[vmap s <Nop>]]
 
 -- <C-w>c → Close current window
 -- <C-w>o → Close all other windows ("only")

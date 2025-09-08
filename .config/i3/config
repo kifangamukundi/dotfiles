@@ -126,18 +126,39 @@ mode "resize" {
 # Mode: control the media 
 bindsym $mod+p exec "echo 'Media' > /tmp/i3_mode; i3-msg mode media"
 mode "media" {
-    bindsym space exec --no-startup-id "playerctl --player=vlc play-pause"
-    bindsym n exec --no-startup-id "playerctl --player=vlc next"
-    bindsym p exec --no-startup-id "playerctl --player=vlc previous"
-    bindsym i exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ +5%"
-    bindsym d exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ -5%"
-    bindsym m exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    # Playback
+    bindsym space exec --no-startup-id "~/.config/i3/media.sh toggle"
+    bindsym n     exec --no-startup-id "~/.config/i3/media.sh next"
+    bindsym p     exec --no-startup-id "~/.config/i3/media.sh prev"
+    bindsym r     exec --no-startup-id "~/.config/i3/media.sh repeat && echo Default > /tmp/i3_mode && i3-msg mode default"
+    bindsym s     exec --no-startup-id "~/.config/i3/media.sh shuffle && echo Default > /tmp/i3_mode && i3-msg mode default"
+    bindsym x     exec --no-startup-id "~/.config/i3/media.sh stop && echo Default > /tmp/i3_mode && i3-msg mode default"
+    bindsym k     exec --no-startup-id "~/.config/i3/media.sh kill && echo Default > /tmp/i3_mode && i3-msg mode default"
 
-    bindsym s exec --no-startup-id "playerctl --player=vlc stop && echo Default > /tmp/i3_mode && i3-msg mode default"
-    bindsym k exec --no-startup-id "pkill -x vlc && echo Default > /tmp/i3_mode && i3-msg mode default"
-    
+    # Volume
+    bindsym i     exec --no-startup-id "~/.config/i3/media.sh volup"
+    bindsym d     exec --no-startup-id "~/.config/i3/media.sh voldown"
+    bindsym m     exec --no-startup-id "~/.config/i3/media.sh mute"
+
+    # Exit media mode
     bindsym Escape exec "echo 'Default' > /tmp/i3_mode; i3-msg mode default"
 }
+
+# Mode: control the media 
+# bindsym $mod+p exec "echo 'Media' > /tmp/i3_mode; i3-msg mode media"
+# mode "media" {
+#     bindsym space exec --no-startup-id "playerctl --player=vlc play-pause"
+#     bindsym n exec --no-startup-id "playerctl --player=vlc next"
+#     bindsym p exec --no-startup-id "playerctl --player=vlc previous"
+#     bindsym i exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ +5%"
+#     bindsym d exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+#     bindsym m exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+#
+#     bindsym s exec --no-startup-id "playerctl --player=vlc stop && echo Default > /tmp/i3_mode && i3-msg mode default"
+#     bindsym k exec --no-startup-id "pkill -x vlc && echo Default > /tmp/i3_mode && i3-msg mode default"
+#     
+#     bindsym Escape exec "echo 'Default' > /tmp/i3_mode; i3-msg mode default"
+# }
 
 # Basic directional focus
 # bindsym $mod+h focus left

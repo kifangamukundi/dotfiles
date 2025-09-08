@@ -50,10 +50,8 @@ return {
         vim.keymap.set("n", "<C-g>", fzf.grep, { desc = "Find Grep" })
         vim.keymap.set("n", "<leader>w", fzf.grep_cword, { desc = "Search for word under cursor" })
         vim.keymap.set("n", "<leader>W", fzf.grep_cWORD, { desc = "Search for WORD under cursor" })
-        vim.keymap.set("n", "<leader>b", fzf.git_branches, { desc = "Git Branches" })
         vim.keymap.set("v", "<leader>v", fzf.grep_visual, { desc = "Grep visual" })
         vim.keymap.set("n", "<leader>h", fzf.help_tags, { desc = "Help Tags" })
-        vim.keymap.set("n", "<leader>k", fzf.keymaps, { desc = "Keymaps" })
 
         vim.keymap.set("n", "<leader>vb", fzf.buffers, { desc = "Find Buffers" })
         vim.keymap.set("n", "<leader>vm", fzf.marks, { desc = "Marks" })
