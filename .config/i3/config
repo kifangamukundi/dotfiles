@@ -14,7 +14,8 @@ exec_always --no-startup-id sh -c 'echo "Default" > /tmp/i3_mode'
 
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec_always --no-startup-id ~/.config/i3/auto-workspace.py
+
+exec_always --no-startup-id ~/.config/i3/workspaces.py
 exec_always --no-startup-id ~/.config/i3/rotate.sh
 
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -27,25 +28,17 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 bindsym $mod+Return exec alacritty
-bindsym $mod+d exec --no-startup-id alacritty --class AlacrittyLaunch -e bash -c "~/.local/bin/fapp | xargs -r -I{} setsid bash -c '{} >/dev/null 2>&1 &'"
-
-for_window [class="AlacrittyLaunch"] floating enable, move position center
-# since mpv does not have class method attribute
-for_window [instance="MPV-Video-Player"] move to workspace 3
-for_window [class="^.*"] border pixel 2
-# for_window [class="Google-chrome"] fullscreen enable
+bindsym $mod+d exec --no-startup-id alacritty --class AlacrittyLaunch -e bash -c "~/.config/i3/apps.sh | xargs -r -I{} setsid bash -c '{} >/dev/null 2>&1 &'"
 
 assign [class="^Alacritty$"] 1
 assign [class="Google-chrome"] 2
-assign [class="firefox-esr"] 4
-assign [class="org.wezfurlong.wezterm"] 5
+assign [class="firefox-esr"] 3
+
+for_window [class="AlacrittyLaunch"] floating enable, move position center
+for_window [instance="MPV-Video-Player"] move to workspace 4
+for_window [class="^.*"] border pixel 2
 
 exec --no-startup-id alacritty
-exec --no-startup-id google-chrome-stable
-# exec --no-startup-id firefox-esr
-# exec --no-startup-id wezterm 
-
-exec --no-startup-id i3-msg "workspace 1"
 
 # Workspace numbers
 set $ws1 "1"
