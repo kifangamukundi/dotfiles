@@ -20,6 +20,7 @@ vim.keymap.set("n", "Q", "<Nop>")
 vim.keymap.set("i", "<C-[>", "<Esc>", { silent = true, desc = "Exit Insert mode" })
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww fsession<CR>", { desc = "Tmux open project" })
+vim.keymap.set("n", "<C-b>", "<cmd>silent !tmux neww fmusic<CR>", { desc = "Tmux open project" })
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
@@ -43,7 +44,6 @@ vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clip
 vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Yank entire line to clipboard" })
 vim.keymap.set("n", "<leader>d", '"_d', { desc = "Delete with motion (no yank)" })
 vim.keymap.set("n", "<leader>c", '"_c', { desc = "Change with motion (no yank)" })
--- vim.keymap.set("n", "<leader>x", [["_x]], { desc = "Cut without affecting yank" })
 
 vim.keymap.set("v", "<leader>d", [["_d]], { desc = "Delete without affecting yank" })
 vim.keymap.set("v", "<leader>c", [["_c]], { desc = "Change without affecting yank" })

@@ -145,12 +145,11 @@ xset r rate 300 50
 
 # Bind Ctrl+f to tmux session
 bind -x '"\C-f": ~/.local/bin/fsession'
+bind -x '"\C-b": ~/.local/bin/fmusic'
 
 alias fkill='~/.local/bin/fkill'
 alias fcontainer='~/.local/bin/fcontainer'
 alias fimage='~/.local/bin/fimage'
 alias fvolume='~/.local/bin/fvolume'
 alias fnetwork='~/.local/bin/fnetwork'
-alias ffile='~/.local/bin/ffile'
-alias fmusic='~/.local/bin/fmusic'
 alias fvideo='~/.local/bin/fvideo'
