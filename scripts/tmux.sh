@@ -1,15 +1,14 @@
 #!/bin/bash
-# Usage: ./install-tmux.sh 3.3a
+# Usage: ./install-tmux.sh 3.5a
 
 if command -v tmux >/dev/null; then
-    echo "tmux is already installed. Removing the existing version..."
     sudo apt remove --purge -y tmux
     echo "tmux removed successfully."
 else
     echo "tmux is not installed. Proceeding with installation..."
 fi
 
-TMUX_VERSION=${1:-3.3a}
+TMUX_VERSION=${1:-3.5a}
 
 TMUX_URL="https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz"
 

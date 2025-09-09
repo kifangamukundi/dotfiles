@@ -2041,3 +2041,35 @@ Sep 09 12:20 : ffmpeg/opus: Could not update timestamps for discarded samples.
 Sep 09 12:20 : ffmpeg/opus: Could not update timestamps for skipped samples.
 Sep 09 12:20 : player: played "https://rr1---sn-hc57en7d.googlevideo.com/videoplayback?expire=1757456042&ei=SlLAaLeDJo6xp-oP2sW1mQI&ip=217.199.146.223&id=o-AKxJJQRaioUyjq2knarD3RZfnRWsEC6AEYE75jr15_-J&itag=251&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&met=1757434442%2C&mh=zm&mm=31%2C29&mn=sn-hc57en7d%2Csn-woc7knes&ms=au%2Crdu&mv=m&mvi=1&pl=24&rms=au%2Cau&gcr=ke&initcwndbps=456250&bui=AY1jyLNUiuJPvp3Ue0K7cwnjiaCvQlj01SzwUOcymHQ67hlIgkFpYNjw-PG6s8bUqxxDQ2TkBmDSCjyi&vprv=1&svpuc=1&mime=audio%2Fwebm&ns=Q25S-bXq-GJJmn7T4L7qrWwQ&rqh=1&gir=yes&clen=6403531&dur=381.541&lmt=1714854158496305&mt=1757434194&fvip=3&keepalive=yes&lmw=1&fexp=51557447%2C51565116%2C51565682%2C51580970&c=TVHTML5&sefc=1&txp=4502434&n=0KvOxhhlozM8zQ&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cxpc%2Cgcr%2Cbui%2Cvprv%2Csvpuc%2Cmime%2Cns%2Crqh%2Cgir%2Cclen%2Cdur%2Clmt&lsparams=met%2Cmh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Crms%2Cinitcwndbps&lsig=APaTxxMwRQIhAI0-VuT9fK34Ca6FSF9t1_F8z17DpAl-GeUmxx6DbpQGAiBwaqj5hhZrBQ0dkHYLQKg4Ljpg5mLbaPK3e2oU26a7WQ%3D%3D&sig=AJfQdSswRQIhAIcWzGYaOa0OONjpMXMZIlChLUgYqNxR0vupoWdEgajPAiA6JxcXIZqwmum9549UrkVWJTBnT6nKMzcxUM7bj0B5cQ%3D%3D"
 Sep 09 12:21 : player: played "https://rr1---sn-hc57en7d.googlevideo.com/videoplayback?expire=1757456042&ei=SlLAaLeDJo6xp-oP2sW1mQI&ip=217.199.146.223&id=o-AKxJJQRaioUyjq2knarD3RZfnRWsEC6AEYE75jr15_-J&itag=251&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&met=1757434442%2C&mh=zm&mm=31%2C29&mn=sn-hc57en7d%2Csn-woc7knes&ms=au%2Crdu&mv=m&mvi=1&pl=24&rms=au%2Cau&gcr=ke&initcwndbps=456250&bui=AY1jyLNUiuJPvp3Ue0K7cwnjiaCvQlj01SzwUOcymHQ67hlIgkFpYNjw-PG6s8bUqxxDQ2TkBmDSCjyi&vprv=1&svpuc=1&mime=audio%2Fwebm&ns=Q25S-bXq-GJJmn7T4L7qrWwQ&rqh=1&gir=yes&clen=6403531&dur=381.541&lmt=1714854158496305&mt=1757434194&fvip=3&keepalive=yes&lmw=1&fexp=51557447%2C51565116%2C51565682%2C51580970&c=TVHTML5&sefc=1&txp=4502434&n=0KvOxhhlozM8zQ&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cxpc%2Cgcr%2Cbui%2Cvprv%2Csvpuc%2Cmime%2Cns%2Crqh%2Cgir%2Cclen%2Cdur%2Clmt&lsparams=met%2Cmh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Crms%2Cinitcwndbps&lsig=APaTxxMwRQIhAI0-VuT9fK34Ca6FSF9t1_F8z17DpAl-GeUmxx6DbpQGAiBwaqj5hhZrBQ0dkHYLQKg4Ljpg5mLbaPK3e2oU26a7WQ%3D%3D&sig=AJfQdSswRQIhAIcWzGYaOa0OONjpMXMZIlChLUgYqNxR0vupoWdEgajPAiA6JxcXIZqwmum9549UrkVWJTBnT6nKMzcxUM7bj0B5cQ%3D%3D"
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+Sep 09 13:51 : player: played "country-playlist/Astrid S, Brett Young - I Do.mp3"
+Sep 09 13:54 : player: played "country-playlist/Astrid S, Brett Young - I Do.mp3"
+Sep 09 13:56 : player: played "country-playlist/Astrid S, Brett Young - I Do.mp3"
+Sep 09 13:56 : player: played "country-playlist/Astrid S, Brett Young - I Do.mp3"
+Sep 09 13:59 : player: played "country-playlist/Kane Brown - Heaven - Acoustic.mp3"
+Sep 09 14:02 : player: played "country-playlist/Kane Brown - Heaven - Acoustic.mp3"
+Sep 09 14:02 : player: played "country-playlist/Kane Brown - Heaven - Acoustic.mp3"
+Sep 09 14:06 : player: played "country-playlist/Kip Moore - Wild World.mp3"
+Sep 09 14:07 : player: played "country-playlist/Kip Moore - Wild World.mp3"

@@ -2,11 +2,8 @@
 
 set -e
 
-VERSION="v9.1.1346" 
+VERSION="v9.1.1744" 
 
-echo "🧹 Preparing to clean-install Vim ${VERSION}..."
-
-echo "🔥 Removing all system Vim binaries..."
 for vim_path in /usr/bin/vim /usr/local/bin/vim /opt/vim; do
   if [ -f "$vim_path" ]; then
     sudo rm -f "$vim_path"
@@ -15,7 +12,6 @@ for vim_path in /usr/bin/vim /usr/local/bin/vim /opt/vim; do
 done
 
 
-echo "📥 Downloading Vim ${VERSION}..."
 mkdir -p ~/bin
 cd ~/bin
 RELEASE_URL="https://github.com/vim/vim-appimage/releases/download/${VERSION}/Vim-${VERSION}.glibc2.34-x86_64.AppImage"
@@ -30,6 +26,5 @@ chmod +x "$FILENAME"
 sudo mv "$FILENAME" /usr/local/bin/vim
 sudo ln -sf /usr/local/bin/vim /usr/local/bin/vi 
 
-echo "✅ Installation complete:"
 /usr/local/bin/vim --version | head -n 3
 echo "Vim installed at: $(which vim)"

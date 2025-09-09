@@ -13,7 +13,6 @@ LUAROCKS_VERSION=$2
 LUA_BIN=$(which lua$LUA_VERSION)
 
 if [ -z "$LUA_BIN" ]; then
-    echo "Lua $LUA_VERSION not found in \$PATH. Installing Lua $LUA_VERSION..."
     sudo apt-get install -y lua$LUA_VERSION lua$LUA_VERSION-dev
     LUA_BIN=$(which lua$LUA_VERSION)
     if [ -z "$LUA_BIN" ]; then
@@ -30,25 +29,21 @@ LUAROCKS_TAR="luarocks-$LUAROCKS_VERSION.tar.gz"
 LUAROCKS_DIR="luarocks-$LUAROCKS_VERSION"
 
 if [ ! -d "$LUAROCKS_DIR" ]; then
-    echo "LuaRocks source not found. Downloading LuaRocks $LUAROCKS_VERSION..."
     wget https://luarocks.org/releases/$LUAROCKS_TAR
     tar zxpf $LUAROCKS_TAR
 fi
 
 cd $LUAROCKS_DIR
 
-echo "Configuring LuaRocks $LUAROCKS_VERSION with Lua $LUA_VERSION..."
 ./configure --with-lua-bin=$(dirname $LUA_BIN) --with-lua-include=$LUA_INCLUDE_DIR
 
 if [ $? -eq 0 ]; then
-    echo "Building and installing LuaRocks $LUAROCKS_VERSION..."
     make build && sudo make install
 else
     echo "Configuration failed. Please check Lua installation."
     exit 1
 fi
 
-echo "Cleaning up..."
 cd ..
 rm -rf $LUAROCKS_TAR $LUAROCKS_DIR
 

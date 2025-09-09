@@ -7,29 +7,13 @@ install_nerd_font() {
   FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/v$VERSION/$FONT_NAME.zip"
   
   TEMP_DIR=$(mktemp -d)
-  echo "Created temporary directory at $TEMP_DIR"
-
-  echo "Downloading $FONT_NAME Nerd Font version $VERSION..."
   wget -q --show-progress "$FONT_URL" -O "$TEMP_DIR/$FONT_NAME.zip"
-
-  echo "Unzipping $FONT_NAME..."
   unzip -q "$TEMP_DIR/$FONT_NAME.zip" -d "$TEMP_DIR/$FONT_NAME/"
-
-  echo "Creating font directory..."
   mkdir -p "$HOME/.local/share/fonts/$FONT_NAME"
-
-  echo "Moving font files to ~/.local/share/fonts/$FONT_NAME..."
   mv "$TEMP_DIR/$FONT_NAME/"* "$HOME/.local/share/fonts/$FONT_NAME/"
-
-  echo "Updating font cache..."
   fc-cache -fv
-
-  echo "Listing installed Nerd Fonts..."
   fc-list | grep "Nerd Font"
-  
-  echo "Cleaning up temporary directory..."
   rm -rf "$TEMP_DIR"
-
   echo "$FONT_NAME Nerd Font version $VERSION installation completed!"
 }
 
@@ -43,10 +27,7 @@ remove_nerd_font() {
   else
     echo "$FONT_NAME Nerd Font directory does not exist."
   fi
-
-  echo "Updating font cache..."
   fc-cache -fv
-  
   echo "$FONT_NAME Nerd Font removal completed!"
 }
 

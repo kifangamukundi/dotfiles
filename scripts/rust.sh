@@ -2,13 +2,11 @@
 
 set -e 
 
-echo "Checking for existing Rust installation..."
 if command -v rustup &>/dev/null; then
     echo "Removing existing Rust installation..."
     rustup self uninstall -y
 fi
 
-echo "Detecting system architecture..."
 ARCH=$(uname -m)
 
 case "$ARCH" in
@@ -17,14 +15,14 @@ case "$ARCH" in
     *) echo "Unsupported architecture: $ARCH"; exit 1 ;;
 esac
 
-echo "Downloading and running Rust installer..."
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-echo "Verifying Rust installation..."
 if ! command -v rustc &>/dev/null; then
     echo "Rust installation verification failed."
     exit 1
 fi
 
+rustc +nightly --version
+
 rustc --version
-echo "Rust installation complete!"
+echo "Rust stable and nightly installations complete!"
