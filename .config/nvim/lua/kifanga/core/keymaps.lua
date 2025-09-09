@@ -128,6 +128,8 @@ vim.keymap.set("n", "<leader>n", ":nohl<CR>", { desc = "Clear search highlights"
 
 vim.keymap.set("n", "<leader>va", "<cmd>bufdo bd | enew<CR>", { desc = "Close all and open new buffer" })
 
+vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>q", "<Cmd>copen<CR>", { desc = "Open quickfix list" })
 vim.keymap.set("n", "<leader>Q", "<Cmd>cclose<CR>", { desc = "Close quickfix list" })
 -- The Quickfix list
@@ -137,6 +139,8 @@ vim.keymap.set("n", "<leader>Q", "<Cmd>cclose<CR>", { desc = "Close quickfix lis
 -- ]Q: Mapped to :clast
 -- :cwindow: Open the quickfix window when there are recognized errors
 
+vim.keymap.set("n", "<leader>j", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>lprev<CR>zz")
 vim.keymap.set("n", "<leader>l", "<Cmd>lopen<CR>", { desc = "Open loclist list" })
 vim.keymap.set("n", "<leader>L", "<Cmd>lclose<CR>", { desc = "Close loclist list" })
 -- The loclist list
