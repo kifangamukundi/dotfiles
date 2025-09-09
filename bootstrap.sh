@@ -2,38 +2,41 @@
 set -e  # exit on error
 set -u  # error on unset variables
 
-# echo "Updating system..."
-# sudo apt update && sudo apt upgrade -y
-#
-# echo "Build Essentials"
-# bash scripts/build.sh
+echo "Updating system..."
+sudo apt update && sudo apt upgrade -y
 
-# echo "Nerd Font"
-# bash scripts/font.sh "JetBrainsMono" "3.2.1" "install"
+echo "Build Essentials"
+bash scripts/build.sh
 
-# echo "Fzf"
-# bash scripts/fzf.sh
+echo "Alacritty"
+bash scripts/alacritty.sh
 
-# echo "Go"
-# bash scripts/go.sh
+echo "Nerd Font"
+bash scripts/font.sh "JetBrainsMono" "3.2.1" "install"
 
-# echo "Rust"
-# bash scripts/rust.sh
+echo "Fzf"
+bash scripts/fzf.sh
 
-# echo "Nodejs"
-# bash scripts/node.sh "20"
+echo "Go"
+bash scripts/go.sh
 
-# echo "Lua Rocks"
-# bash scripts/rocks.sh "5.1" "3.11.1"
+echo "Rust"
+bash scripts/rust.sh
 
-# echo "Vim"
-# bash scripts/vim.sh
+echo "Nodejs"
+bash scripts/node.sh "20"
 
-# echo "Nvim"
-# bash scripts/nvim.sh
+echo "Lua Rocks"
+bash scripts/rocks.sh "5.1" "3.11.1"
 
-# echo "Starship"
-# bash scripts/star.sh
+echo "Vim"
+bash scripts/vim.sh
+
+echo "Nvim"
+bash scripts/nvim.sh
+
+echo "Starship"
+bash scripts/star.sh
 
 echo "Tmux"
 bash scripts/tmux.sh "3.5a"
