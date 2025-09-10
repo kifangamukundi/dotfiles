@@ -117,8 +117,11 @@ export PATH=$PATH:$(go env GOPATH)/bin
 # Add Neovim to PATH
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
-# # Alias Neovim to vim 
-# alias vim="nvim"
+# Alias Neovim to vim 
+alias vim="nvim"
+
+# # Alias Slim Nvim 
+alias vims="NVIM_APPNAME=nvim-slim nvim"
 
 # Add /usr/local/bin to PATH
 export PATH=/usr/local/bin:$PATH
