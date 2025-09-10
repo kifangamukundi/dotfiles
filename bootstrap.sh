@@ -8,6 +8,9 @@ sudo apt update && sudo apt upgrade -y
 echo "Build Essentials"
 bash scripts/build.sh
 
+echo "Setup"
+bash scripts/setup.sh
+
 echo "Alacritty"
 bash scripts/alacritty.sh
 
@@ -40,5 +43,17 @@ bash scripts/star.sh
 
 echo "Tmux"
 bash scripts/tmux.sh "3.5a"
+
+echo "Docker"
+bash scripts/docker.sh
+
+echo "Postres"
+bash scripts/postgres.sh
+
+echo "Pgadmin"
+bash scripts/pgadmin.sh "web"
+
+echo "Extras"
+bash scripts/extras.sh "all"
 
 echo "System setup complete!"
