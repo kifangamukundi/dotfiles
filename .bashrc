@@ -4,9 +4,6 @@ case $- in
       *) return;;
 esac
 
-# Use nvim as default editor 
-export EDITOR=nvim
-
 # Start ssh-agent if not already running and save its environment
 if ! pgrep -u "$USER" ssh-agent >/dev/null; then
     eval "$(ssh-agent -s)" > "$HOME/.ssh-agent-env"
@@ -117,11 +114,11 @@ export PATH=$PATH:$(go env GOPATH)/bin
 # Add Neovim to PATH
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
-# Alias Neovim to vim 
-alias vim="nvim"
+# Use nvim as default editor 
+export EDITOR=nvim
 
 # # Alias Slim Nvim 
-alias vims="NVIM_APPNAME=nvim-slim nvim"
+alias nvims="NVIM_APPNAME=nvim-slim nvim"
 
 # Add /usr/local/bin to PATH
 export PATH=/usr/local/bin:$PATH

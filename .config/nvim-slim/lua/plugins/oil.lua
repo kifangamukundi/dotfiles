@@ -11,6 +11,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
         oil.setup({
             use_default_keymaps = false,
+            default_file_explorer = false,
             columns = {
                 -- "icon",
             },
@@ -30,5 +31,18 @@ vim.api.nvim_create_autocmd("VimEnter", {
         vim.keymap.set("n", "<leader>E", function()
             oil.open(".")
         end, { desc = "Open Oil in current working directory" })
+
+        -- New file        %       Prompt for name in current directory
+        -- New directory   d       Prompt for name in current directory
+        -- Rename           R       Prompt for new name (cursor on item)
+        -- Delete           D       Confirm before deletion
+        -- Mark file        mf      Mark file(s) for copy/move (adds a *)
+        -- Unmark all       mu      Unmark all marked files
+        -- Mark target dir  mt      Set destination directory for copy/move
+        -- Copy             mc + p  mf file(s) → mt target → mc → navigate to target → p to paste
+        -- Move             mm + p  mf file(s) → mt target → mm → navigate to target → p to paste
+        vim.keymap.set("n", "<leader>ve", "<cmd>Ex<CR>", { desc = "Open netrw in current buffer" })
+        vim.keymap.set("n", "<leader>vE", function() vim.cmd("Ex " .. vim.fn.getcwd()) end,
+            { desc = "Open netrw in current working directory" })
     end,
 })

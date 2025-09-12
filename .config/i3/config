@@ -139,5 +139,7 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
+bindsym $mod+t exec flameshot gui
+
 bindsym $mod+s split v
 bindsym $mod+v split h

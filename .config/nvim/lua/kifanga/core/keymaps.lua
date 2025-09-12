@@ -55,6 +55,16 @@ vim.keymap.set("n", "<leader>X", "<cmd>!chmod -x %<CR>", { silent = true, desc =
 
 vim.keymap.set("n", "<leader>S", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
+-- New file        %       Prompt for name in current directory
+-- New directory   d       Prompt for name in current directory
+-- Rename           R       Prompt for new name (cursor on item)
+-- Delete           D       Confirm before deletion
+-- Mark file        mf      Mark file(s) for copy/move (adds a *)
+-- Unmark all       mu      Unmark all marked files
+-- Mark target dir  mt      Set destination directory for copy/move
+-- Copy             mc + p  mf file(s) → mt target → mc → navigate to target → p to paste
+-- Move             mm + p  mf file(s) → mt target → mm → navigate to target → p to paste
+
 -- <C-a> → Increment number under cursor
 -- <C-b> → Scroll back one full screen
 -- <C-c> → Interrupt / cancel (like <Esc>)

@@ -85,3 +85,15 @@ opt.virtualedit = "block"
 opt.splitbelow = true
 
 opt.splitright = true
+
+-- Thin listing: just the current directory
+vim.g.netrw_liststyle = 0
+
+-- Hide the help banner
+vim.g.netrw_banner = 0
+
+-- Use current buffer
+vim.g.netrw_browse_split = 0
+
+-- Avoid vertical splits
+vim.g.netrw_altv = 1
