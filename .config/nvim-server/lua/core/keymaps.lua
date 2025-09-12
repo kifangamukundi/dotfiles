@@ -1,3 +1,6 @@
+vim.g.mapleader = " "
+vim.g.mapleader = " "
+
 local modes = { "n", "i", "v", "s", "c", "t" }
 local arrows = { "<Up>", "<Down>", "<Left>", "<Right>" }
 

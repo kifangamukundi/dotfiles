@@ -37,25 +37,65 @@ vim.api.nvim_create_autocmd("VimEnter", {
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("kifanga-lsp-attach", { clear = true }),
             callback = function(event)
+                -- Trigger path completion
+                -- insert-mode: CTRL-X CTRL-F
+
+                -- Trigger completion
+                -- insert-mode: CTRL-X CTRL-O
+                -- Next: CTRL-N
+                -- Previous: CTRL-P
+                -- Accept: CTRL-Y
+
+                -- Default: unknown but like grD
                 vim.keymap.set("n", "grD", vim.lsp.buf.declaration,
                     { buffer = event.buf, desc = "LSP: Go to Declaration" })
 
+                -- CTRL-] or CTRL-w-]: Jump to the definition of the keyword under the cursor.
+                -- CTRL-t: Go back from where you came from
+                -- custom: gd
                 vim.keymap.set({ "n", "v" }, "gd", vim.lsp.buf.definition,
                     { buffer = event.buf, desc = "LSP: Go to Definition" })
 
+                -- - "gra" is mapped in Normal and Visual mode to |vim.lsp.buf.code_action()|
+                -- - "gO" is mapped in Normal mode to |vim.lsp.buf.document_symbol()|
+
+                -- Default: grt
                 vim.keymap.set("n", "grt", vim.lsp.buf.type_definition,
                     { buffer = event.buf, desc = "LSP: Go to Type Definition" })
 
+                -- Default: K
                 vim.keymap.set("n", "K", vim.lsp.buf.hover,
                     { buffer = event.buf, desc = "LSP: Hover Documentation" })
 
+                -- Default: gri
                 vim.keymap.set("n", "gri", vim.lsp.buf.implementation,
                     { buffer = event.buf, desc = "LSP: Go to Implementation" })
 
+                -- Default: grr
+                -- vim.keymap.set("n", "grr", vim.lsp.buf.references,
+                --     { buffer = event.buf, desc = "LSP: Go to References" })
+
+                -- Default: insert-mode: CTRL-S
+                -- Default: normal-mode unknown but like <C-s>
+                -- custom normal-mode: <C-s>
                 vim.keymap.set({ "i", "n" }, "<C-s>", vim.lsp.buf.signature_help,
                     { buffer = event.buf, desc = "LSP: Signature Help" })
 
+                -- Default: grn
                 vim.keymap.set("n", "grn", vim.lsp.buf.rename, { buffer = event.buf, desc = "LSP: Rename" })
+
+                -- Default: gra
+                -- vim.keymap.set("n", "gra", vim.lsp.buf.code_action,
+                --     { buffer = event.buf, desc = "LSP: Code Actions" })
+
+                -- Default: gO
+                -- Custom: gD
+                -- vim.keymap.set("n", "gD", vim.lsp.buf.document_symbol,
+                --     { buffer = event.buf, desc = "LSP: Document Symbols" })
+
+                -- Default: unknown but like gW
+                -- vim.keymap.set("n", "gW", vim.lsp.buf.workspace_symbol,
+                --     { buffer = event.buf, desc = "LSP: Workspace Symbols" })
 
                 local function client_supports_method(client, method, bufnr)
                     return client:supports_method(method, bufnr)
@@ -96,9 +136,11 @@ vim.api.nvim_create_autocmd("VimEnter", {
                         end,
                     })
 
+                    -- FIX: Use event.buf and event.data.client_id for format on save
                     vim.api.nvim_create_autocmd("BufWritePre", {
                         buffer = event.buf,
                         callback = function()
+                            -- local client = vim.lsp.get_client_by_id(event.data.client_id)
                             if client and client.server_capabilities.documentFormattingProvider then
                                 vim.lsp.buf.format({
                                     bufnr = event.buf,
@@ -122,6 +164,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
                         callback = function(event2)
                             vim.lsp.buf.clear_references()
                             vim.api.nvim_clear_autocmds({ group = highlight_augroup, buffer = event2.buf })
+                            -- vim.diagnostic.setloclist({})
                         end,
                     })
                 end

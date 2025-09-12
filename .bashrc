@@ -117,8 +117,9 @@ export PATH="$PATH:/opt/nvim-linux64/bin"
 # Use nvim as default editor 
 export EDITOR=nvim
 
-# # Alias Slim Nvim 
-alias nvims="NVIM_APPNAME=nvim-slim nvim"
+alias vim="nvim"
+alias viml="NVIM_APPNAME=nvim-lazy nvim"
+alias vims="NVIM_APPNAME=nvim-server nvim"
 
 # Add /usr/local/bin to PATH
 export PATH=/usr/local/bin:$PATH
