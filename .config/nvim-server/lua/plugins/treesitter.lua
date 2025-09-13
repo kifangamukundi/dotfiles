@@ -7,6 +7,10 @@ vim.pack.add({
         src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
         name = "nvim-treesitter-textobjects",
     },
+    {
+        src = "https://github.com/nvim-treesitter/nvim-treesitter-context",
+        name = "nvim-treesitter-context",
+    },
 })
 
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
@@ -76,6 +80,19 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
                     include_surrounding_whitespace = true,
                 },
             },
+        })
+
+        require("treesitter-context").setup({
+            enable = true,
+            max_lines = 1,
+            min_window_height = 0,
+            line_numbers = true,
+            multiline_threshold = 20,
+            trim_scope = "outer",
+            mode = "cursor",
+            separator = nil,
+            zindex = 20,
+            on_attach = nil,
         })
     end,
 })
