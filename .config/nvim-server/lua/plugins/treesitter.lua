@@ -4,10 +4,6 @@ vim.pack.add({
         name = "nvim-treesitter",
     },
     {
-        src = "https://github.com/windwp/nvim-ts-autotag",
-        name = "nvim-ts-autotag",
-    },
-    {
         src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
         name = "nvim-treesitter-textobjects",
     },
@@ -43,7 +39,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
             auto_install = true,
             highlight = { enable = true },
             indent = { enable = true },
-            autotag = { enable = true },
+            autotag = { enable = false },
 
             incremental_selection = {
                 enable = true,
