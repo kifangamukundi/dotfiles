@@ -24,6 +24,8 @@ function ColorMyPencils(color)
 
     vim.api.nvim_set_hl(0, "StatusLine", { fg = "#6e6a86", bold = true })
     vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#393552", bold = true })
+
+    vim.api.nvim_set_hl(0, "ModeMsg", { fg = "#eb6f92", bold = true })
 end
 
 vim.api.nvim_create_autocmd("VimEnter", {
