@@ -1,48 +1,23 @@
 #!/bin/bash
 
-default_color="#3e8fb0"
-system_color="#eb6f92"
+default_fg="#6e6a86"
+session_fg="#393552"
 
-window_color="#eb6f92"
-resize_color="#eb6f92"
-media_color="#eb6f92"
-unknown_color="#d65d0e"
-
-# Default mode
 mode="Default"
-color=$default_color
+color=$default_fg
 
 if [ -f /tmp/i3_mode ]; then
     mode=$(cat /tmp/i3_mode)
 
     if [ -z "$mode" ]; then
         mode="Default"
-        color=$default_color
     fi
-else
-    mode="Default"
-    color=$default_color
 fi
 
-case "$mode" in
-    "System")
-        color=$system_color
-        ;;
-    "Window")
-        color=$window_color
-        ;;
-    "Resize")
-        color=$resize_color
-        ;;
-    "Media")
-      color=$media_color
-      ;;
-    "Default")
-        color=$default_color
-        ;;
-    *)
-    color=$unknown_color
-    ;;
-esac
+if [ "$mode" != "Default" ]; then
+    color=$session_fg
+else
+    color=$default_fg
+fi
 
 echo "%{F$color}$mode%{F-}"

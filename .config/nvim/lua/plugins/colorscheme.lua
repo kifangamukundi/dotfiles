@@ -21,6 +21,9 @@ function ColorMyPencils(color)
     vim.api.nvim_set_hl(0, "Search", { bg = "#31748f", fg = "#e0def4", bold = true })
     vim.api.nvim_set_hl(0, "IncSearch", { bg = "#eb6f92", fg = "#191724", bold = true })
     vim.api.nvim_set_hl(0, "MatchParen", { bg = "#9ccfd8", fg = "#191724", bold = true })
+
+    vim.api.nvim_set_hl(0, "StatusLine", { fg = "#6e6a86", bold = true })
+    vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#393552", bold = true })
 end
 
 vim.api.nvim_create_autocmd("VimEnter", {
