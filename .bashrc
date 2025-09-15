@@ -21,7 +21,7 @@ fi
 
 # Enhanced grep with sane defaults
 alias grep='grep -E --color=auto -rniI --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
-alias fd='fd --hidden --exclude .git --exclude node_modules'
+alias fd='fd --regex -HI -E .git -E node_modules'
 
 # Don't put duplicate lines or lines starting with space in the history
 HISTCONTROL=ignoreboth
