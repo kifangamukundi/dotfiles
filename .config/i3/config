@@ -11,11 +11,18 @@ exec --no-startup-id nm-applet
 
 exec_always --no-startup-id setxkbmap -option caps:escape
 exec_always --no-startup-id sh -c 'echo "Default" > /tmp/i3_mode'
+exec_always --no-startup-id xrandr --output VGA1 --mode 1024x768 --rate 75 --primary --output HDMI1 --off
 
-# exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
+# exec_always --no-startup-id xrandr \
+#   --output VGA1 --mode 1024x768 --primary \
+#   --output HDMI1 --mode 1024x768 --same-as VGA1
+
+# exec_always --no-startup-id xrandr \
+#   --output VGA1 --mode 1024x768 --primary \
+#   --output HDMI1 --mode 1920x1080 --right-of VGA1
+
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id ~/.config/i3/workspaces.py
-# exec_always --no-startup-id ~/.config/i3/rotate.sh
 
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
