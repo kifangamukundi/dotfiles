@@ -140,8 +140,7 @@ export NVM_DIR="$HOME/.nvm"
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
 
-# Remap escape to the Caps Lock key
-setxkbmap -option caps:swapescape
+# Keys rate 
 xset r rate 300 50
 
 # Bind Ctrl+f to tmux session
