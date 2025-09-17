@@ -1,10 +1,13 @@
 #!/bin/sh
 
-# Start the wallpaper rotation script in the background
+# 1. Set DPI before anything else
+xrdb -merge ~/.Xresources
+
+# 3. Start the wallpaper rotation script in the background
 ~/.config/i3/rotate.sh &
 
-# Start the picom compositor in the background
+# 4. Start the picom compositor in the background
 picom --config ~/.config/picom/picom.conf &
 
-# Finally, execute the i3 window manager
+# 5. Finally, start the i3 window manager
 exec i3
