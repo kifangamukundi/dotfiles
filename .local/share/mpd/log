@@ -2335,3 +2335,12 @@ Sep 17 08:40 : exception: Failed to open audio output
 Sep 17 08:40 : player: played "chris-chills-two/Black_Magic_Woman.mp3"
 Sep 17 08:45 : player: played "chris-chills-two/Black_Magic_Woman.mp3"
 Sep 17 08:49 : player: played "chris-chills-two/Everybodys_Lonely.mp3"
+Sep 17 08:53 : player: played "chris-chills-two/14 Dobie Grey - Driftaway.mp3"
+Sep 17 08:54 : output: Failed to play on "PulseAudio Output" (pulse): disconnected
+Sep 17 08:54 : exception: Failed to open audio output
+Sep 17 08:54 : player: played "chris-chills-two/12 Always & Forever.mp3"
+Sep 17 08:56 : output: Failed to play on "PulseAudio Output" (pulse): failed to connect the stream: Input/Output error
+Sep 17 08:56 : exception: Failed to open audio output
+Sep 17 09:00 : player: played "chris-chills-two/12 Always & Forever.mp3"
+Sep 17 09:25 : player: played "chris-chills-two/Ive_Been_Loving_You_Too_Long.mp3"
+Sep 17 09:30 : player: played "chris-chills-two/My_Sweet_Lord_-_Remastered_2014.mp3"
