@@ -2345,3 +2345,34 @@ Sep 17 09:00 : player: played "chris-chills-two/12 Always & Forever.mp3"
 Sep 17 09:25 : player: played "chris-chills-two/Ive_Been_Loving_You_Too_Long.mp3"
 Sep 17 09:30 : player: played "chris-chills-two/My_Sweet_Lord_-_Remastered_2014.mp3"
 Sep 17 09:35 : player: played "chris-chills-two/11 Here and Now.mp3"
+Sep 17 19:42 : player: played "chris-chills-two/16 All The Man I Need.mp3"
+Sep 18 04:13 : player: played "chris-chills-two/16 All The Man I Need.mp3"
+Sep 18 05:36 : player: played "chris-chills-two/My_Girl.mp3"
+Sep 18 05:47 : player: played "chris-chills-two/My_Girl.mp3"
+Sep 18 05:51 : player: played "chris-chills-two/Your_Song.mp3"
+Sep 18 05:55 : player: played "chris-chills-two/Nothing_Really_Ends.mp3"
+Sep 18 10:57 : player: played "chris-chills-two/Nothing_Really_Ends.mp3"
+Sep 18 11:00 : ffmpeg/aac: Could not update timestamps for skipped samples.
+Sep 18 11:00 : player: played "chris-chills-two/Into_the_Mystic_-_2013_Remaster.mp3"
+Sep 18 11:03 : player: played "chris-chills-two/(You_Make_Me_Feel_Like)_A_Natural_Woman.mp3"
+Sep 18 11:06 : ffmpeg/wmav2: Could not update timestamps for skipped samples.
+Sep 18 11:06 : player: played "chris-chills-two/Sharing_The_Night_Together.mp3"
+Sep 18 11:14 : ffmpeg/wmav2: Could not update timestamps for skipped samples.
+Sep 18 11:17 : player: played "chris-chills-two/10 Track 10 Unknown Artist Unknown Album (21 09 2003 15 22 58) Unknown 128000.wma"
+Sep 18 11:24 : ffmpeg/aac: Could not update timestamps for skipped samples.
+Sep 18 11:24 : player: played "chris-chills-two/Father Figure.mp3"
+Sep 18 11:27 : player: played "chris-chills-two/11 Changing All The Times.m4a"
+Sep 18 11:32 : player: played "chris-chills-two/Careless Whisper.mp3"
+Sep 18 11:35 : player: played "chris-chills-two/18 Green Green Grass Of Home.mp3"
+Sep 18 11:39 : player: played "chris-chills-two/Midnight_Train_to_Georgia.mp3"
+Sep 18 11:44 : player: played "chris-chills-two/Jumping_at_Shadows.mp3"
+Sep 18 11:48 : player: played "chris-chills-two/10 A Rainy Night In Georgia.mp3"
+Sep 18 11:51 : player: played "chris-chills-two/16 Doin_ Our Thing.mp3"
+Sep 18 22:04 : player: played "chris-chills-two/Helpless.mp3"
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+Sep 19 11:02 : player: played "chris-chills-two/Helpless.mp3"
+Sep 19 11:11 : player: played "chris-chills-two/Helpless.mp3"
+Sep 19 11:20 : player: played "chris-chills-two/Helpless.mp3"
+Sep 19 11:42 : player: played "chris-chills-two/Helpless.mp3"
