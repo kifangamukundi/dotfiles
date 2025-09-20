@@ -237,14 +237,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
         require("mason-lspconfig").setup({
             ensure_installed = {},
             automatic_installation = false,
+            -- does this vim.lsp.enable() by default which is set to true
+            automatic_enable = true,
             handlers = {
                 function(server_name)
                     local server = servers[server_name] or {}
                     server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-                    -- Changed this line to use the new vim.lsp.config()
                     vim.lsp.config(server_name, server)
-                    -- Added this line to enable the LSP server however mason lsp enables this automatically
-                    -- vim.lsp.enable(server_name)
                 end,
             },
         })
