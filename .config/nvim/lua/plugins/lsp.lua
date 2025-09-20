@@ -219,16 +219,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
         }
 
         local ensure_installed = vim.tbl_keys(servers or {})
-        vim.list_extend(ensure_installed, {
-            "prettierd",
-            "stylua",
-            "goimports",
-            "eslint_d",
-        })
-        require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
         require("mason-lspconfig").setup({
-            ensure_installed = {},
+            ensure_installed = ensure_installed,
             automatic_installation = false,
             -- does this vim.lsp.enable() by default which is set to true
             automatic_enable = true,
@@ -240,5 +233,14 @@ vim.api.nvim_create_autocmd("VimEnter", {
                 end,
             },
         })
+
+        local other_tools_to_install = {
+            "prettierd",
+            "stylua",
+            "goimports",
+            "eslint_d",
+        }
+
+        require("mason-tool-installer").setup({ ensure_installed = other_tools_to_install })
     end,
 })
