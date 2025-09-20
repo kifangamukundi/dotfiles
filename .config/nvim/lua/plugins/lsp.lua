@@ -241,7 +241,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
                 function(server_name)
                     local server = servers[server_name] or {}
                     server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-                    require("lspconfig")[server_name].setup(server)
+                    -- Changed this line to use the new vim.lsp.config()
+                    vim.lsp.config(server_name, server)
+                    -- Added this line to enable the LSP server
+                    vim.lsp.enable(server_name)
                 end,
             },
         })
