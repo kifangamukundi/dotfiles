@@ -1,9 +1,5 @@
 vim.pack.add({
     {
-        src = "https://github.com/neovim/nvim-lspconfig",
-        name = "nvim-lspconfig",
-    },
-    {
         src = "https://github.com/mason-org/mason.nvim",
         name = "mason.nvim",
     },
@@ -16,14 +12,13 @@ vim.pack.add({
         name = "mason-tool-installer.nvim",
     },
     {
+        src = "https://github.com/neovim/nvim-lspconfig",
+        name = "nvim-lspconfig",
+    },
+    {
         src = "https://github.com/saghen/blink.cmp",
         name = "blink.cmp",
         version = 'v1.6.0'
-    },
-    {
-        src = "https://github.com/antosha417/nvim-lsp-file-operations",
-        name = "nvim-lsp-file-operations",
-        config = true
     },
 })
 
@@ -31,8 +26,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
     group = vim.api.nvim_create_augroup("kifanga-lsp-setup", { clear = true }),
     callback = function()
         require("mason").setup({})
-
-        -- require("nvim-lsp-file-operations").setup()
 
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("kifanga-lsp-attach", { clear = true }),
