@@ -243,8 +243,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
                     server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
                     -- Changed this line to use the new vim.lsp.config()
                     vim.lsp.config(server_name, server)
-                    -- Added this line to enable the LSP server
-                    vim.lsp.enable(server_name)
+                    -- Added this line to enable the LSP server however mason lsp enables this automatically
+                    -- vim.lsp.enable(server_name)
                 end,
             },
         })
