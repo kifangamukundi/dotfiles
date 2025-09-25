@@ -34,7 +34,8 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 bindsym $mod+Return exec alacritty
-bindsym $mod+d exec --no-startup-id alacritty --class AlacrittyLaunch -e bash -c "~/.config/i3/apps.sh | xargs -r -I{} setsid bash -c '{} >/dev/null 2>&1 &'"
+# bindsym $mod+d exec --no-startup-id alacritty --class AlacrittyLaunch -e bash -c "~/.config/i3/apps.sh | xargs -r -I{} setsid bash -c '{} >/dev/null 2>&1 &'"
+bindsym $mod+d exec --no-startup-id rofi -show drun
 
 assign [class="^Alacritty$"] 1
 assign [class="Google-chrome"] 2

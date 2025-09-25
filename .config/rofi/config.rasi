@@ -1,0 +1,9 @@
+configuration {
+    modi: "drun";
+    show-icons: true;
+    icon-theme: "Papirus";
+    font: "JetBrainsMono Nerd Font 11";
+    display-drun: "Apps:";
+}
+
+@theme "gruvbox-dark"
