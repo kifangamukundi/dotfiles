@@ -125,7 +125,6 @@ alias vims="NVIM_APPNAME=nvim-server nvim"
 export PATH=/usr/local/bin:$PATH
 
 # Cargo and rust environment setup
-. "$HOME/.cargo/env"
 
 # Initialize Starship prompt
 eval "$(starship init bash)"
@@ -153,3 +152,4 @@ alias fimage='~/.local/bin/fimage'
 alias fvolume='~/.local/bin/fvolume'
 alias fnetwork='~/.local/bin/fnetwork'
 alias fvideo='~/.local/bin/fvideo'
+. "$HOME/.cargo/env"
