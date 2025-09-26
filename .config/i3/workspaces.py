@@ -1,4 +1,9 @@
-#!/home/kifanga/virtualenvironment/i3ipc/bin/python
+#!/home/kifanga/virtualenvironment/bin/python
+
+# instructions
+# source ~/virtualenvironment/bin/activate
+# pip install i3ipc
+
 import i3ipc
 import subprocess
 import time
