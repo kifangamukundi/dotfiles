@@ -9,7 +9,7 @@ client.urgent           #e07a5f #3c1f1f #ffffff #e07a5f #3c1f1f
 
 exec_always --no-startup-id setxkbmap -option caps:escape
 exec_always --no-startup-id sh -c 'echo "Default" > /tmp/i3_mode'
-exec_always --no-startup-id xrandr --output VGA-1 --mode 1024x768 --rate 75 --primary --output HDMI-1 --off
+# exec_always --no-startup-id xrandr --output VGA-1 --mode 1024x768 --rate 60 --primary --output HDMI-1 --off
 
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id ~/.config/i3/workspaces.py
