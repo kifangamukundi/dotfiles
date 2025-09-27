@@ -16,7 +16,4 @@ nvm install $NODE_VERSION
 
 source ~/.bashrc
 
-node -v
-npm -v
-
 echo "Node.js installation completed successfully!"

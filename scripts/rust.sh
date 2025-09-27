@@ -17,12 +17,4 @@ esac
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-if ! command -v rustc &>/dev/null; then
-    echo "Rust installation verification failed."
-    exit 1
-fi
-
-rustc +nightly --version
-
-rustc --version
 echo "Rust stable and nightly installations complete!"

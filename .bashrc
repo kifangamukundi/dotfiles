@@ -16,7 +16,7 @@ fi
 
 # Add keys if not loaded
 if ! ssh-add -l >/dev/null 2>&1; then
-    ssh-add ~/.ssh/id_ed25519_github
+    ssh-add ~/.ssh/github_key_name
 fi
 
 # Enhanced grep with sane defaults
@@ -114,12 +114,11 @@ export PATH=$PATH:$(go env GOPATH)/bin
 # Add Neovim to PATH
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
-# Use nvim as default editor 
-export EDITOR=nvim
+# Use vim as default editor 
+export EDITOR=vim
 
-alias vim="nvim"
-alias viml="NVIM_APPNAME=nvim-lazy nvim"
-alias vims="NVIM_APPNAME=nvim-server nvim"
+alias nviml="NVIM_APPNAME=nvim-lazy nvim"
+alias nvims="NVIM_APPNAME=nvim-server nvim"
 
 # Add /usr/local/bin to PATH
 export PATH=/usr/local/bin:$PATH

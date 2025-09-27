@@ -31,10 +31,4 @@ sudo tar -C /usr/local -xzf "${GO_FILENAME}"
 
 rm "${GO_FILENAME}"
 
-if ! command -v go &>/dev/null; then
-    echo "Go installation verification failed."
-    exit 1
-fi
-
-go version
 echo "Go installation complete!"

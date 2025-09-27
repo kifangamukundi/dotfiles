@@ -2,6 +2,9 @@
 
 set -e 
 
+# make sure
+# install node using the script first
+
 if command -v nvim >/dev/null; then
     sudo apt remove --purge -y neovim || true
 else
