@@ -118,6 +118,14 @@ export PATH="$PATH:/opt/nvim-linux64/bin"
 # You can now use sudoedit to edit system files instead of sudo nano (absolutely awesome) 
 export EDITOR=nvim
 export VISUAL=nvim
+export MANPAGER="less -R"
+
+export TERMINAL=alacritty
+export BROWSER=google-chrome
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
 
 alias nviml="NVIM_APPNAME=nvim-lazy nvim"
 alias nvims="NVIM_APPNAME=nvim-server nvim"
