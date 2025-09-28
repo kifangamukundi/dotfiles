@@ -115,7 +115,9 @@ export PATH=$PATH:$(go env GOPATH)/bin
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
 # Use vim as default editor 
-export EDITOR=vim
+# You can now use sudoedit to edit system files instead of sudo nano (absolutely awesome) 
+export EDITOR=nvim
+export VISUAL=nvim
 
 alias nviml="NVIM_APPNAME=nvim-lazy nvim"
 alias nvims="NVIM_APPNAME=nvim-server nvim"
