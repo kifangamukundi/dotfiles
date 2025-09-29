@@ -108,26 +108,26 @@ mode "resize" {
 bindsym $mod+p exec "echo 'Media' > /tmp/i3_mode; i3-msg mode media"
 mode "media" {
     # Playback
-    bindsym space exec --no-startup-id "~/.config/i3/media.sh toggle"
-    bindsym n     exec --no-startup-id "~/.config/i3/media.sh next"
-    bindsym p     exec --no-startup-id "~/.config/i3/media.sh prev"
-    bindsym r     exec --no-startup-id "~/.config/i3/media.sh repeat && echo Default > /tmp/i3_mode && i3-msg mode default"
-    bindsym s     exec --no-startup-id "~/.config/i3/media.sh shuffle && echo Default > /tmp/i3_mode && i3-msg mode default"
-    bindsym x     exec --no-startup-id "~/.config/i3/media.sh stop && echo Default > /tmp/i3_mode && i3-msg mode default"
-    bindsym k     exec --no-startup-id "~/.config/i3/media.sh kill && echo Default > /tmp/i3_mode && i3-msg mode default"
+    bindsym space exec --no-startup-id "~/.config/i3/media.py toggle"
+    bindsym n     exec --no-startup-id "~/.config/i3/media.py next"
+    bindsym p     exec --no-startup-id "~/.config/i3/media.py prev"
+    bindsym r     exec --no-startup-id "~/.config/i3/media.py repeat && echo Default > /tmp/i3_mode && i3-msg mode default"
+    bindsym s     exec --no-startup-id "~/.config/i3/media.py shuffle && echo Default > /tmp/i3_mode && i3-msg mode default"
+    bindsym x     exec --no-startup-id "~/.config/i3/media.py stop && echo Default > /tmp/i3_mode && i3-msg mode default"
+    bindsym k     exec --no-startup-id "~/.config/i3/media.py kill && echo Default > /tmp/i3_mode && i3-msg mode default"
 
     # Volume
-    bindsym i     exec --no-startup-id "~/.config/i3/media.sh volup"
-    bindsym d     exec --no-startup-id "~/.config/i3/media.sh voldown"
-    bindsym m     exec --no-startup-id "~/.config/i3/media.sh mute"
+    bindsym i     exec --no-startup-id "~/.config/i3/media.py volup"
+    bindsym d     exec --no-startup-id "~/.config/i3/media.py voldown"
+    bindsym m     exec --no-startup-id "~/.config/i3/media.py mute"
 
     # Exit media mode
     bindsym Escape exec "echo 'Default' > /tmp/i3_mode; i3-msg mode default"
 }
 
 bindsym $mod+c kill
-bindsym $mod+q exec --no-startup-id ~/.config/i3/close.sh
-bindsym $mod+o exec --no-startup-id ~/.config/i3/only.sh
+bindsym $mod+q exec --no-startup-id ~/.config/i3/close.py
+bindsym $mod+o exec --no-startup-id ~/.config/i3/only.py
 bindsym $mod+m fullscreen toggle
 
 # Basic directional focus
