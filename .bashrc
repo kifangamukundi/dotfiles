@@ -23,6 +23,22 @@ fi
 alias grep='grep -E --color=auto -rniI --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
 alias fd='fd --regex -HI -E .git -E node_modules'
 
+ans() {
+  cmd="$1"
+  shift
+  case "$cmd" in
+    encrypt|view|edit)
+      ansible-vault "$cmd" --vault-password-file ~/.vault "$@"
+      ;;
+    rekey)
+      ansible-vault rekey --vault-password-file ~/.vault --new-vault-password-file ~/.vault_new "$@"
+      ;;
+    *)
+      echo "Usage: ans {encrypt|view|edit|rekey} file..."
+      ;;
+  esac
+}
+
 # Don't put duplicate lines or lines starting with space in the history
 HISTCONTROL=ignoreboth
 
