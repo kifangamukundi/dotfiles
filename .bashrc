@@ -19,9 +19,15 @@ if ! ssh-add -l >/dev/null 2>&1; then
     ssh-add ~/.ssh/github_key_name
 fi
 
-# Enhanced grep with sane defaults
-# alias grep='grep -E --color=auto -rniI --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
-# alias fd='fd --regex -HI -E .git -E node_modules'
+# Enhanced grep defaults 
+grepx() {
+  grep -E --color=auto -rniI --exclude-dir={.git,.hg,.svn,node_modules,dist,build} "$@"
+}
+
+# Enhanced fd defaults 
+findx() {
+  fd --regex -HI -E .git -E node_modules "$@"
+}
 
 ans() {
   cmd="$1"
