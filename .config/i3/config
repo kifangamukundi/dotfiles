@@ -2,6 +2,7 @@ set $mod Mod4
 
 font pango:JetBrains Mono Nerd Font 8
 
+# item.property          <border> <background> <text> <indicator> <child_border>
 client.focused #3a3a3a #212121 #ffffff #3a3a3a #3a3a3a
 client.unfocused        #2e2e2e #1e1e1e #888888 #3a3a3a #1e1e1e
 client.focused_inactive #4c4c4c #1e1e1e #cccccc #555555 #1e1e1e
