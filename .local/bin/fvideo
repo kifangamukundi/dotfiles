@@ -9,9 +9,6 @@ done
 VIDEO_DIR="$HOME/play/videos/shows"
 MPV_SOCKET="/tmp/mpvsocket"
 
-# --- Core Functions ---
-
-# Function to quit the running MPV instance and clean up its socket.
 kill_mpv() {
     if [[ -e "$MPV_SOCKET" ]]; then
         if pgrep -f "mpv --input-ipc-server=$MPV_SOCKET" >/dev/null; then
@@ -21,14 +18,13 @@ kill_mpv() {
         rm -f "$MPV_SOCKET"
     fi
 }
-# Function to start MPV with a local playlist directory.
+
 start_mpv() {
     local playlist_dir="$1"
     kill_mpv
     nohup mpv --input-ipc-server="$MPV_SOCKET" --x11-name="MPV-Video-Player" --idle --playlist="$playlist_dir" &>/dev/null &
 }
 
-# Function to start MPV with a YouTube URL.
 play_yt_stream() {
     kill_mpv
     read -rp "Enter YouTube URL: " url
@@ -43,9 +39,6 @@ play_yt_stream() {
     playback_controls
 }
 
-# --- Menu Functions ---
-
-# Select and play a TV show season.
 select_show() {
     local show
     show=$(fd --max-depth 1 --type d --base-directory "$VIDEO_DIR" . | sed 's|^./||' | fzf --prompt="Select Show> ")
@@ -61,7 +54,6 @@ select_season() {
     playback_controls
 }
 
-# Provide a menu for playback controls.
 playback_controls() {
     while true; do
         if ! pgrep -f "mpv --input-ipc-server=$MPV_SOCKET" >/dev/null; then
@@ -96,7 +88,6 @@ playback_controls() {
     done
 }
 
-# The main loop for the application.
 main_menu() {
     while true; do
         local choice
