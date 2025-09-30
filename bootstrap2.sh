@@ -7,6 +7,8 @@ set -u
 # cat ~/.ssh/github_key_name.pub and add to github
 # ssh -T git@github.com
 
+# Then go, rust, node, extras, nvim, escape 
+
 echo "Nerd Font"
 bash scripts/font.sh "JetBrainsMono" "3.2.1" "install"
 
@@ -33,8 +35,5 @@ bash scripts/postgres.sh
 
 echo "Pgadmin"
 bash scripts/pgadmin.sh "web"
-
-echo "Extras"
-bash scripts/extras.sh "all"
 
 echo "Apps installed"

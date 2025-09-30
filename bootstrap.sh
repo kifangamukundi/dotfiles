@@ -13,7 +13,4 @@ bash scripts/build.sh
 echo "Setup"
 bash scripts/setup.sh
 
-echo "Swap Escape"
-bash scripts/escape.sh
-
 echo "System setup complete!"

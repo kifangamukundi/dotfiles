@@ -160,10 +160,9 @@ eval "$(starship init bash)"
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 
 # Load NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
@@ -181,4 +180,3 @@ alias fimage='~/.local/bin/fimage'
 alias fvolume='~/.local/bin/fvolume'
 alias fnetwork='~/.local/bin/fnetwork'
 alias fvideo='~/.local/bin/fvideo'
-
