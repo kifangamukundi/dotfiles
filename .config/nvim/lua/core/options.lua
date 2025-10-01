@@ -129,6 +129,9 @@ opt.splitright = true
 -- Thin listing: just the current directory
 vim.g.netrw_liststyle = 0
 
+-- Numbers and relative numbers
+vim.g.netrw_bufsettings = 'nu rnu'
+
 -- Hide the help banner
 vim.g.netrw_banner = 0
 
