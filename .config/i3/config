@@ -92,6 +92,17 @@ mode "window" {
     bindsym 8 exec --no-startup-id "i3-msg move container to workspace number 8 && echo Default > /tmp/i3_mode && i3-msg mode default"
     bindsym 9 exec --no-startup-id "i3-msg move container to workspace number 9 && echo Default > /tmp/i3_mode && i3-msg mode default"
     bindsym 0 exec --no-startup-id "i3-msg move container to workspace number 10 && echo Default > /tmp/i3_mode && i3-msg mode default"
+
+    bindsym Shift+1 exec --no-startup-id "i3-msg 'move container to workspace number 1; workspace number 1'; echo Default > /tmp/i3_mode; i3-msg mode default"
+    bindsym Shift+2 exec --no-startup-id "i3-msg 'move container to workspace number 2; workspace number 2'; echo Default > /tmp/i3_mode; i3-msg mode default"
+    bindsym Shift+3 exec --no-startup-id "i3-msg 'move container to workspace number 3; workspace number 3'; echo Default > /tmp/i3_mode; i3-msg mode default"
+    bindsym Shift+4 exec --no-startup-id "i3-msg 'move container to workspace number 4; workspace number 4'; echo Default > /tmp/i3_mode; i3-msg mode default"
+    bindsym Shift+5 exec --no-startup-id "i3-msg 'move container to workspace number 5; workspace number 5'; echo Default > /tmp/i3_mode; i3-msg mode default"
+    bindsym Shift+6 exec --no-startup-id "i3-msg 'move container to workspace number 6; workspace number 6'; echo Default > /tmp/i3_mode; i3-msg mode default"
+    bindsym Shift+7 exec --no-startup-id "i3-msg 'move container to workspace number 7; workspace number 7'; echo Default > /tmp/i3_mode; i3-msg mode default"
+    bindsym Shift+8 exec --no-startup-id "i3-msg 'move container to workspace number 8; workspace number 8'; echo Default > /tmp/i3_mode; i3-msg mode default"
+    bindsym Shift+9 exec --no-startup-id "i3-msg 'move container to workspace number 9; workspace number 9'; echo Default > /tmp/i3_mode; i3-msg mode default"
+    bindsym Shift+0 exec --no-startup-id "i3-msg 'move container to workspace number 10; workspace number 10'; echo Default > /tmp/i3_mode; i3-msg mode default"
     bindsym Escape exec "echo 'Default' > /tmp/i3_mode; i3-msg mode default"
 }
 
