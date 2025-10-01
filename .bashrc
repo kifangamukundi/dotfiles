@@ -29,7 +29,7 @@ findx() {
   fd --regex -HI -E .git -E node_modules "$@"
 }
 
-ans() {
+ansiblex() {
   cmd="$1"
   shift
   case "$cmd" in
