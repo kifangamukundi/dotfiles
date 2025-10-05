@@ -49,10 +49,18 @@ background = "#44475a"
 text = "#f8f8f2"
 
 [cursor]
-style = { shape = "Block", blinking = "On" }
+style = { shape = "Block", blinking = "Always" }
+vi_mode_style = { shape = "Block", blinking = "Always" }
 unfocused_hollow = false
-vi_mode_style = { shape = "Beam", blinking = "On" }
 thickness = 0.15
+blink_interval = 750 
+blink_timeout = 0
+
+# Cursor styles
+# cursor:
+#     style:
+#         blinking: Always
+#     blink_interval: 750
 
 [font]
 size = 12.0
