@@ -50,6 +50,16 @@ opt.clipboard = ""
 -- Enable 24-bit color support
 opt.termguicolors = true
 
+-- Force block cursor in all modes but different color in Insert
+opt.guicursor = {
+    "n:block-CursorNormal",
+    "i:block-CursorInsert",
+    "v:block-CursorVisual",
+    "c:block-CursorCommand",
+    "r:block-CursorReplace",
+    "o:block-CursorOperator",
+}
+
 -- Use a dark background
 opt.background = "dark"
 

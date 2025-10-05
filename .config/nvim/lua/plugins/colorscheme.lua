@@ -17,6 +17,16 @@ function ColorMyPencils(color)
 
     vim.api.nvim_set_hl(0, "CursorLine", { bg = "#393552" })
 
+    vim.api.nvim_set_hl(0, "CursorNormal", { bg = "#e0def4" })
+
+    vim.api.nvim_set_hl(0, "CursorInsert", { bg = "#eb6f92" })
+    vim.api.nvim_set_hl(0, "CursorCommand", { bg = "#eb6f92" })
+
+    vim.api.nvim_set_hl(0, "CursorReplace", { bg = "#f6c177" })
+    vim.api.nvim_set_hl(0, "CursorOperator", { bg = "#f6c177" })
+
+    vim.api.nvim_set_hl(0, "CursorVisual", { bg = "#31748f" })
+
     vim.api.nvim_set_hl(0, "Visual", { bg = "#44415a" })
     vim.api.nvim_set_hl(0, "Search", { bg = "#31748f", fg = "#e0def4", bold = true })
     vim.api.nvim_set_hl(0, "IncSearch", { bg = "#eb6f92", fg = "#191724", bold = true })
