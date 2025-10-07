@@ -1,7 +1,7 @@
 # Character module configuration
 [character]
-success_symbol = "[➜](bold #95b1ac)"
-error_symbol = "[➜](bold #eb6f92)"
+success_symbol = "[ >](bold #95b1ac)"
+error_symbol = "[ >](bold #eb6f92)"
 
 # Username module configuration
 [username]

@@ -6,7 +6,7 @@ for cmd in fzf fd mpv socat yt-dlp; do
     command -v "$cmd" >/dev/null || { echo "Error: $cmd is not installed."; exit 1; }
 done
 
-VIDEO_DIR="$HOME/play/videos/shows"
+VIDEO_DIR="$HOME/play/videos"
 MPV_SOCKET="/tmp/mpvsocket"
 
 kill_mpv() {
@@ -22,7 +22,7 @@ kill_mpv() {
 start_mpv() {
     local playlist_dir="$1"
     kill_mpv
-    nohup mpv --input-ipc-server="$MPV_SOCKET" --x11-name="MPV-Video-Player" --idle --playlist="$playlist_dir" &>/dev/null &
+    nohup mpv --input-ipc-server="$MPV_SOCKET" --hwdec="auto" --profile="fast" --x11-name="MPV-Video-Player" --idle --playlist="$playlist_dir" &>/dev/null &
 }
 
 play_yt_stream() {
@@ -35,7 +35,7 @@ play_yt_stream() {
         return
     fi
     
-    nohup mpv --input-ipc-server="$MPV_SOCKET" --x11-name="MPV-Video-Player" "$url" &>/dev/null &
+    nohup mpv --input-ipc-server="$MPV_SOCKET" --hwdec="auto" --profile="fast" --x11-name="MPV-Video-Player" "$url" &>/dev/null &
     playback_controls
 }
 

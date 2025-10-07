@@ -1,16 +1,17 @@
 set $mod Mod4
 
 font pango:JetBrains Mono Nerd Font 8
-
+# e0def4
 # item.property          <border> <background> <text> <indicator> <child_border>
-client.focused #3a3a3a #212121 #ffffff #3a3a3a #3a3a3a
+# client.focused          #9ccfd8 #9ccfd8 #9ccfd8 #9ccfd8
+client.focused          #eb6f92 #eb6f92 #eb6f92 #eb6f92
 client.unfocused        #2e2e2e #1e1e1e #888888 #3a3a3a #1e1e1e
 client.focused_inactive #4c4c4c #1e1e1e #cccccc #555555 #1e1e1e
 client.urgent           #e07a5f #3c1f1f #ffffff #e07a5f #3c1f1f
 
 exec_always --no-startup-id setxkbmap -option caps:escape
 exec_always --no-startup-id sh -c 'echo "Default" > /tmp/i3_mode'
-# exec_always --no-startup-id xrandr --output VGA-1 --mode 1024x768 --rate 75 --primary --output HDMI-1 --off
+exec_always --no-startup-id xrandr --output VGA-1 --mode 1920x1080 --rate 60 --primary --output HDMI-1 --off
 
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id ~/.config/i3/workspaces.py

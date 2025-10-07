@@ -19,7 +19,10 @@ if ! ssh-add -l >/dev/null 2>&1; then
     ssh-add ~/.ssh/github_key_name
 fi
 
-# Enhanced grep defaults 
+# Addons include (-r, -l,-c number) 
+alias grep="grep -E --color=auto -niI"
+
+# Addons include (-l,-c number) 
 grepx() {
   grep -E --color=auto -rniI --exclude-dir={.git,.hg,.svn,node_modules,dist,build} "$@"
 }
@@ -113,12 +116,35 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
+
+    # Addons include (-r, -l,-c number, --exclude-dir={.git,.hg,.svn,node_modules,dist,build}) 
+    alias grep="grep -E --color=auto -niI"
+
+    #Addons include -E .git -E node_modules 
+    alias fd='fd --regex --color=auto -iHI'
 fi
 
 # Source additional aliases from ~/.bash_aliases if it exists
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
+# Ansible shortcuts
+ansiblex() {
+  cmd="$1"
+  shift
+  case "$cmd" in
+    encrypt|view|edit)
+      ansible-vault "$cmd" --vault-password-file ~/.vault "$@"
+      ;;
+    rekey)
+      ansible-vault rekey --vault-password-file ~/.vault --new-vault-password-file ~/.vault_new "$@"
+      ;;
+    *)
+      echo "Usage: ans {encrypt|view|edit|rekey} file..."
+      ;;
+  esac
+}
 
 # Enable programmable completion features
 if ! shopt -oq posix; then
