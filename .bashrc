@@ -91,8 +91,12 @@ if [ -x /usr/bin/dircolors ]; then
     # Addons include (-r, -l,-c number, --exclude-dir={.git,.hg,.svn,node_modules,dist,build}, -v(for inverse)) 
     alias grep="grep -E --color=auto -niI"
 
-    #Addons include -E .git -E node_modules 
+    #Addons for awk no -E arguments so not alias required
+    alias sed="sed -E"
+
+    #Addons include -E .git -E node_modules
     alias fd='fd --regex --color=auto -iHI'
+
 fi
 
 # Source additional aliases from ~/.bash_aliases if it exists

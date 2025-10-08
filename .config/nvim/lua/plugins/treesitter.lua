@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
             incremental_selection = {
                 enable = true,
                 keymaps = {
-                    init_selection = "<CR>",
+                    init_selection = false,
                     node_incremental = "<C-n>",
                     node_decremental = "<C-p>",
                     scope_incremental = false,
