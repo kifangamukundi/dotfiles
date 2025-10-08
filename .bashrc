@@ -88,15 +88,14 @@ if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
 
-    # Addons include (-r, -l,-c number, --exclude-dir={.git,.hg,.svn,node_modules,dist,build}, -v(for inverse)) 
-    alias grep="grep -E --color=auto -niI"
+    # Addons include (-r, -l,-c number, -v(for inverse)) 
+    alias grep='grep -E --color=auto -niI --exclude=*.svg --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
+
+    # Addons include (-t (with the following options:f, d, l, b, c, s, p, x, e)) 
+    alias fd='fd --regex --color=auto -iHI --exclude .git --exclude .hg --exclude .svn --exclude node_modules --exclude dist --exclude build'
 
     #Addons for awk no -E arguments so not alias required
-    alias sed="sed -E"
-
-    #Addons include -E .git -E node_modules
-    alias fd='fd --regex --color=auto -iHI'
-
+    alias sed='sed -E'
 fi
 
 # Source additional aliases from ~/.bash_aliases if it exists
@@ -118,7 +117,7 @@ ansiblex() {
     *)
       echo "Usage: ans {encrypt|view|edit|rekey} file..."
       ;;
-  esac
+  esac 
 }
 
 # Enable programmable completion features
