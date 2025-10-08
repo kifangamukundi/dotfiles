@@ -141,7 +141,7 @@ mode "media" {
 bindsym $mod+c kill
 bindsym $mod+q exec --no-startup-id ~/.config/i3/close.py
 bindsym $mod+o exec --no-startup-id ~/.config/i3/only.py
-bindsym $mod+m fullscreen toggle
+bindsym $mod+f fullscreen toggle
 
 # Basic directional focus
 bindsym $mod+h focus left
