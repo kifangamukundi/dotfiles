@@ -16,6 +16,7 @@ vim.keymap.set({ "n", "v" }, "s", "<Nop>")
 vim.keymap.set({ "n", "v" }, "S", "<Nop>")
 
 vim.keymap.set("n", "Q", "<Nop>")
+vim.keymap.set('n', 'q:', '<Nop>', { noremap = true })
 
 vim.keymap.set("i", "<C-[>", "<Esc>", { silent = true, desc = "Exit Insert mode" })
 

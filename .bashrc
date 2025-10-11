@@ -140,7 +140,9 @@ export PATH="$PATH:/opt/nvim-linux64/bin"
 # You can now use sudoedit to edit system files instead of sudo nano (absolutely awesome) 
 export EDITOR=nvim
 export VISUAL=nvim
-export MANPAGER="less -R"
+
+# make sure groff is installed 
+export MANPAGER="nvim +Man!"
 
 export TERMINAL=alacritty
 export BROWSER=google-chrome
