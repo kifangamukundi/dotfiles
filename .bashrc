@@ -182,6 +182,9 @@ xset r rate 300 50
 bind -x '"\C-f": ~/.local/bin/fsession'
 bind -x '"\C-b": ~/.local/bin/fmusic'
 
+bind -m vi-insert '"\C-l":clear-screen'
+bind -m vi-command '"\C-l":clear-screen'
+
 alias fkill='~/.local/bin/fkill'
 alias fcontainer='~/.local/bin/fcontainer'
 alias fimage='~/.local/bin/fimage'

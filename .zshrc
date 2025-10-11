@@ -5,47 +5,74 @@ ZSH_THEME="robbyrussell"
 plugins=(
     zsh-syntax-highlighting
     # zsh-autosuggestions
+    zsh-vi-mode
 )
 
 # CUSTOM SYNTAX HIGHLIGHTING (ROSE PINE MOON HARMONY)
 typeset -A ZSH_HIGHLIGHT_STYLES
 
-# 1. COMMANDS — Primary action: Pine (Teal/Blue)
+# 1. COMMANDS & ALIASES — Primary action: Pine (Teal/Blue)
 ZSH_HIGHLIGHT_STYLES[command]='fg=#31748f,bold'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=#31748f,bold'
 
-# 2. ALIASES / FUNCTIONS — Secondary structures: Foam (Light Cyan)
-ZSH_HIGHLIGHT_STYLES[alias]='fg=#9ccfd8'
+# 2. BUILTINS & RESERVED WORDS — Slightly different blue
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=#56949f,bold'
+ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=#56949f,bold'
+
+# 3. FUNCTIONS — Foam (Light Cyan)
 ZSH_HIGHLIGHT_STYLES[function]='fg=#9ccfd8'
 
-# 3. UNKNOWN / ERROR — Rose on muted background for visibility
+# 4. UNKNOWN / ERROR — Rose for errors
 ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#eb6f92,bold'
 
-# 4. OPTIONS / FLAGS — Gold, for emphasis
+# 5. OPTIONS / FLAGS — Gold
 ZSH_HIGHLIGHT_STYLES[precommand]='fg=#f6c177'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#f6c177'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#f6c177'
 
-# 5. PATHS / DIRECTORIES — Muted gray to blend into the background
+# 6. PATHS / DIRECTORIES — Muted gray
 ZSH_HIGHLIGHT_STYLES[path]='fg=#6e6a86'
 ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=#6e6a86'
 
-# 6. VARIABLES / PARAMETERS — Iris or Text, depending on your contrast preference
+# 7. VARIABLES — Iris purple
 ZSH_HIGHLIGHT_STYLES[dollar-variable]='fg=#c4a7e7'
-ZSH_HIGHLIGHT_STYLES[param]='fg=#c4a7e7'
 
-# 7. COMMENTS / REDIRECTION — Muted, non-distracting
+# 8. PARAMETERS — Different purple shade
+ZSH_HIGHLIGHT_STYLES[param]='fg=#908caa'
+
+# 9. COMMENTS — Muted gray with italic
 ZSH_HIGHLIGHT_STYLES[comment]='fg=#6e6a86,italic'
-ZSH_HIGHLIGHT_STYLES[redirection]='fg=#eb6f92'
 
-# 8. STRINGS / QUOTES — Foam greenish-cyan, bright but soft
-ZSH_HIGHLIGHT_STYLES[quotation]='fg=#9ccfd8'
+# 10. REDIRECTION — Different red shade
+ZSH_HIGHLIGHT_STYLES[redirection]='fg=#b4637a' 
 
-# 9. NUMBERS / CONSTANTS — Gold for consistency
-ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]='fg=#f6c177'
+# 11. STRINGS / QUOTES — Foam greenish-cyan
+ZSH_HIGHLIGHT_STYLES[quotation]='fg=#9ccfd8'        
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#9ccfd8'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#9ccfd8'
 
-# 10. GLOBS / WILDCARDS — Pine for subtle emphasis
-ZSH_HIGHLIGHT_STYLES[globbing]='fg=#31748f'
+# 12. NUMBERS / CONSTANTS — Peach/orange
+ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]='fg=#ea9d34'
+ZSH_HIGHLIGHT_STYLES[arithmetic-expansion]='fg=#ea9d34'    
+ZSH_HIGHLIGHT_STYLES[number]='fg=#ea9d34'
 
-# VI MODE REGION 
+# 13. GLOBS / WILDCARDS — Different blue shade
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=#286983' 
+
+# 14. VI MODE REGION 
 ZSH_HIGHLIGHT_STYLES[region]='bg=#393552'
+
+# 15. VARIABLE ASSIGNMENTS — Different purple
+ZSH_HIGHLIGHT_STYLES[assign]='fg=#e0def4'
+
+# 16. BACKQUOTES / COMMAND SUBSTITUTION — Gold
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=#f6c177'
+
+# 17. UNCLOSED / ERRORS — Rose red
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument-unclosed]='fg=#eb6f92'
+ZSH_HIGHLIGHT_STYLES[command-substitution-unclosed]='fg=#eb6f92'
+
+export ZVM_CURSOR_STYLE_ENABLED=false
 
 source $ZSH/oh-my-zsh.sh
 
