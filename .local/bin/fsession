@@ -43,7 +43,7 @@ fi
 # Now, attach to or switch to the session.
 if [[ -z "${TMUX:-}" ]]; then
     # Not in a tmux session, so we can safely attach.
-    tmux attach-session -t "$selected_name"
+    exec tmux attach-session -t "$selected_name"
 else
     # Already in a tmux session, so we must switch clients to avoid nesting.
     tmux switch-client -t "$selected_name"

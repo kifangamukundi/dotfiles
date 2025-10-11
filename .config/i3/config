@@ -118,7 +118,7 @@ mode "resize" {
 }
 
 # Mode: control the media 
-bindsym $mod+p exec "echo 'Media' > /tmp/i3_mode; i3-msg mode media"
+bindsym $mod+m exec "echo 'Media' > /tmp/i3_mode; i3-msg mode media"
 mode "media" {
     # Playback
     bindsym space exec --no-startup-id "~/.config/i3/media.py toggle"
@@ -142,6 +142,9 @@ bindsym $mod+c kill
 bindsym $mod+q exec --no-startup-id ~/.config/i3/close.py
 bindsym $mod+o exec --no-startup-id ~/.config/i3/only.py
 bindsym $mod+f fullscreen toggle
+
+# bindsym $mod+n exec i3-msg workspace next_on_output
+# bindsym $mod+p exec i3-msg workspace prev_on_output
 
 # Basic directional focus
 bindsym $mod+h focus left
