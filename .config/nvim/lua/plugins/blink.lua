@@ -2,7 +2,8 @@ vim.pack.add({
     {
         src = "https://github.com/saghen/blink.cmp",
         name = "blink.cmp",
-        version = 'v1.6.0'
+        version = 'v1.7.0',
+        -- build = 'cargo build --release'
     },
     { src = "https://github.com/rafamadriz/friendly-snippets", name = "friendly-snippets" },
     { src = "https://github.com/folke/lazydev.nvim",           name = "lazydev.nvim" },

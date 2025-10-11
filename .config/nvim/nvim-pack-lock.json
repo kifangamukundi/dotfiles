@@ -1,0 +1,108 @@
+{
+  "plugins": {
+    "Comment.nvim": {
+      "rev": "e30b7f2",
+      "src": "https://github.com/numToStr/Comment.nvim"
+    },
+    "Fidget.nvim": {
+      "rev": "3f54759",
+      "src": "https://github.com/j-hui/fidget.nvim"
+    },
+    "auto-session": {
+      "rev": "517a757",
+      "src": "https://github.com/rmagatti/auto-session"
+    },
+    "blink.cmp": {
+      "rev": "bae4bae",
+      "version": "'v1.7.0'"
+    },
+    "friendly-snippets": {
+      "rev": "572f566",
+      "src": "https://github.com/rafamadriz/friendly-snippets"
+    },
+    "fzf-lua": {
+      "rev": "db3ccff",
+      "src": "https://github.com/ibhagwan/fzf-lua"
+    },
+    "gitsigns.nvim": {
+      "rev": "1ee5c1f",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
+    "harpoon": {
+      "rev": "ed1f853",
+      "src": "https://github.com/ThePrimeagen/harpoon",
+      "version": "'harpoon2'"
+    },
+    "lazydev.nvim": {
+      "rev": "e28ce52",
+      "src": "https://github.com/folke/lazydev.nvim"
+    },
+    "markdown-preview.nvim": {
+      "rev": "a923f5f",
+      "src": "https://github.com/iamcco/markdown-preview.nvim"
+    },
+    "marks.nvim": {
+      "rev": "f353e8c",
+      "src": "https://github.com/chentoast/marks.nvim"
+    },
+    "mason-lspconfig.nvim": [],
+    "mason-tool-installer.nvim": [],
+    "mason.nvim": [],
+    "none-ls-extras.nvim": {
+      "rev": "402c6b5",
+      "src": "https://github.com/nvimtools/none-ls-extras.nvim"
+    },
+    "none-ls.nvim": {
+      "rev": "5cf6384",
+      "src": "https://github.com/nvimtools/none-ls.nvim"
+    },
+    "nvim-lspconfig": [],
+    "nvim-treesitter": [],
+    "nvim-treesitter-context": [],
+    "nvim-treesitter-textobjects": [],
+    "nvim-ts-context-commentstring": {
+      "rev": "1b212c2",
+      "src": "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
+    },
+    "nvim-web-devicons": {
+      "rev": "b8221e4",
+      "src": "https://github.com/nvim-tree/nvim-web-devicons"
+    },
+    "oil.nvim": {
+      "rev": "919e155",
+      "src": "https://github.com/stevearc/oil.nvim"
+    },
+    "plenary.nvim": {
+      "rev": "b9fd522",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "rose-pine": {
+      "rev": "72a04c4",
+      "src": "https://github.com/rose-pine/neovim"
+    },
+    "undotree": {
+      "rev": "0f1c981",
+      "src": "https://github.com/mbbill/undotree"
+    },
+    "vim-be-good": {
+      "rev": "0ae3de1",
+      "src": "https://github.com/ThePrimeagen/vim-be-good"
+    },
+    "vim-fugitive": {
+      "rev": "61b51c0",
+      "src": "https://github.com/tpope/vim-fugitive"
+    },
+    "vim-markdown": {
+      "rev": "8f6cb3a",
+      "src": "https://github.com/plasticboy/vim-markdown"
+    },
+    "vim-pencil": {
+      "rev": "6d70438",
+      "src": "https://github.com/preservim/vim-pencil"
+    },
+    "which-key.nvim": {
+      "rev": "b4177e3",
+      "src": "https://github.com/folke/which-key.nvim"
+    }
+  }
+}
