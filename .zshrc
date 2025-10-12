@@ -114,6 +114,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export EDITOR=nvim
 export VISUAL=nvim
 export MANPAGER="nvim +Man!"
+export BAT_PAGER="less -R"
 export TERMINAL=alacritty
 export BROWSER=google-chrome
 
@@ -124,6 +125,7 @@ export PATH=$PATH:/sbin:/usr/sbin
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$(go env GOPATH)/bin
 export PATH="$PATH:/opt/nvim-linux64/bin"
+
 
 # SOURCING & CUSTOM DEFINITIONS 
 
@@ -157,7 +159,11 @@ if [[ $- == *i* ]]; then
 
     # Addons: --delete (mirror source with destination), --dry-run (preview), -u (update only newer), --exclude (skip files)
     alias rsync='rsync -avh --progress --partial --inplace --human-readable --info=stats1,progress2 --compress --rsh=ssh'
+
+    # Use bat instead of cat with syntax highlighting and paging
+    alias cat='bat --style=plain --paging=always --decorations=always --color=always'
 fi
+
 
 # Aliases
 alias history-clean="history -c && history -r && history -w"

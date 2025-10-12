@@ -102,6 +102,9 @@ if [[ $- == *i* ]]; then
 
     # Addons: --delete (mirror source with destination), --dry-run (preview), -u (update only newer), --exclude (skip files)
     alias rsync='rsync -avh --progress --partial --inplace --human-readable --info=stats1,progress2 --compress --rsh=ssh'
+
+    # Use bat instead of cat with syntax highlighting and paging
+    alias cat='bat --style=plain --paging=always --decorations=always --color=always'
 fi
 
 # Source additional aliases from ~/.bash_aliases if it exists
@@ -149,6 +152,8 @@ export VISUAL=nvim
 
 # make sure groff is installed 
 export MANPAGER="nvim +Man!"
+
+export BAT_PAGER="less -R"
 
 export TERMINAL=alacritty
 export BROWSER=google-chrome
