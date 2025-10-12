@@ -182,7 +182,8 @@ eval "$(fzf --zsh)"
 
 xset r rate 300 50
 
-bindkey -v
+# not needed since am using a plugin for vi mode
+# bindkey -v
 export KEYTIMEOUT=1
 
 eval "$(starship init zsh)"
@@ -201,7 +202,9 @@ function fmusic_widget() {
 zle -N fsession_widget
 zle -N fmusic_widget
 
-bindkey -M viins '^f' fsession_widget
-bindkey -M viins '^b' fmusic_widget
-bindkey -M vicmd '^f' fsession_widget
-bindkey -M vicmd '^b' fmusic_widget
+zvm_after_init() {
+  bindkey -M viins '^f' fsession_widget
+  bindkey -M viins '^b' fmusic_widget
+  bindkey -M vicmd '^f' fsession_widget
+  bindkey -M vicmd '^b' fmusic_widget
+}
