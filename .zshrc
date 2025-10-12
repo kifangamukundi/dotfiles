@@ -138,14 +138,25 @@ fi
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-# Enable color support for ls and add handy aliases
+# Enable color support for ls
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    
     alias ls='ls --color=auto'
-    alias grep='grep -E --color=auto -niI --exclude="*.svg" --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
-    alias fd='fd --regex --color=auto -iHI --exclude ".git" --exclude ".hg" --exclude ".svn" --exclude node_modules --exclude dist --exclude build'
+fi
+
+# Only in the interactive shell NOT IN Scripts 
+if [[ $- == *i* ]]; then
+    # Addons include (-r, -l,-c number, -v(for inverse)) 
+    alias grep='grep -E --color=auto -niI --exclude=*.svg --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
+
+    # Addons include (-t (with the following options:f, d, l, b, c, s, p, x, e)) 
+    alias fd='fd --regex --color=auto -iHI --exclude .git --exclude .hg --exclude .svn --exclude node_modules --exclude dist --exclude build'
+
+    #Addons for awk no -E arguments so not alias required
     alias sed='sed -E'
+
+    # Addons: --delete (mirror source with destination), --dry-run (preview), -u (update only newer), --exclude (skip files)
+    alias rsync='rsync -avh --progress --partial --inplace --human-readable --info=stats1,progress2 --compress --rsh=ssh'
 fi
 
 # Aliases
@@ -178,7 +189,9 @@ ansiblex() {
 
 # PROMPT AND KEYBINDINGS
 
-eval "$(fzf --zsh)"
+if [[ $- == *i* ]]; then
+  eval "$(fzf --zsh)"
+fi
 
 xset r rate 300 50
 
@@ -186,7 +199,10 @@ xset r rate 300 50
 # bindkey -v
 export KEYTIMEOUT=1
 
-eval "$(starship init zsh)"
+if [[ $- == *i* ]]; then
+  eval "$(starship init zsh)"
+fi
+
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 
 function fsession_widget() {

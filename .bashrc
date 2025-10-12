@@ -83,11 +83,14 @@ xterm*|rxvt*)
     ;;
 esac
 
-# Enable color support for ls and add handy aliases
+# Enable color support for ls
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
+fi
 
+# Only in the interactive shell NOT IN Scripts 
+if [[ $- == *i* ]]; then
     # Addons include (-r, -l,-c number, -v(for inverse)) 
     alias grep='grep -E --color=auto -niI --exclude=*.svg --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
 
@@ -96,6 +99,9 @@ if [ -x /usr/bin/dircolors ]; then
 
     #Addons for awk no -E arguments so not alias required
     alias sed='sed -E'
+
+    # Addons: --delete (mirror source with destination), --dry-run (preview), -u (update only newer), --exclude (skip files)
+    alias rsync='rsync -avh --progress --partial --inplace --human-readable --info=stats1,progress2 --compress --rsh=ssh'
 fi
 
 # Source additional aliases from ~/.bash_aliases if it exists
@@ -164,7 +170,10 @@ export PATH=$PATH:/sbin:/usr/sbin
 . "$HOME/.cargo/env"
 
 # Initialize Starship prompt
-eval "$(starship init bash)"
+if [[ $- == *i* ]]; then
+  eval "$(starship init bash)"
+fi
+
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 
 # Load NVM
@@ -173,7 +182,9 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Set up fzf key bindings and fuzzy completion
-eval "$(fzf --bash)"
+if [[ $- == *i* ]]; then
+  eval "$(fzf --bash)"
+fi
 
 # Keys rate 
 xset r rate 300 50
