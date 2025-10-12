@@ -147,7 +147,7 @@ fi
 # Only in the interactive shell NOT IN Scripts 
 if [[ $- == *i* ]]; then
     # Addons include (-r, -l,-c number, -v(for inverse)) 
-    alias grep='grep -E --color=auto -niI --exclude=*.svg --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
+    alias grep='grep -E --color=auto -niI --exclude="*.svg" --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
 
     # Addons include (-t (with the following options:f, d, l, b, c, s, p, x, e)) 
     alias fd='fd --regex --color=auto -iHI --exclude .git --exclude .hg --exclude .svn --exclude node_modules --exclude dist --exclude build'
