@@ -1,6 +1,6 @@
 #!/bin/bash
 
-package_list="i3 xorg xinit picom feh polybar mpd mpc mpv socat alacritty ansible pipewire pipewire-pulse wireplumber pavucontrol git"
+package_list="i3 xorg xinit picom feh polybar mpd mpc mpv socat alacritty ansible pipewire pipewire-pulse wireplumber pavucontrol git rsync"
 
 sudo apt install -y $package_list
 
