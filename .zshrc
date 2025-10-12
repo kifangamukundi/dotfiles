@@ -199,12 +199,21 @@ function fmusic_widget() {
   zle reset-prompt
 }
 
+function fzf-history-widget() {
+  BUFFER=$(fc -l -n 1 | fzf --height 40% --border --query="$LBUFFER")
+  CURSOR=$#BUFFER
+  zle reset-prompt
+}
+
 zle -N fsession_widget
 zle -N fmusic_widget
+zle -N fzf-history-widget
 
 zvm_after_init() {
   bindkey -M viins '^f' fsession_widget
   bindkey -M viins '^b' fmusic_widget
   bindkey -M vicmd '^f' fsession_widget
   bindkey -M vicmd '^b' fmusic_widget
+  bindkey -M viins '^R' fzf-history-widget
+  bindkey -M vicmd '^R' fzf-history-widget
 }
