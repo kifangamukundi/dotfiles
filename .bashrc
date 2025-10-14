@@ -91,6 +91,15 @@ fi
 
 # Only in the interactive shell NOT IN Scripts 
 if [[ $- == *i* ]]; then
+    # Addons: -i (interactive confirm), -r (recursive), -f (force), -v (verbose), -u (update only newer)
+    alias cp='cp -iv --reflink=auto'
+
+    # Addons: -i (interactive confirm), -f (force), -v (verbose), -u (update only newer)
+    alias mv='mv -iv'
+
+    # Addons: -i (interactive confirm), -r (recursive dirs), -f (force), -v (verbose)
+    alias rm='rm -iv --preserve-root'
+
     # Addons include (-r, -l,-c number, -v(for inverse)) 
     alias grep='grep -E --color=auto -niI --exclude=*.svg --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
 
@@ -102,6 +111,9 @@ if [[ $- == *i* ]]; then
 
     # Addons: --delete (mirror source with destination), --dry-run (preview), -u (update only newer), --exclude (skip files)
     alias rsync='rsync -avh --progress --partial --inplace --human-readable --info=stats1,progress2 --compress --rsh=ssh'
+
+    # Addons: -i (custom key), -P (custom port), -vvv (debug), -b (batch file), -o option=value (extra SSH options)
+    alias sftp='sftp -C -p -r -q -o ConnectTimeout=10 -o ServerAliveInterval=60 -o ServerAliveCountMax=3'
 
     # Use bat instead of cat with syntax highlighting and paging
     alias cat='bat --style=plain --paging=always --decorations=always --color=always'
