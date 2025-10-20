@@ -43,7 +43,12 @@ vim.api.nvim_create_autocmd("VimEnter", {
         require("rose-pine").setup({
             variant = 'moon',
             styles = {
+                bold = true,
+                italic = false,
                 transparency = true,
+            },
+            highlight_groups = {
+                Comment = { italic = true },
             },
             enable = {
                 transparency = true,

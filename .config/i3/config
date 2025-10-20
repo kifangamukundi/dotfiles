@@ -1,6 +1,6 @@
 set $mod Mod4
 
-font pango:JetBrains Mono Nerd Font 8
+font pango:JetBrainsMono Nerd Font 8
 # e0def4
 # item.property          <border> <background> <text> <indicator> <child_border>
 # client.focused          #9ccfd8 #9ccfd8 #9ccfd8 #9ccfd8
