@@ -1,0 +1,45 @@
+{
+  "plugins": {
+    "Comment.nvim": [],
+    "auto-session": {
+      "rev": "788ada9"
+    },
+    "blink.cmp": {
+      "version": "'v1.6.0'"
+    },
+    "fzf-lua": {
+      "rev": "9244bd4"
+    },
+    "gitsigns.nvim": {
+      "rev": "20ad441"
+    },
+    "harpoon": {
+      "version": "'harpoon2'"
+    },
+    "markdown-preview.nvim": [],
+    "marks.nvim": [],
+    "nvim-treesitter": [],
+    "nvim-treesitter-context": {
+      "rev": "ec308c7"
+    },
+    "nvim-treesitter-textobjects": {
+      "rev": "a9742cb"
+    },
+    "nvim-ts-context-commentstring": [],
+    "nvim-web-devicons": [],
+    "oil.nvim": {
+      "rev": "7e1cd77"
+    },
+    "plenary.nvim": [],
+    "rose-pine": [],
+    "undotree": [],
+    "vim-fugitive": [],
+    "vim-markdown": {
+      "rev": "1bc9d0c"
+    },
+    "vim-pencil": [],
+    "which-key.nvim": {
+      "rev": "b4177e3"
+    }
+  }
+}

@@ -92,13 +92,13 @@ fi
 # Only in the interactive shell NOT IN Scripts 
 if [[ $- == *i* ]]; then
     # Addons: -i (interactive confirm), -r (recursive), -f (force), -v (verbose), -u (update only newer)
-    alias cp='cp -iv --reflink=auto'
+    alias cp='cp -v --reflink=auto'
 
     # Addons: -i (interactive confirm), -f (force), -v (verbose), -u (update only newer)
-    alias mv='mv -iv'
+    alias mv='mv -v'
 
     # Addons: -i (interactive confirm), -r (recursive dirs), -f (force), -v (verbose)
-    alias rm='rm -iv --preserve-root'
+    alias rm='rm -v --preserve-root'
 
     # Addons include (-r, -l,-c number, -v(for inverse)) 
     alias grep='grep -E --color=auto -niI --exclude=*.svg --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'

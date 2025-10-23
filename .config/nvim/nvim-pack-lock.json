@@ -5,11 +5,11 @@
       "src": "https://github.com/numToStr/Comment.nvim"
     },
     "Fidget.nvim": {
-      "rev": "3f54759",
+      "rev": "e32b672",
       "src": "https://github.com/j-hui/fidget.nvim"
     },
     "auto-session": {
-      "rev": "517a757",
+      "rev": "788ada9",
       "src": "https://github.com/rmagatti/auto-session"
     },
     "blink.cmp": {
@@ -21,11 +21,11 @@
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "fzf-lua": {
-      "rev": "83e4080",
+      "rev": "9244bd4",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
-      "rev": "1ee5c1f",
+      "rev": "20ad441",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "harpoon": {
@@ -34,7 +34,7 @@
       "version": "'harpoon2'"
     },
     "lazydev.nvim": {
-      "rev": "e28ce52",
+      "rev": "01bc2aa",
       "src": "https://github.com/folke/lazydev.nvim"
     },
     "markdown-preview.nvim": {
@@ -45,7 +45,9 @@
       "rev": "f353e8c",
       "src": "https://github.com/chentoast/marks.nvim"
     },
-    "mason-lspconfig.nvim": [],
+    "mason-lspconfig.nvim": {
+      "rev": "2304ff6"
+    },
     "mason-tool-installer.nvim": [],
     "mason.nvim": [],
     "none-ls-extras.nvim": {
@@ -56,10 +58,16 @@
       "rev": "a96172f",
       "src": "https://github.com/nvimtools/none-ls.nvim"
     },
-    "nvim-lspconfig": [],
+    "nvim-lspconfig": {
+      "rev": "ececa53"
+    },
     "nvim-treesitter": [],
-    "nvim-treesitter-context": [],
-    "nvim-treesitter-textobjects": [],
+    "nvim-treesitter-context": {
+      "rev": "ec308c7"
+    },
+    "nvim-treesitter-textobjects": {
+      "rev": "a9742cb"
+    },
     "nvim-ts-context-commentstring": {
       "rev": "1b212c2",
       "src": "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
@@ -69,7 +77,7 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {
-      "rev": "919e155",
+      "rev": "7e1cd77",
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "plenary.nvim": {
@@ -93,7 +101,7 @@
       "src": "https://github.com/tpope/vim-fugitive"
     },
     "vim-markdown": {
-      "rev": "8f6cb3a",
+      "rev": "1bc9d0c",
       "src": "https://github.com/plasticboy/vim-markdown"
     },
     "vim-pencil": {

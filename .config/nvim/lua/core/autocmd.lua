@@ -1,6 +1,12 @@
 vim.api.nvim_create_user_command("PackUpdateAll", function()
-    vim.pack.update()
-    vim.notify("All plugins updated!", vim.log.levels.INFO)
+    vim.schedule(function()
+        local ok, err = pcall(vim.pack.update)
+        if not ok then
+            vim.notify("Pack update failed: " .. err, vim.log.levels.ERROR)
+        else
+            vim.notify("All plugins updated!", vim.log.levels.INFO)
+        end
+    end)
 end, { desc = "Update all plugins" })
 
 vim.api.nvim_create_autocmd("TextYankPost",
