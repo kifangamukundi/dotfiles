@@ -2,7 +2,7 @@
 
 sudo apt update
 
-package_list="build-essential cmake libevent-dev libncurses-dev pkg-config bison byacc unzip git curl fontconfig ripgrep xclip fuse i3 picom polybar rofi"
+package_list="build-essential cmake libevent-dev libncurses-dev pkg-config bison byacc unzip git curl fontconfig ripgrep xclip xdotool fuse i3 picom polybar rofi"
 sudo apt install -y $package_list
 
 success=true
