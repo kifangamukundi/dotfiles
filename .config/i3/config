@@ -150,7 +150,7 @@ mode "mouse" {
     bindsym Shift+v exec --no-startup-id "xdotool click --repeat 3 1; xdotool mousedown 1; echo 'Select' > /tmp/i3_mode; i3-msg mode select"
     
     bindsym c exec --no-startup-id "xdotool click 1"
-    bindsym m exec --no-startup-id "xdotool click 2"
+    bindsym p exec --no-startup-id "xdotool click 2"
     bindsym r exec --no-startup-id "xdotool click 3"
     
     bindsym u exec --no-startup-id "xdotool click 4"
