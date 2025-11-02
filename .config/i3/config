@@ -130,12 +130,43 @@ mode "media" {
     bindsym k     exec --no-startup-id "~/.config/i3/media.py kill && echo Default > /tmp/i3_mode && i3-msg mode default"
 
     # Volume
-    bindsym i     exec --no-startup-id "~/.config/i3/media.py volup"
+    bindsym u     exec --no-startup-id "~/.config/i3/media.py volup"
     bindsym d     exec --no-startup-id "~/.config/i3/media.py voldown"
     bindsym m     exec --no-startup-id "~/.config/i3/media.py mute"
 
     # Exit media mode
     bindsym Escape exec "echo 'Default' > /tmp/i3_mode; i3-msg mode default"
+}
+
+# Mode: Mouse
+bindsym $mod+x exec "echo 'Mouse' > /tmp/i3_mode; i3-msg mode mouse"
+mode "mouse" {
+    bindsym h exec --no-startup-id "xdotool mousemove_relative -- -15 0"
+    bindsym j exec --no-startup-id "xdotool mousemove_relative -- 0 15"
+    bindsym k exec --no-startup-id "xdotool mousemove_relative -- 0 -15"
+    bindsym l exec --no-startup-id "xdotool mousemove_relative -- 15 0"
+    
+    bindsym v exec --no-startup-id "xdotool mousedown 1; echo 'Select' > /tmp/i3_mode; i3-msg mode select"
+    bindsym Shift+v exec --no-startup-id "xdotool click --repeat 3 1; xdotool mousedown 1; echo 'Select' > /tmp/i3_mode; i3-msg mode select"
+    
+    bindsym c exec --no-startup-id "xdotool click 1"
+    bindsym r exec --no-startup-id "xdotool click 3"
+    
+    bindsym u exec --no-startup-id "xdotool click 4"
+    bindsym d exec --no-startup-id "xdotool click 5"
+    
+    bindsym Escape exec "echo 'Default' > /tmp/i3_mode; i3-msg mode default"
+}
+
+mode "select" {
+    bindsym h exec --no-startup-id "xdotool mousemove_relative -- -15 0"
+    bindsym j exec --no-startup-id "xdotool mousemove_relative -- 0 15"
+    bindsym k exec --no-startup-id "xdotool mousemove_relative -- 0 -15"
+    bindsym l exec --no-startup-id "xdotool mousemove_relative -- 15 0"
+    
+    bindsym y exec --no-startup-id "xdotool mouseup 1; sleep 0.1; xdotool key Ctrl+c; xdotool click 1; echo 'Mouse' > /tmp/i3_mode; i3-msg mode mouse"
+    
+    bindsym Escape exec --no-startup-id "xdotool mouseup 1; xdotool click 1; echo 'Mouse' > /tmp/i3_mode; i3-msg mode mouse"
 }
 
 bindsym $mod+c kill
