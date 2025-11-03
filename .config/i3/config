@@ -139,7 +139,7 @@ mode "media" {
 }
 
 # Mode: Mouse
-bindsym $mod+i exec "echo 'Mouse' > /tmp/i3_mode; i3-msg mode mouse"
+bindsym $mod+m exec "echo 'Mouse' > /tmp/i3_mode; i3-msg mode mouse"
 mode "mouse" {
     bindsym h exec --no-startup-id "xdotool mousemove_relative -- -15 0"
     bindsym j exec --no-startup-id "xdotool mousemove_relative -- 0 15"
