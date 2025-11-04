@@ -1,7 +1,7 @@
 #!/bin/bash
 
-default_fg="#6e6a86"
-session_fg="#393552"
+default_mode="#6e6a86"
+other_modes="#e06c75"
 
 mode="Default"
 color=$default_fg
@@ -15,9 +15,9 @@ if [ -f /tmp/i3_mode ]; then
 fi
 
 if [ "$mode" != "Default" ]; then
-    color=$session_fg
+    color=$other_modes
 else
-    color=$default_fg
+    color=$default_mode
 fi
 
 echo "%{F$color}$mode%{F-}"
