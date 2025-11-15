@@ -174,21 +174,6 @@ if [[ $- == *i* ]]; then
 
     # Use bat instead of cat with syntax highlighting and paging
     alias cat='bat --style=plain --paging=always --decorations=always --color=always'
-
-    # NON-OPTIMIZED ASSEMBLY - Clean output for inspection
-    alias gcs='gcc -std=c23 -O0 -S -masm=intel -fverbose-asm'
-
-    # OPTIMIZED ASSEMBLY - See compiler optimizations  
-    alias gcs-opt='gcc -std=c23 -O3 -march=native -S -masm=intel -fverbose-asm'
-
-    #3️⃣ OPTIMIZED OBJECT FILE - For separate compilation  
-    alias gco='gcc -std=c23 -O3 -march=native -c -Wall -Wextra -Wpedantic'
-
-    # OPTIMIZED EXECUTABLE - Standard (dynamic linking)
-    alias gcb='gcc -std=c23 -O3 -march=native -flto -Wall -Wextra -Wpedantic'
-
-    # 5️⃣ STATIC EXECUTABLE - Self-contained (optional)
-    alias gcb-static='gcc -std=c23 -O3 -march=native -flto -static -Wall -Wextra -Wpedantic'
 fi
 
 
@@ -218,6 +203,19 @@ ansiblex() {
       echo "Usage: ans {encrypt|view|edit|rekey} file..."
       ;;
   esac
+}
+
+# Oauthtool shortcut
+oathtoolx() {
+    secret="$1"
+
+    if [ -z "$secret" ]; then
+        echo "Usage: oathtoolx SECRETKEY"
+        return 1
+    fi
+
+    clean_secret=$(echo "$secret" | tr -d ' ')
+    oathtool --totp -b "$clean_secret"
 }
 
 # PROMPT AND KEYBINDINGS

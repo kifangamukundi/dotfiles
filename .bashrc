@@ -141,6 +141,19 @@ ansiblex() {
   esac 
 }
 
+# Oauthtool shortcut
+oathtoolx() {
+    secret="$1"
+
+    if [ -z "$secret" ]; then
+        echo "Usage: oathtoolx SECRETKEY"
+        return 1
+    fi
+
+    clean_secret=$(echo "$secret" | tr -d ' ')
+    oathtool --totp -b "$clean_secret"
+}
+
 # Enable programmable completion features
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
