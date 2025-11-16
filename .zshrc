@@ -206,11 +206,11 @@ ansiblex() {
 }
 
 # Oauthtool shortcut
-oathtoolx() {
+authx() {
     secret="$1"
 
     if [ -z "$secret" ]; then
-        echo "Usage: oathtoolx SECRETKEY"
+        echo "Usage: authx SECRETKEY"
         return 1
     fi
 
