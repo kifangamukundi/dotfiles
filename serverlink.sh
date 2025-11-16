@@ -51,10 +51,10 @@ remove_symlink_if_exists "$CONFIG_DIR/starship"
 remove_symlink_if_exists "$CONFIG_DIR/tmux/tmux.conf"
 remove_symlink_if_exists "$LOCAL_DIR/bin"
 
-create_symlink "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
-create_symlink "$DOTFILES_DIR/.config/nvim" "$CONFIG_DIR/nvim"
+create_symlink "$DOTFILES_DIR/.zshrcserver" "$HOME/.zshrc"
+create_symlink "$DOTFILES_DIR/.config/nvim-server" "$CONFIG_DIR/nvim"
 create_symlink "$DOTFILES_DIR/.config/starship" "$CONFIG_DIR/starship"
-create_symlink "$DOTFILES_DIR/.config/tmux.conf" "$CONFIG_DIR/tmux/tmuxserver.conf"
+create_symlink "$DOTFILES_DIR/.config/tmuxserver.conf" "$CONFIG_DIR/tmux/tmux.conf"
 create_symlink "$DOTFILES_DIR/.config/alacritty" "$CONFIG_DIR/alacritty"
 create_symlink "$DOTFILES_DIR/.local/bin" "$LOCAL_DIR/bin"
 
