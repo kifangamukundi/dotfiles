@@ -171,8 +171,6 @@ if [[ $- == *i* ]]; then
   eval "$(fzf --zsh)"
 fi
 
-xset r rate 300 50
-
 # not needed since am using a plugin for vi mode
 # bindkey -v
 export KEYTIMEOUT=1
