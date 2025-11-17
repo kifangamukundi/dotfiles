@@ -32,10 +32,8 @@ bindsym $mod+d exec --no-startup-id rofi -show drun
 
 assign [class="^Alacritty"] 1
 assign [class="Google-chrome"] 2
-assign [class="firefox-esr"] 3
-assign [class="spotify"] 5
 
-for_window [instance="MPV-Video-Player"] move to workspace 4
+for_window [instance="MPV-Video-Player"] move to workspace 3
 for_window [class="^.*"] border pixel 2
 
 exec --no-startup-id alacritty

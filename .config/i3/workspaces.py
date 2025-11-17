@@ -15,9 +15,7 @@ i3 = i3ipc.Connection()
 WORKSPACE_APPS = {
     1: "alacritty",
     2: "google-chrome-stable",
-    3: "firefox-esr",
-    4: "mpv --idle",
-    5: "spotify",
+    3: "mpv --idle",
 }
 
 # Track recently focused workspaces to prevent rapid re-launching
