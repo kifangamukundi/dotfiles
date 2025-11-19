@@ -9,7 +9,7 @@ client.unfocused        #2e2e2e #1e1e1e #888888 #3a3a3a #1e1e1e
 client.focused_inactive #4c4c4c #1e1e1e #cccccc #555555 #1e1e1e
 client.urgent           #e07a5f #3c1f1f #ffffff #e07a5f #3c1f1f
 
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 000000
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 000000
 exec_always --no-startup-id setxkbmap -option caps:escape
 exec_always --no-startup-id sh -c 'echo "Default" > /tmp/i3_mode'
 exec_always --no-startup-id xrandr --output VGA-1 --mode 1920x1080 --rate 60 --primary --output HDMI-1 --off
