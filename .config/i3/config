@@ -130,7 +130,7 @@ mode "media" {
     bindsym k     exec --no-startup-id "~/.config/i3/media.py kill && echo Default > /tmp/i3_mode && i3-msg mode default"
 
     # Volume
-    bindsym i     exec --no-startup-id "~/.config/i3/media.py volup"
+    bindsym u     exec --no-startup-id "~/.config/i3/media.py volup"
     bindsym d     exec --no-startup-id "~/.config/i3/media.py voldown"
     bindsym m     exec --no-startup-id "~/.config/i3/media.py mute"
 
