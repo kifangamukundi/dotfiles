@@ -55,7 +55,7 @@ bindsym $mod+a exec "echo 'System' > /tmp/i3_mode; i3-msg mode system"
 mode "system" {
     bindsym r exec i3-msg restart
     bindsym c exec --no-startup-id bash -c 'i3-msg reload && echo Default > /tmp/i3_mode && i3-msg mode default'
-    bindsym e exec --no-startup-id "i3-nagbar -t warning -m 'Exit i3?' -B 'Yes, exit i3' 'i3-msg exit && echo Default > /tmp/i3_mode && i3-msg mode default'"
+    bindsym e exec --no-startup-id "i3-nagbar -t warning -m 'Take a break' -B 'Yes' 'i3-msg exit && echo Default > /tmp/i3_mode && i3-msg mode default'"
     bindsym Escape exec "echo 'Default' > /tmp/i3_mode; i3-msg mode default"
 }
 
