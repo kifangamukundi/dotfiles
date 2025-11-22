@@ -220,9 +220,6 @@ if [[ $- == *i* ]]; then
   eval "$(fzf --height 40% --border --bash)"
 fi
 
-# Keys rate 
-xset r rate 300 50
-
 # Bind Ctrl+f to tmux session
 bind -x '"\C-g": ~/.local/bin/fsession'
 
