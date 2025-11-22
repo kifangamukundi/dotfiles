@@ -213,22 +213,18 @@ export NVM_DIR="$HOME/.config/nvm"
 
 # Set up fzf key bindings and fuzzy completion
 if [[ $- == *i* ]]; then
-  eval "$(fzf --bash)"
+  eval "$(fzf --height 40% --border --bash)"
 fi
 
 # Keys rate 
 xset r rate 300 50
 
 # Bind Ctrl+f to tmux session
-bind -x '"\C-f": ~/.local/bin/fsession'
-bind -x '"\C-b": ~/.local/bin/fmusic'
+bind -x '"\C-g": ~/.local/bin/fsession'
 
 bind -m vi-insert '"\C-l":clear-screen'
 bind -m vi-command '"\C-l":clear-screen'
 
 alias fkill='~/.local/bin/fkill'
-alias fcontainer='~/.local/bin/fcontainer'
-alias fimage='~/.local/bin/fimage'
-alias fvolume='~/.local/bin/fvolume'
-alias fnetwork='~/.local/bin/fnetwork'
 alias fvideo='~/.local/bin/fvideo'
+alias fmusic='~/.local/bin/fmusic'

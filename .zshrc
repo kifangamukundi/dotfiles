@@ -181,10 +181,7 @@ alias history-clean="history -c && history -r && history -w"
 alias nviml="NVIM_APPNAME=nvim-lazy nvim"
 alias nvims="NVIM_APPNAME=nvim-server nvim"
 alias fkill='~/.local/bin/fkill'
-alias fcontainer='~/.local/bin/fcontainer'
-alias fimage='~/.local/bin/fimage'
-alias fvolume='~/.local/bin/fvolume'
-alias fnetwork='~/.local/bin/fnetwork'
+alias fmusic='~/.local/bin/fmusic'
 alias fvideo='~/.local/bin/fvideo'
 
 # Ansible shortcuts
@@ -240,11 +237,6 @@ function fsession_widget() {
   zle reset-prompt
 }
 
-function fmusic_widget() {
-  ~/.local/bin/fmusic
-  zle reset-prompt
-}
-
 function fzf-history-widget() {
   BUFFER=$(fc -l -n 1 | fzf --height 40% --border --query="$LBUFFER")
   CURSOR=$#BUFFER
@@ -252,14 +244,11 @@ function fzf-history-widget() {
 }
 
 zle -N fsession_widget
-zle -N fmusic_widget
 zle -N fzf-history-widget
 
 zvm_after_init() {
-  bindkey -M viins '^f' fsession_widget
-  bindkey -M viins '^b' fmusic_widget
-  bindkey -M vicmd '^f' fsession_widget
-  bindkey -M vicmd '^b' fmusic_widget
-  bindkey -M viins '^R' fzf-history-widget
-  bindkey -M vicmd '^R' fzf-history-widget
+  bindkey -M viins '^g' fsession_widget
+  bindkey -M vicmd '^g' fsession_widget
+  bindkey -M viins '^r' fzf-history-widget
+  bindkey -M vicmd '^r' fzf-history-widget
 }
