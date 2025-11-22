@@ -119,6 +119,10 @@ if [[ $- == *i* ]]; then
     alias cat='bat --style=plain --paging=always --decorations=always --color=always'
 fi
 
+# ps -efl (all processes) 
+# ps -efL (all threads) 
+# ps -efljH (all processes tree view) 
+#
 # Source additional aliases from ~/.bash_aliases if it exists
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases

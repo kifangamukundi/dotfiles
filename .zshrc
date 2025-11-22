@@ -175,6 +175,9 @@ if [[ $- == *i* ]]; then
     alias cat='bat --style=plain --paging=always --decorations=always --color=always'
 fi
 
+# ps -efl (all processes) 
+# ps -efL (all threads) 
+# ps -efljH (all processes tree view) 
 
 # Aliases
 alias history-clean="history -c && history -r && history -w"
