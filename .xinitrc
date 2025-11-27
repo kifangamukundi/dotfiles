@@ -7,7 +7,7 @@ xrdb -merge ~/.Xresources
 xset r rate 300 50
 
 # Screen saver activation after a given time
-xset s 60
+xset s 600
 
 # 2. Start the wallpaper rotation script in the background
 ~/.config/i3/rotate.sh &
