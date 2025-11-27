@@ -11,10 +11,14 @@ plugins=(
 # CUSTOM SYNTAX HIGHLIGHTING (ROSE PINE MOON HARMONY)
 typeset -A ZSH_HIGHLIGHT_STYLES
 
+# ZSH SYNTAX HIGHLIGHTING COMPLETE CONFIGURATION
+
 # COMMANDS & ALIASES & Functions
 ZSH_HIGHLIGHT_STYLES[command]='fg=#31748f,bold'
 ZSH_HIGHLIGHT_STYLES[alias]='fg=#31748f,bold'
 ZSH_HIGHLIGHT_STYLES[function]='fg=#31748f,bold'
+ZSH_HIGHLIGHT_STYLES[global-alias]='fg=#31748f,bold'
+ZSH_HIGHLIGHT_STYLES[suffix-alias]='fg=#31748f,bold'
 
 # BUILTINS & RESERVED WORDS
 ZSH_HIGHLIGHT_STYLES[builtin]='fg=#56949f,bold'
@@ -26,50 +30,74 @@ ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#f6c177,bold'
 ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#f6c177,bold'
 
 # GLOBS / WILDCARDS
-ZSH_HIGHLIGHT_STYLES[globbing]='fg=#6e6a86,bold' 
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=#6e6a86,bold'
 
 # PATHS / DIRECTORIES
 ZSH_HIGHLIGHT_STYLES[path]='fg=#95b1ac,bold'
 ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=#95b1ac,bold'
+ZSH_HIGHLIGHT_STYLES[path_pathseparator]='fg=#95b1ac,bold'
+ZSH_HIGHLIGHT_STYLES[path_prefix_pathseparator]='fg=#95b1ac,bold'
 
-# STRINGS / QUOTES 
-ZSH_HIGHLIGHT_STYLES[quotation]='fg=#eb6f92,bold'        
-ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#eb6f92,bold'
+# QUOTES & STRINGS
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#eb6f92,bold'
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#ea9a97,bold'
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=#6e6a86,bold'
+ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg=#95b1ac,bold'
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=#908caa'
+ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]='fg=#908caa'
+ZSH_HIGHLIGHT_STYLES[quotation]='fg=#56949f,bold'
+ZSH_HIGHLIGHT_STYLES[rc-quote]='fg=#908caa,bold'
 
-# BACKQUOTES / COMMAND SUBSTITUTION
-ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=#ea9a97,bold'
-
-# UNKNOWN / ERROR
-ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#eb6f92,bold'
-
-# VARIABLES — Iris purple
-ZSH_HIGHLIGHT_STYLES[dollar-variable]='fg=#c4a7e7'
-
-# PARAMETERS — Different purple shade
-ZSH_HIGHLIGHT_STYLES[param]='fg=#908caa'
-
-# COMMENTS 
-ZSH_HIGHLIGHT_STYLES[comment]='fg=#6e6a86,italic'
-
-# REDIRECTION
-ZSH_HIGHLIGHT_STYLES[redirection]='fg=#6e6a86,bold' 
-# TODO: check how do do for pipes
-
-# NUMBERS / CONSTANTS — Peach/orange
+# COMMAND SUBSTITUTION & EXPANSION
+ZSH_HIGHLIGHT_STYLES[command-substitution]='fg=#c4a7e7,bold'
 ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]='fg=#ea9d34'
-ZSH_HIGHLIGHT_STYLES[arithmetic-expansion]='fg=#ea9d34'    
-ZSH_HIGHLIGHT_STYLES[number]='fg=#ea9d34'
+ZSH_HIGHLIGHT_STYLES[arithmetic-expansion]='fg=#ea9d34'
+ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=#ea9d34,bold'
 
-# VI MODE REGION 
-ZSH_HIGHLIGHT_STYLES[region]='bg=#393552,bold'
+# PROCESS SUBSTITUTION
+ZSH_HIGHLIGHT_STYLES[process-substitution]='fg=#56949f,bold'
+ZSH_HIGHLIGHT_STYLES[process-substitution-delimiter]='fg=#56949f,bold'
 
-# VARIABLE ASSIGNMENTS — Different purple
+# VARIABLES & PARAMETERS
+ZSH_HIGHLIGHT_STYLES[dollar-variable]='fg=#c4a7e7'
+ZSH_HIGHLIGHT_STYLES[param]='fg=#908caa'
 ZSH_HIGHLIGHT_STYLES[assign]='fg=#e0def4'
 
-# UNCLOSED / ERRORS — Rose red
+# NUMBERS & CONSTANTS
+ZSH_HIGHLIGHT_STYLES[number]='fg=#ea9d34'
+
+# REDIRECTION & PIPES
+ZSH_HIGHLIGHT_STYLES[redirection]='fg=#6e6a86,bold'
+ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=#6e6a86,bold'
+ZSH_HIGHLIGHT_STYLES[named-fd]='fg=#6e6a86,bold'
+ZSH_HIGHLIGHT_STYLES[numeric-fd]='fg=#6e6a86,bold'
+
+# COMMENTS
+ZSH_HIGHLIGHT_STYLES[comment]='fg=#6e6a86,italic'
+
+# BRACKETS & PARENS
+ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=#31748f,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=#56949f,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=#ea9d34,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=#eb6f92,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-5]='fg=#c4a7e7,bold'
+
+# ERRORS & UNCLOSED
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#eb6f92,bold'
 ZSH_HIGHLIGHT_STYLES[back-quoted-argument-unclosed]='fg=#eb6f92'
 ZSH_HIGHLIGHT_STYLES[command-substitution-unclosed]='fg=#eb6f92'
+ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=#eb6f92,bold'
+
+# VI MODE & CURSOR
+ZSH_HIGHLIGHT_STYLES[region]='bg=#393552,bold'
+ZSH_HIGHLIGHT_STYLES[cursor]='bg=#eb6f92'
+ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='bg=#393552'
+
+# MISC & FALLBACKS
+ZSH_HIGHLIGHT_STYLES[default]='fg=#e0def4'
+ZSH_HIGHLIGHT_STYLES[arg0]='fg=#31748f,bold'
+ZSH_HIGHLIGHT_STYLES[line]='fg=#e0def4'
+ZSH_HIGHLIGHT_STYLES[root]='bg=#eb6f92'
 
 export ZVM_CURSOR_STYLE_ENABLED=false
 
