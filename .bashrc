@@ -158,6 +158,73 @@ authx() {
     oathtool --totp -b "$clean_secret"
 }
 
+# Whisperx transcription
+segmentx() {
+    audio_file="$1"
+    speakers="${2:-2}"
+    model="${3:-tiny}"
+    
+    # Validation
+    if [ -z "$audio_file" ]; then
+        echo "Usage: segmentx AUDIO_FILE [SPEAKERS] [MODEL]"
+        return 1
+    fi
+    
+    if [ ! -f "$audio_file" ]; then
+        echo "Error: File '$audio_file' not found"
+        return 1
+    fi
+    
+    if [ -z "$HF_TOKEN" ]; then
+        echo "Error: HF_TOKEN environment variable not set"
+        return 1
+    fi
+    
+    # Venv path - can be overridden with WHISPERX_VENV env var
+    local venv_path="${WHISPERX_VENV:-$HOME/whisperx_env}"
+    
+    if [ ! -f "$venv_path/bin/activate" ]; then
+        echo "Error: Virtual environment not found at $venv_path"
+        echo "Create it with: python -m venv '$venv_path'"
+        return 1
+    fi
+    
+    echo "🚀 Processing: $audio_file"
+    echo "   Model: $model | Speakers: $speakers"
+    
+    local start_time=$(date +%s)
+    
+    # Run the transcription
+    source "$venv_path/bin/activate" && \
+    ftranscript.py "$audio_file" \
+        --model "$model" \
+        --device cpu \
+        --compute_type float32 \
+        --diarize \
+        --min_speakers "$speakers" \
+        --max_speakers "$speakers" \
+        --highlight_words True \
+        --output_format all \
+        --hf_token "$HF_TOKEN" \
+        --print_progress True
+    
+    local exit_code=$?
+    deactivate 2>/dev/null
+    
+    # Show timing
+    local end_time=$(date +%s)
+    local duration=$((end_time - start_time))
+    
+    if [ $exit_code -eq 0 ]; then
+        echo "✅ Completed in $(($duration / 60))m$(($duration % 60))s"
+    else
+        echo "❌ Failed after $(($duration / 60))m$(($duration % 60))s"
+        return $exit_code
+    fi
+}
+
+# Optional: Add alias for convenience
+alias whisperx='segmentx'
 # Enable programmable completion features
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -167,11 +234,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Add Go to PATH
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$(go env GOPATH)/bin
+# Add user's local bin directory FIRST
+export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
 
-# Add Neovim to PATH
+# Then the rest of your existing PATH exports:
+export PATH="$PATH:/sbin:/usr/sbin"
+export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:$(go env GOPAPH)/bin"
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
 # Use vim as default editor 

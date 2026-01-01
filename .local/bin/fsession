@@ -15,6 +15,7 @@ search_dirs=(
     ~/work/fulus-africa/packages
     ~/work/fulus-africa/shared
     ~/lab
+    ~/lab/ai
 )
 
 selected=""

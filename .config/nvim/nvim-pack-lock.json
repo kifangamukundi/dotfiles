@@ -21,11 +21,11 @@
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "fzf-lua": {
-      "rev": "996b236",
+      "rev": "9d579fe",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
-      "rev": "20ad441",
+      "rev": "5813e48",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "harpoon": {
@@ -46,24 +46,26 @@
       "src": "https://github.com/chentoast/marks.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "b1d9a91"
+      "rev": "3b3571b"
     },
     "mason-tool-installer.nvim": [],
-    "mason.nvim": [],
+    "mason.nvim": {
+      "rev": "57e5a8a"
+    },
     "none-ls-extras.nvim": {
-      "rev": "70659cc",
+      "rev": "03955d1",
       "src": "https://github.com/nvimtools/none-ls-extras.nvim"
     },
     "none-ls.nvim": {
-      "rev": "5501975",
+      "rev": "5abf619",
       "src": "https://github.com/nvimtools/none-ls.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "2010fc6"
+      "rev": "c4f67bf"
     },
     "nvim-treesitter": [],
     "nvim-treesitter-context": {
-      "rev": "660861b"
+      "rev": "64dd4cf"
     },
     "nvim-treesitter-textobjects": {
       "rev": "5ca4aaa"
@@ -77,7 +79,7 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {
-      "rev": "7e1cd77",
+      "rev": "cbcb3f9",
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "plenary.nvim": {
@@ -85,7 +87,7 @@
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "rose-pine": {
-      "rev": "eb3ff49",
+      "rev": "cf2a288",
       "src": "https://github.com/rose-pine/neovim"
     },
     "undotree": {
