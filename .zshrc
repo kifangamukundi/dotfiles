@@ -322,3 +322,11 @@ zvm_after_init() {
   bindkey -M viins '^r' fzf-history-widget
   bindkey -M vicmd '^r' fzf-history-widget
 }
+
+# bun completions
+[ -s "/home/kifanga/.bun/_bun" ] && source "/home/kifanga/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
