@@ -5,11 +5,11 @@
       "src": "https://github.com/numToStr/Comment.nvim"
     },
     "Fidget.nvim": {
-      "rev": "e32b672",
+      "rev": "7fa433a",
       "src": "https://github.com/j-hui/fidget.nvim"
     },
     "auto-session": {
-      "rev": "292492a",
+      "rev": "6243753",
       "src": "https://github.com/rmagatti/auto-session"
     },
     "blink.cmp": {
@@ -17,15 +17,15 @@
       "version": "'v1.7.0'"
     },
     "friendly-snippets": {
-      "rev": "572f566",
+      "rev": "6cd7280",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "fzf-lua": {
-      "rev": "9d579fe",
+      "rev": "1eba927",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
-      "rev": "5813e48",
+      "rev": "d4fdf44",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "harpoon": {
@@ -46,22 +46,24 @@
       "src": "https://github.com/chentoast/marks.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "3b3571b"
+      "rev": "a324581"
     },
-    "mason-tool-installer.nvim": [],
+    "mason-tool-installer.nvim": {
+      "rev": "443f1ef"
+    },
     "mason.nvim": {
       "rev": "57e5a8a"
     },
     "none-ls-extras.nvim": {
-      "rev": "03955d1",
+      "rev": "517f87c",
       "src": "https://github.com/nvimtools/none-ls-extras.nvim"
     },
     "none-ls.nvim": {
-      "rev": "5abf619",
+      "rev": "f61f46d",
       "src": "https://github.com/nvimtools/none-ls.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "c4f67bf"
+      "rev": "2b87d10"
     },
     "nvim-treesitter": [],
     "nvim-treesitter-context": {
@@ -75,11 +77,11 @@
       "src": "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
     },
     "nvim-web-devicons": {
-      "rev": "8dcb311",
+      "rev": "737cf6c",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {
-      "rev": "cbcb3f9",
+      "rev": "0fcc838",
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "plenary.nvim": {
@@ -91,7 +93,7 @@
       "src": "https://github.com/rose-pine/neovim"
     },
     "undotree": {
-      "rev": "0f1c981",
+      "rev": "d8f9908",
       "src": "https://github.com/mbbill/undotree"
     },
     "vim-be-good": {

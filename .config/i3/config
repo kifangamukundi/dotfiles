@@ -188,3 +188,10 @@ bindsym $mod+t exec flameshot gui
 
 bindsym $mod+s split v
 bindsym $mod+v split h
+
+
+
+exec --no-startup-id dbus-update-activation-environment --all
+# This fixes slow terminal apps since we don't have desktop environment
+# sudo apt install xdg-desktop-portal-gtk
+# sudo apt remove xdg-desktop-portal-xapp 

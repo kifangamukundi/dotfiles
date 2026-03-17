@@ -201,7 +201,9 @@ if [[ $- == *i* ]]; then
     alias sftp='sftp -C -p -r -q -o ConnectTimeout=10 -o ServerAliveInterval=60 -o ServerAliveCountMax=3'
 
     # Use bat instead of cat with syntax highlighting and paging
-    alias cat='bat --style=plain --paging=always --decorations=always --color=always'
+    # alias cat='bat --style=plain --paging=always --decorations=always --color=always'
+
+    alias antigravity='/usr/bin/antigravity --remote-debugging-port=9000'
 fi
 
 # ps -efl (all processes) 
