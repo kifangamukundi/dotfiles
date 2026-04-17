@@ -6,36 +6,32 @@ vim.pack.add({
     },
 })
 
-vim.api.nvim_create_autocmd("VimEnter", {
-    group = vim.api.nvim_create_augroup("kifanga-harpoon-setup", { clear = true }),
-    callback = function()
-        local harpoon = require("harpoon")
+local harpoon = require("harpoon")
 
-        harpoon:setup({
-            settings = {
-                save_on_toggle = true,
-                sync_on_ui_close = true,
-            },
-        })
-
-        local toggle_opts = {
-            border = "rounded",
-            title_pos = "center",
-            ui_width_ratio = 0.60,
-        }
-
-        vim.keymap.set("n", "<leader>a", function()
-            harpoon:list():add()
-        end, { desc = "Harpoon: Add file" })
-
-        vim.keymap.set("n", "<C-e>", function()
-            harpoon.ui:toggle_quick_menu(harpoon:list(), toggle_opts)
-        end, { desc = "Harpoon: Open menu Control" })
-
-        for i = 1, 4 do
-            vim.keymap.set("n", "<leader>" .. i, function()
-                harpoon:list():select(i)
-            end, { desc = "Harpoon: Select file " .. i })
-        end
-    end,
+harpoon:setup({
+    settings = {
+        save_on_toggle = true,
+        sync_on_ui_close = true,
+    },
 })
+
+local toggle_opts = {
+    border = "rounded",
+    title_pos = "center",
+    ui_width_ratio = 0.60,
+}
+
+vim.keymap.set("n", "<leader>a", function()
+    harpoon:list():add()
+end, { desc = "Harpoon: Add file" })
+
+vim.keymap.set("n", "<C-e>", function()
+    harpoon.ui:toggle_quick_menu(harpoon:list(), toggle_opts)
+end, { desc = "Harpoon: Open menu Control" })
+
+for i = 1, 4 do
+    vim.keymap.set("n", "<leader>" .. i, function()
+        harpoon:list():select(i)
+    end, { desc = "Harpoon: Select file " .. i })
+end
+

@@ -5,10 +5,5 @@ vim.pack.add({
     },
 })
 
-vim.api.nvim_create_autocmd("VimEnter", {
-    group = vim.api.nvim_create_augroup("kifanga-fidget-setup", { clear = true }),
-    once = true,
-    callback = function()
-        require("fidget").setup({})
-    end,
-})
+require("fidget").setup({})
+
