@@ -1,45 +1,35 @@
 vim.pack.add({
-    {
-        src = "https://github.com/stevearc/oil.nvim",
-        name = "oil.nvim",
-    },
+    { src = "https://github.com/stevearc/oil.nvim", name = "oil.nvim" },
 })
 
-local oil = require("oil")
+-- Load-on-demand wrapper
+local function oil_call(fn_name, ...)
+    local oil = require("oil")
+    if not _G._oil_setup_done then
+        oil.setup({
+            use_default_keymaps = false,
+            default_file_explorer = false,
+            columns = {},
+            keymaps = {
+                ["<CR>"] = "actions.select", ["."] = "actions.toggle_hidden", ["-"] = "actions.parent",
+                ["q"] = "actions.close", ["<Esc>"] = "actions.close",
+            },
+            view_options = { show_hidden = true },
+        })
+        _G._oil_setup_done = true
+    end
+    if type(oil[fn_name]) == "function" then
+        oil[fn_name](...)
+    elseif fn_name == "open_cwd" then
+        oil.open(".")
+    end
+end
 
-oil.setup({
-    use_default_keymaps = false,
-    default_file_explorer = false,
-    columns = {
-        -- "icon",
-    },
-    keymaps = {
-        ["<CR>"] = "actions.select",
-        ["."] = "actions.toggle_hidden",
-        ["-"] = "actions.parent",
-        ["q"] = "actions.close",
-        ["<Esc>"] = "actions.close",
-    },
-    view_options = {
-        show_hidden = true,
-    },
-})
+-- KEYMAPS (Lazy versions)
+vim.keymap.set("n", "<leader>e", function() oil_call("open") end, { desc = "Open Oil in current directory" })
+vim.keymap.set("n", "<leader>E", function() oil_call("open_cwd") end, { desc = "Open Oil in cwd" })
 
-vim.keymap.set("n", "<leader>e", oil.open, { desc = "Open Oil in current directory" })
-vim.keymap.set("n", "<leader>E", function()
-    oil.open(".")
-end, { desc = "Open Oil in current working directory" })
-
--- New file        %       Prompt for name in current directory
--- New directory   d       Prompt for name in current directory
--- Rename           R       Prompt for new name (cursor on item)
--- Delete           D       Confirm before deletion
--- Mark file        mf      Mark file(s) for copy/move (adds a *)
--- Unmark all       mu      Unmark all marked files
--- Mark target dir  mt      Set destination directory for copy/move
--- Copy             mc + p  mf file(s) → mt target → mc → navigate to target → p to paste
--- Move             mm + p  mf file(s) → mt target → mm → navigate to target → p to paste
+-- netrw fallback (keep for safety)
 vim.keymap.set("n", "<leader>ve", "<cmd>Ex<CR>", { desc = "Open netrw in current buffer" })
-vim.keymap.set("n", "<leader>vE", function() vim.cmd("Ex " .. vim.fn.getcwd()) end,
-    { desc = "Open netrw in current working directory" })
+vim.keymap.set("n", "<leader>vE", function() vim.cmd("Ex " .. vim.fn.getcwd()) end, { desc = "Open netrw in cwd" })
 
