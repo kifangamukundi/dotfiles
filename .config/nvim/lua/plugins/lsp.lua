@@ -1,147 +1,52 @@
 vim.pack.add({
-    {
-        src = "https://github.com/mason-org/mason.nvim",
-        name = "mason.nvim",
-    },
-    {
-        src = "https://github.com/mason-org/mason-lspconfig.nvim",
-        name = "mason-lspconfig.nvim",
-    },
-    {
-        src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
-        name = "mason-tool-installer.nvim",
-    },
-    {
-        src = "https://github.com/neovim/nvim-lspconfig",
-        name = "nvim-lspconfig",
-    },
-    {
-        src = "https://github.com/saghen/blink.cmp",
-        name = "blink.cmp",
-        version = 'v1.6.0'
-    },
+    { src = "https://github.com/mason-org/mason.nvim", name = "mason.nvim" },
+    { src = "https://github.com/mason-org/mason-lspconfig.nvim", name = "mason-lspconfig.nvim" },
+    { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim", name = "mason-tool-installer.nvim" },
+    { src = "https://github.com/neovim/nvim-lspconfig", name = "nvim-lspconfig" },
+    { src = "https://github.com/saghen/blink.cmp", name = "blink.cmp", version = 'v1.6.0' },
 })
 
-require("mason").setup({})
-
+-- Centralized LSP Attach logic (available immediately)
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("kifanga-lsp-attach", { clear = true }),
     callback = function(event)
-        -- Trigger path completion
-        -- insert-mode: CTRL-X CTRL-F
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+        if not client then return end
 
-        -- Trigger completion
-        -- insert-mode: CTRL-X CTRL-O
-        -- Next: CTRL-N
-        -- Previous: CTRL-P
-        -- Accept: CTRL-Y
+        local function supports(method) return client.supports_method(method, event.buf) end
 
-        -- Default: unknown but like grD
-        vim.keymap.set("n", "grD", vim.lsp.buf.declaration,
-            { buffer = event.buf, desc = "LSP: Go to Declaration" })
-
-        -- CTRL-] or CTRL-w-]: Jump to the definition of the keyword under the cursor.
-        -- CTRL-t: Go back from where you came from
-        -- custom: gd
-        vim.keymap.set({ "n", "v" }, "gd", vim.lsp.buf.definition,
-            { buffer = event.buf, desc = "LSP: Go to Definition" })
-
-        -- - "gra" is mapped in Normal and Visual mode to |vim.lsp.buf.code_action()|
-        -- - "gO" is mapped in Normal mode to |vim.lsp.buf.document_symbol()|
-
-        -- Default: grt
-        vim.keymap.set("n", "grt", vim.lsp.buf.type_definition,
-            { buffer = event.buf, desc = "LSP: Go to Type Definition" })
-
-        -- Default: K
-        vim.keymap.set("n", "K", vim.lsp.buf.hover,
-            { buffer = event.buf, desc = "LSP: Hover Documentation" })
-
-        -- Default: gri
-        vim.keymap.set("n", "gri", vim.lsp.buf.implementation,
-            { buffer = event.buf, desc = "LSP: Go to Implementation" })
-
-        -- Default: grr
-        -- vim.keymap.set("n", "grr", vim.lsp.buf.references,
-        --     { buffer = event.buf, desc = "LSP: Go to References" })
-
-        -- Default: insert-mode: CTRL-S
-        -- Default: normal-mode unknown but like <C-s>
-        -- custom normal-mode: <C-s>
-        vim.keymap.set({ "i", "n" }, "<C-s>", vim.lsp.buf.signature_help,
-            { buffer = event.buf, desc = "LSP: Signature Help" })
-
-        -- Default: grn
+        -- KEYMAPS (Preserved exactly)
+        vim.keymap.set("n", "grD", vim.lsp.buf.declaration, { buffer = event.buf, desc = "LSP: Go to Declaration" })
+        vim.keymap.set({ "n", "v" }, "gd", vim.lsp.buf.definition, { buffer = event.buf, desc = "LSP: Go to Definition" })
+        vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, { buffer = event.buf, desc = "LSP: Go to Type Definition" })
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = event.buf, desc = "LSP: Hover Documentation" })
+        vim.keymap.set("n", "gri", vim.lsp.buf.implementation, { buffer = event.buf, desc = "LSP: Go to Implementation" })
+        vim.keymap.set({ "i", "n" }, "<C-s>", vim.lsp.buf.signature_help, { buffer = event.buf, desc = "LSP: Signature Help" })
         vim.keymap.set("n", "grn", vim.lsp.buf.rename, { buffer = event.buf, desc = "LSP: Rename" })
 
-        -- Default: gra
-        -- vim.keymap.set("n", "gra", vim.lsp.buf.code_action,
-        --     { buffer = event.buf, desc = "LSP: Code Actions" })
-
-        -- Default: gO
-        -- Custom: gD
-        -- vim.keymap.set("n", "gD", vim.lsp.buf.document_symbol,
-        --     { buffer = event.buf, desc = "LSP: Document Symbols" })
-
-        -- Default: unknown but like gW
-        -- vim.keymap.set("n", "gW", vim.lsp.buf.workspace_symbol,
-        --     { buffer = event.buf, desc = "LSP: Workspace Symbols" })
-
-        local function client_supports_method(client, method, bufnr)
-            return client:supports_method(method, bufnr)
-        end
-
-        local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if
-            client
-            and client.supports_method(
-                client,
-                vim.lsp.protocol.Methods.textDocument_documentHighlight,
-                event.buf
-            )
-        then
-            local highlight_augroup = vim.api.nvim_create_augroup("kifanga-lsp-highlight", { clear = false })
-            -- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-            --     buffer = event.buf,
-            --     group = highlight_augroup,
-            --     callback = vim.lsp.buf.document_highlight,
-            -- })
-            --
-            -- vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-            --     buffer = event.buf,
-            --     group = highlight_augroup,
-            --     callback = vim.lsp.buf.clear_references,
-            -- })
-
-            -- FIX: Use event.buf and event.data.client_id for format on save
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                buffer = event.buf,
-                callback = function()
-                    -- local client = vim.lsp.get_client_by_id(event.data.client_id)
-                    if client and client.server_capabilities.documentFormattingProvider then
-                        vim.lsp.buf.format({
-                            bufnr = event.buf,
-                            id = client.id,
-                            async = true,
-                        })
+        if supports(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+            local highlight_augroup = vim.api.nvim_create_augroup("kifanga-lsp-highlight-" .. event.buf, { clear = true })
+            vim.api.nvim_create_autocmd("LspDetach", {
+                group = vim.api.nvim_create_augroup("kifanga-lsp-detach-" .. event.buf, { clear = true }),
+                callback = function(event2)
+                    if event2.buf == event.buf then
+                        vim.lsp.buf.clear_references()
+                        vim.api.nvim_clear_autocmds({ group = highlight_augroup, buffer = event.buf })
                     end
                 end,
             })
+        end
 
-            vim.api.nvim_create_autocmd("LspDetach", {
-                group = vim.api.nvim_create_augroup("kifanga-lsp-detach", { clear = true }),
-                callback = function(event2)
-                    vim.lsp.buf.clear_references()
-                    vim.api.nvim_clear_autocmds({ group = highlight_augroup, buffer = event2.buf })
-                    -- vim.diagnostic.setloclist({})
+        if supports(vim.lsp.protocol.Methods.textDocument_formatting) then
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                buffer = event.buf,
+                callback = function()
+                    vim.lsp.buf.format({ bufnr = event.buf, id = client.id, async = false })
                 end,
             })
         end
 
-        if
-            client
-            and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
-        then
+        if supports(vim.lsp.protocol.Methods.textDocument_inlayHint) then
             vim.keymap.set("n", "<leader>vH", function()
                 vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
             end, { buffer = event.buf, desc = "LSP: toggle Inlay hints" })
@@ -149,73 +54,59 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
+-- Lazy Setup function
+local function setup_lsp()
+    if _G._lsp_setup_done then return end
+    _G._lsp_setup_done = true
+
+    require("mason").setup({})
+
+    local capabilities = require("blink.cmp").get_lsp_capabilities()
+    local servers = {
+        gopls = {}, rust_analyzer = {}, clangd = {}, pyright = {}, ts_ls = {},
+        lua_ls = { settings = { Lua = { completion = { callSnippet = "Replace" }, diagnostics = { disable = { "missing-fields" } } } } },
+        html = {}, cssls = {}, tailwindcss = {}, svelte = {}, marksman = {}, jsonls = {}, bashls = {},
+    }
+
+    require("mason-lspconfig").setup({
+        ensure_installed = vim.tbl_keys(servers),
+        automatic_installation = false,
+        automatic_enable = true,
+        handlers = {
+            function(server_name)
+                local server = servers[server_name] or {}
+                server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+                vim.lsp.config(server_name, server)
+            end,
+        },
+    })
+
+    require("mason-tool-installer").setup({
+        ensure_installed = { "prettierd", "stylua", "goimports", "eslint_d" }
+    })
+end
+
+-- Trigger LSP setup on first buffer read
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+    group = vim.api.nvim_create_augroup("kifanga-lsp-lazy-setup", { clear = true }),
+    callback = function()
+        setup_lsp()
+    end,
+})
+
+-- DIAGNOSTICS CONFIG (Lightweight)
 vim.diagnostic.config({
     severity_sort = true,
     float = { border = "rounded", source = "if_many" },
-    underline = { severity = vim.diagnostic.severity.ERROR },
+    underline = { severity = { min = vim.diagnostic.severity.WARN } },
     signs = {
         text = {
-            [vim.diagnostic.severity.ERROR] = "E ",
-            [vim.diagnostic.severity.WARN] = "W ",
-            [vim.diagnostic.severity.INFO] = "I ",
-            [vim.diagnostic.severity.HINT] = "H ",
+            [vim.diagnostic.severity.ERROR] = "E ", [vim.diagnostic.severity.WARN] = "W ",
+            [vim.diagnostic.severity.INFO] = "I ", [vim.diagnostic.severity.HINT] = "H ",
         },
     },
-    virtual_text = {
-        source = "if_many",
-        spacing = 2,
-        format = function(diagnostic)
-            local diagnostic_message = {
-                [vim.diagnostic.severity.ERROR] = diagnostic.message,
-                [vim.diagnostic.severity.WARN] = diagnostic.message,
-                [vim.diagnostic.severity.INFO] = diagnostic.message,
-                [vim.diagnostic.severity.HINT] = diagnostic.message,
-            }
-            return diagnostic_message[diagnostic.severity]
-        end,
-    },
+    virtual_text = { source = "if_many", spacing = 4, prefix = "●" },
 })
 
-local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-local servers = {
-    gopls = {},
-    rust_analyzer = {},
-    clangd = {},
-    pyright = {},
-    ts_ls = {},
-    lua_ls = {},
-    html = {},
-    cssls = {},
-    tailwindcss = {},
-    svelte = {},
-    marksman = {},
-    jsonls = {},
-    bashls = {},
-}
-
-local ensure_installed = vim.tbl_keys(servers or {})
-
-require("mason-lspconfig").setup({
-    ensure_installed = ensure_installed,
-    automatic_installation = false,
-    -- does this vim.lsp.enable() by default which is set to true
-    automatic_enable = true,
-    handlers = {
-        function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-            vim.lsp.config(server_name, server)
-        end,
-    },
-})
-
-local other_tools_to_install = {
-    "prettierd",
-    "stylua",
-    "goimports",
-    "eslint_d",
-}
-
-require("mason-tool-installer").setup({ ensure_installed = other_tools_to_install })
 

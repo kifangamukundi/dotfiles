@@ -88,10 +88,10 @@ opt.colorcolumn = ""
 opt.lazyredraw = false
 
 -- Time in ms to wait for `CursorHold` events
-opt.updatetime = 100
+opt.updatetime = 250
 
 -- Time in ms to wait for a mapped sequence
-opt.timeoutlen = 2000
+opt.timeoutlen = 500
 
 -- Time in ms to wait for key codes
 opt.ttimeoutlen = 100

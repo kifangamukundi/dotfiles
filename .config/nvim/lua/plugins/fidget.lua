@@ -1,9 +1,8 @@
 vim.pack.add({
-    {
-        src = "https://github.com/j-hui/fidget.nvim",
-        name = "Fidget.nvim",
-    },
+    { src = "https://github.com/j-hui/fidget.nvim", name = "Fidget.nvim" },
 })
 
-require("fidget").setup({})
+vim.defer_fn(function()
+    require("fidget").setup({})
+end, 100)
 

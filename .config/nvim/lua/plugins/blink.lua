@@ -1,51 +1,40 @@
 vim.pack.add({
-    {
-        src = "https://github.com/saghen/blink.cmp",
-        name = "blink.cmp",
-        version = 'v1.7.0',
-        -- build = 'cargo build --release'
-    },
+    { src = "https://github.com/saghen/blink.cmp", name = "blink.cmp", version = 'v1.7.0' },
     { src = "https://github.com/rafamadriz/friendly-snippets", name = "friendly-snippets" },
-    { src = "https://github.com/folke/lazydev.nvim",           name = "lazydev.nvim" },
+    { src = "https://github.com/folke/lazydev.nvim", name = "lazydev.nvim" },
 })
 
-require("blink.cmp").setup({
-    keymap = {
-        preset = "none",
-        ["<C-y>"] = { "select_and_accept" },
-        ["<C-k>"] = { "select_prev" },
-        ["<C-j>"] = { "select_next" },
-        ["<C-c>"] = { "cancel" },
-    },
-    appearance = {
-        nerd_font_variant = "mono",
-    },
-    completion = {
-        accept = {
-            auto_brackets = { enabled = true },
-        },
-        documentation = {
-            auto_show = true,
-        },
-    },
-    sources = {
-        default = { "lazydev", "lsp", "path", "snippets", "buffer" },
-        providers = {
-            lazydev = {
-                name = "LazyDev",
-                module = "lazydev.integrations.blink",
-                score_offset = 100,
+vim.api.nvim_create_autocmd("InsertEnter", {
+    group = vim.api.nvim_create_augroup("kifanga-blink-lazy-setup", { clear = true }),
+    once = true,
+    callback = function()
+        require("blink.cmp").setup({
+            keymap = {
+                preset = "none",
+                ["<C-y>"] = { "select_and_accept" },
+                ["<C-k>"] = { "select_prev" },
+                ["<C-j>"] = { "select_next" },
+                ["<C-c>"] = { "cancel" },
             },
-        },
-    },
-    fuzzy = { implementation = "prefer_rust_with_warning" },
-    signature = { enabled = true },
-    cmdline = {
-        keymap = {
-            preset = "inherit",
-            ["<C-y>"] = { "select_accept_and_enter" },
-        },
-        completion = { menu = { auto_show = true } },
-    },
+            appearance = { nerd_font_variant = "mono" },
+            completion = {
+                accept = { auto_brackets = { enabled = true } },
+                documentation = { auto_show = true },
+            },
+            sources = {
+                default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+                providers = {
+                    lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
+                },
+            },
+            fuzzy = { implementation = "prefer_rust_with_warning" },
+            signature = { enabled = true },
+            cmdline = {
+                keymap = { preset = "inherit", ["<C-y>"] = { "select_accept_and_enter" } },
+                completion = { menu = { auto_show = true } },
+            },
+        })
+    end,
 })
+
 

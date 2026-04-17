@@ -1,92 +1,51 @@
 vim.pack.add({
-    {
-        src = "https://github.com/nvim-treesitter/nvim-treesitter",
-        name = "nvim-treesitter",
-    },
-    {
-        src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-        name = "nvim-treesitter-textobjects",
-    },
-    {
-        src = "https://github.com/nvim-treesitter/nvim-treesitter-context",
-        name = "nvim-treesitter-context",
-    },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter", name = "nvim-treesitter" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", name = "nvim-treesitter-textobjects" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter-context", name = "nvim-treesitter-context" },
 })
 
-require("nvim-treesitter.configs").setup({
-    ensure_installed = {
-        "c",
-        "lua",
-        "vim",
-        "vimdoc",
-        "query",
-        "json",
-        "javascript",
-        "typescript",
-        "tsx",
-        "yaml",
-        "html",
-        "css",
-        "svelte",
-        "markdown",
-        "markdown_inline",
-        "bash",
-        "gitignore",
-        "go",
-    },
-    sync_install = false,
-    auto_install = true,
-    highlight = { enable = true },
-    indent = { enable = true },
-    autotag = { enable = false },
-
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = false,
-            node_incremental = "<C-n>",
-            node_decremental = "<C-p>",
-            scope_incremental = false,
-        },
-    },
-    additional_vim_regex_highlighting = false,
-
-    textobjects = {
-        select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-
-                ["al"] = "@loop.outer",
-                ["il"] = "@loop.inner",
-
-                ["ac"] = "@comment.outer",
-                ["ic"] = "@comment.inner",
-
-                ["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+    group = vim.api.nvim_create_augroup("kifanga-treesitter-lazy-setup", { clear = true }),
+    once = true,
+    callback = function()
+        require("nvim-treesitter.configs").setup({
+            ensure_installed = {
+                "c", "lua", "vim", "vimdoc", "query", "json", "javascript", "typescript", "tsx", "yaml", "html", "css", "svelte", "markdown", "markdown_inline", "bash", "gitignore", "go",
             },
-            selection_modes = {
-                ["@parameter.outer"] = "v",
-                ["@function.outer"] = "V",
-                ["@class.outer"] = "<c-v>",
+            sync_install = false,
+            auto_install = true,
+            highlight = { enable = true },
+            indent = { enable = true },
+            autotag = { enable = false },
+            incremental_selection = {
+                enable = true,
+                keymaps = {
+                    init_selection = false,
+                    node_incremental = "<C-n>",
+                    node_decremental = "<C-p>",
+                    scope_incremental = false,
+                },
             },
-            include_surrounding_whitespace = true,
-        },
-    },
-})
+            additional_vim_regex_highlighting = false,
+            textobjects = {
+                select = {
+                    enable = true,
+                    lookahead = true,
+                    keymaps = {
+                        ["af"] = "@function.outer", ["if"] = "@function.inner",
+                        ["al"] = "@loop.outer", ["il"] = "@loop.inner",
+                        ["ac"] = "@comment.outer", ["ic"] = "@comment.inner",
+                        ["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
+                    },
+                    selection_modes = { ["@parameter.outer"] = "v", ["@function.outer"] = "V", ["@class.outer"] = "<c-v>" },
+                    include_surrounding_whitespace = true,
+                },
+            },
+        })
 
-require("treesitter-context").setup({
-    enable = true,
-    max_lines = 1,
-    min_window_height = 0,
-    line_numbers = true,
-    multiline_threshold = 20,
-    trim_scope = "outer",
-    mode = "cursor",
-    separator = nil,
-    zindex = 20,
-    on_attach = nil,
+        require("treesitter-context").setup({
+            enable = true, max_lines = 1, min_window_height = 0, line_numbers = true, multiline_threshold = 20, trim_scope = "outer", mode = "cursor", separator = nil, zindex = 20, on_attach = nil,
+        })
+    end,
 })
 
