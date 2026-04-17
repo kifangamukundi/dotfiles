@@ -8,7 +8,7 @@
       "version": "'v1.6.0'"
     },
     "fzf-lua": {
-      "rev": "1e866cc"
+      "rev": "83f7195"
     },
     "gitsigns.nvim": {
       "rev": "8d82c24"
