@@ -8,10 +8,10 @@
       "version": "'v1.6.0'"
     },
     "fzf-lua": {
-      "rev": "d637241"
+      "rev": "1e866cc"
     },
     "gitsigns.nvim": {
-      "rev": "9f3c6dd"
+      "rev": "8d82c24"
     },
     "harpoon": {
       "rev": "87b1a35",
@@ -19,28 +19,36 @@
     },
     "markdown-preview.nvim": [],
     "marks.nvim": [],
-    "nvim-treesitter": [],
+    "nvim-treesitter": {
+      "rev": "cf12346a"
+    },
     "nvim-treesitter-context": {
-      "rev": "64dd4cf"
+      "rev": "b0c45ce"
     },
     "nvim-treesitter-textobjects": {
       "rev": "5ca4aaa"
     },
-    "nvim-ts-context-commentstring": [],
+    "nvim-ts-context-commentstring": {
+      "rev": "6141a40"
+    },
     "nvim-web-devicons": {
-      "rev": "737cf6c"
+      "rev": "c72328a"
     },
     "oil.nvim": {
       "rev": "0fcc838"
     },
-    "plenary.nvim": [],
+    "plenary.nvim": {
+      "rev": "74b06c6"
+    },
     "rose-pine": {
-      "rev": "cf2a288"
+      "rev": "9504524"
     },
     "undotree": {
-      "rev": "d8f9908"
+      "rev": "6fa6b57"
     },
-    "vim-fugitive": [],
+    "vim-fugitive": {
+      "rev": "3b753cf"
+    },
     "vim-markdown": {
       "rev": "1bc9d0c"
     },

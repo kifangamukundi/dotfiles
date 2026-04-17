@@ -10,12 +10,8 @@ fi
 search_dirs=(
     ~/personal
     ~/work
-    ~/work/gm/apps
-    ~/work/gm/libs
-    ~/work/fulus-africa/packages
-    ~/work/fulus-africa/shared
+    ~/work/subcontrack-go/apps
     ~/lab
-    ~/lab/ai
 )
 
 selected=""
