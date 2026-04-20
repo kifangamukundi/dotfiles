@@ -106,8 +106,8 @@ source $ZSH/oh-my-zsh.sh
 # User Configuration starts below the OMZ sourcing
 
 # HISTORY SETTINGS
-HISTSIZE=1000000
-SAVEHIST=2000000
+HISTSIZE=10000
+SAVEHIST=20000
 HIST_STAMP='%F %T'
 
 # Zsh History Options

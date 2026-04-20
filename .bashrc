@@ -26,8 +26,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # Set history size
-HISTSIZE=1000000
-HISTFILESIZE=2000000
+HISTSIZE=10000
+HISTFILESIZE=20000
 
 # Save history after every command
 PROMPT_COMMAND='history -a; history -n'
