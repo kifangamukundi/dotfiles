@@ -13,7 +13,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if not client then return end
 
-        local function supports(method) return client.supports_method(method, event.buf) end
+        local function supports(method) return client:supports_method(method) end
 
         -- KEYMAPS (Preserved exactly)
         vim.keymap.set("n", "grD", vim.lsp.buf.declaration, { buffer = event.buf, desc = "LSP: Go to Declaration" })
