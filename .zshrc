@@ -212,8 +212,7 @@ fi
 
 # Aliases
 alias history-clean="history -c && history -r && history -w"
-alias nviml="NVIM_APPNAME=nvim-lazy nvim"
-alias nvims="NVIM_APPNAME=nvim-server nvim"
+alias vim="nvim"
 alias fkill='~/.local/bin/fkill'
 alias fmusic='~/.local/bin/fmusic'
 alias fvideo='~/.local/bin/fvideo'
@@ -332,3 +331,6 @@ zvm_after_init() {
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# opencode
+export PATH=/home/kifanga/.opencode/bin:$PATH

@@ -235,8 +235,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-alias nviml="NVIM_APPNAME=nvim-lazy nvim"
-alias nvims="NVIM_APPNAME=nvim-server nvim"
+alias vim="nvim"
 
 # Add /usr/local/bin to PATH
 export PATH=/usr/local/bin:$PATH
