@@ -6,6 +6,12 @@ vim.pack.add({
 })
 
 vim.keymap.set("n", "<leader>g", "<cmd>:0Git<CR>", { desc = "Git status" })
+vim.keymap.set("n", "<leader>vd", function()
+    local rev = vim.fn.input("Diff against revision (e.g., HEAD~1 or !~1): ")
+    if rev ~= "" then
+        vim.cmd("Gvdiffsplit " .. rev)
+    end
+end, { desc = "Git diff against revision" })
 vim.keymap.set("n", "<leader>vl", "<cmd>:0Git log --oneline --graph --decorate --parents<CR>",
     { desc = "Git log" })
 vim.keymap.set("n", "<leader>vo", "<cmd>diffget //2<CR>", { desc = "Keep ours OR (2X on fugitive)" })
@@ -29,4 +35,3 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
         end, { buffer = true, desc = "Smart Git pull" })
     end,
 })
-
