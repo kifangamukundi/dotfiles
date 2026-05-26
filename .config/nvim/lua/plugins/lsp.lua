@@ -63,7 +63,23 @@ local function setup_lsp()
 
     local capabilities = require("blink.cmp").get_lsp_capabilities()
     local servers = {
-        gopls = {}, rust_analyzer = {}, clangd = {}, pyright = {}, ts_ls = {},
+        gopls = {},
+        rust_analyzer = {},
+        clangd = {},
+        pyright = {},
+        ts_ls = {
+            root_dir = function(fname)
+                return require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git")(fname)
+            end,
+            single_file_support = false,
+            settings = {
+                typescript = {
+                    tsserver = {
+                        maxTsServerMemory = 8192,
+                    },
+                },
+            },
+        },
         lua_ls = { settings = { Lua = { completion = { callSnippet = "Replace" }, diagnostics = { disable = { "missing-fields" } } } } },
         html = {}, cssls = {}, tailwindcss = {}, svelte = {}, marksman = {}, jsonls = {}, bashls = {},
     }

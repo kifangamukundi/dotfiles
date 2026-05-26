@@ -14,7 +14,10 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
             },
             sync_install = false,
             auto_install = true,
-            highlight = { enable = true },
+            highlight = {
+                enable = true,
+                disable = { "markdown", "markdown_inline" },
+            },
             indent = { enable = true },
             autotag = { enable = false },
             incremental_selection = {
@@ -44,7 +47,28 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
         })
 
         require("treesitter-context").setup({
-            enable = true, max_lines = 1, min_window_height = 0, line_numbers = true, multiline_threshold = 20, trim_scope = "outer", mode = "cursor", separator = nil, zindex = 20, on_attach = nil,
+            enable = true,
+            max_lines = 1,
+            min_window_height = 0,
+            line_numbers = true,
+            multiline_threshold = 20,
+            trim_scope = "outer",
+            mode = "cursor",
+            separator = nil,
+            zindex = 20,
+            on_attach = function(buf)
+                -- Disable in markdown due to a known crash in Neovim v0.13.0-dev
+                return vim.bo[buf].filetype ~= 'markdown'
+            end,
+        })
+
+        -- Forcefully stop treesitter for markdown to avoid the runtime crash
+        vim.api.nvim_create_autocmd({ "FileType", "BufReadPre" }, {
+            group = vim.api.nvim_create_augroup("kifanga-markdown-no-ts", { clear = true }),
+            pattern = "markdown",
+            callback = function(args)
+                pcall(vim.treesitter.stop, args.buf)
+            end,
         })
     end,
 })
