@@ -1,0 +1,36 @@
+# habit Configuration
+# Professional 10/10 Architecture
+
+# The address the DNS server will listen on.
+listen: "127.0.0.1:53"
+
+# UPSTREAM RESOLVERS (DNS-over-TLS)
+# Queries are encrypted via TLS on port 853.
+# Parallel strategy is used: Fastest response wins.
+upstream:
+  - "1.1.1.1:853"      # Cloudflare
+  - "9.9.9.9:853"      # Quad9
+  - "8.8.8.8:853"      # Google
+
+# BLOCK MODE: 
+# "nxdomain" (Recommended) -> Tools will say "Site not found".
+# "zero_ip" -> Tools will hit your own computer (127.0.0.1).
+block_mode: "nxdomain"
+
+# DISCOVERY MODE: If true, habit will NOT block anything.
+# It will instead log all non-whitelisted domains with [DISCOVERY].
+discovery_mode: false
+
+# THE BUNDLES: Enable groups of domains at once.
+bundles:
+  - "google-auth"
+  - "youtube"
+  - "debian"
+  - "x"
+  - "reddit"
+  - "datafixa"
+  - "github"
+
+# THE WHITELIST: Individual domains you want to allow.
+whitelist:
+  # Add individual domains here
