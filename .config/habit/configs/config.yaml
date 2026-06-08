@@ -1,5 +1,4 @@
 # habit Configuration
-# Professional 10/10 Architecture
 
 # The address the DNS server will listen on.
 listen: "127.0.0.1:53"
