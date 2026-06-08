@@ -52,6 +52,8 @@ var bundles = map[string][]string{
 		"githubassets.com",
 		"githubusercontent.com",
 		"github.io",
+		"amazonaws.com",
+		"ua5v.com",
 	},
 	"debian": {
 		"debian.org",

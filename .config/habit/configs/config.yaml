@@ -32,4 +32,5 @@ bundles:
 
 # THE WHITELIST: Individual domains you want to allow.
 whitelist:
+  - "kra.go.ke"
   # Add individual domains here
