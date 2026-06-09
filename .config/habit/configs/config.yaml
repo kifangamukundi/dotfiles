@@ -7,11 +7,11 @@ listen: "127.0.0.1:53"
 # Queries are encrypted via TLS on port 853.
 # Parallel strategy is used: Fastest response wins.
 upstream:
-  - "1.1.1.1:853"      # Cloudflare
-  - "9.9.9.9:853"      # Quad9
-  - "8.8.8.8:853"      # Google
+  - "1.1.1.1:853" # Cloudflare
+  - "9.9.9.9:853" # Quad9
+  - "8.8.8.8:853" # Google
 
-# BLOCK MODE: 
+# BLOCK MODE:
 # "nxdomain" (Recommended) -> Tools will say "Site not found".
 # "zero_ip" -> Tools will hit your own computer (127.0.0.1).
 block_mode: "nxdomain"

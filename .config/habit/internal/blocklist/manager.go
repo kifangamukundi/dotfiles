@@ -61,6 +61,7 @@ var bundles = map[string][]string{
 		"fastlydns.net",
 		"postgresql.org",
 		"pkg.dev",
+		"golang.org",
 	},
 }
 

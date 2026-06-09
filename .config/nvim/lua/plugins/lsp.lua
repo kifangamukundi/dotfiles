@@ -3,7 +3,6 @@ vim.pack.add({
     { src = "https://github.com/mason-org/mason-lspconfig.nvim", name = "mason-lspconfig.nvim" },
     { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim", name = "mason-tool-installer.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig", name = "nvim-lspconfig" },
-    { src = "https://github.com/saghen/blink.cmp", name = "blink.cmp", version = 'v1.6.0' },
 })
 
 -- Centralized LSP Attach logic (available immediately)
@@ -26,6 +25,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         if supports(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
             local highlight_augroup = vim.api.nvim_create_augroup("kifanga-lsp-highlight-" .. event.buf, { clear = true })
+            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+                buffer = event.buf,
+                group = highlight_augroup,
+                callback = vim.lsp.buf.document_highlight,
+            })
+            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+                buffer = event.buf,
+                group = highlight_augroup,
+                callback = vim.lsp.buf.clear_references,
+            })
             vim.api.nvim_create_autocmd("LspDetach", {
                 group = vim.api.nvim_create_augroup("kifanga-lsp-detach-" .. event.buf, { clear = true }),
                 callback = function(event2)
@@ -33,15 +42,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
                         vim.lsp.buf.clear_references()
                         vim.api.nvim_clear_autocmds({ group = highlight_augroup, buffer = event.buf })
                     end
-                end,
-            })
-        end
-
-        if supports(vim.lsp.protocol.Methods.textDocument_formatting) then
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                buffer = event.buf,
-                callback = function()
-                    vim.lsp.buf.format({ bufnr = event.buf, id = client.id, async = false })
                 end,
             })
         end
@@ -54,6 +54,33 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
+-- Centralized Auto-format on Save
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = vim.api.nvim_create_augroup("kifanga-lsp-format", { clear = true }),
+    callback = function(args)
+        -- Prefer null-ls for formatting if it's available for the current buffer
+        local clients = vim.lsp.get_clients({ bufnr = args.buf })
+        local has_null_ls = false
+        for _, client in ipairs(clients) do
+            if client.name == "null-ls" then
+                has_null_ls = true
+                break
+            end
+        end
+
+        vim.lsp.buf.format({
+            bufnr = args.buf,
+            async = false, -- Still false to ensure it finishes before save, but we've optimized the clients
+            filter = function(client)
+                if has_null_ls then
+                    return client.name == "null-ls"
+                end
+                return client.name ~= "ts_ls" -- Always skip ts_ls formatting as it can be slow and redundant
+            end,
+        })
+    end,
+})
+
 -- Lazy Setup function
 local function setup_lsp()
     if _G._lsp_setup_done then return end
@@ -62,20 +89,19 @@ local function setup_lsp()
     require("mason").setup({})
 
     local capabilities = require("blink.cmp").get_lsp_capabilities()
+    local util = require("lspconfig.util")
     local servers = {
         gopls = {},
         rust_analyzer = {},
         clangd = {},
         pyright = {},
         ts_ls = {
-            root_dir = function(fname)
-                return require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git")(fname)
-            end,
+            root_dir = util.root_pattern("package.json", "tsconfig.json", ".git"),
             single_file_support = false,
             settings = {
                 typescript = {
                     tsserver = {
-                        maxTsServerMemory = 8192,
+                        maxTsServerMemory = 4096,
                     },
                 },
             },
@@ -92,14 +118,24 @@ local function setup_lsp()
             function(server_name)
                 local server = servers[server_name] or {}
                 server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-                vim.lsp.config(server_name, server)
+                -- Disable formatting for specific servers that we prefer null-ls for
+                if server_name == "ts_ls" then
+                    server.on_init = function(client)
+                        client.server_capabilities.documentFormattingProvider = false
+                        client.server_capabilities.documentRangeFormattingProvider = false
+                    end
+                end
+                require("lspconfig")[server_name].setup(server)
             end,
         },
     })
 
-    require("mason-tool-installer").setup({
-        ensure_installed = { "prettierd", "stylua", "goimports", "eslint_d" }
-    })
+    -- Defer mason-tool-installer to avoid blocking UI during startup
+    vim.defer_fn(function()
+        require("mason-tool-installer").setup({
+            ensure_installed = { "prettierd", "stylua", "goimports", "eslint_d" }
+        })
+    end, 100)
 end
 
 -- Trigger LSP setup on first buffer read
