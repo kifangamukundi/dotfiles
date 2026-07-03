@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-GO_VERSION="1.25.0"
+GO_VERSION="1.26.4"
 ARCH=$(uname -m)
 
 case "$ARCH" in

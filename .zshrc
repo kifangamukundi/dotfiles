@@ -203,7 +203,6 @@ if [[ $- == *i* ]]; then
     # Use bat instead of cat with syntax highlighting and paging
     # alias cat='bat --style=plain --paging=always --decorations=always --color=always'
 
-    alias antigravity='/usr/local/bin/antigravity-ide --remote-debugging-port=9000'
 fi
 
 # ps -efl (all processes) 
@@ -334,3 +333,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # opencode
 export PATH=/home/kifanga/.opencode/bin:$PATH
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/kifanga/.local/bin:$PATH"

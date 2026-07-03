@@ -57,7 +57,7 @@ blink_interval = 750
 blink_timeout = 0
 
 [font]
-size = 14.0
+size = 10.0
 
 [font.normal]
 family = "JetBrainsMono Nerd Font Mono"

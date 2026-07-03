@@ -118,7 +118,6 @@ if [[ $- == *i* ]]; then
     # Use bat instead of cat with syntax highlighting and paging
     # alias cat='bat --style=plain --paging=always --decorations=always --color=always'
 
-    alias antigravity='/usr/local/bin/antigravity-ide --remote-debugging-port=9000'
 fi
 
 # ps -efl (all processes) 
@@ -272,3 +271,7 @@ bind -m vi-command '"\C-l":clear-screen'
 alias fkill='~/.local/bin/fkill'
 alias fvideo='~/.local/bin/fvideo'
 alias fmusic='~/.local/bin/fmusic'
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/kifanga/.local/bin:$PATH"
