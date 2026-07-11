@@ -136,17 +136,8 @@ opt.splitbelow = true
 -- vertical splits go to the right
 opt.splitright = true
 
--- Thin listing: just the current directory
-vim.g.netrw_liststyle = 0
+-- Disable default file explorers to let oil.nvim handle directory buffers
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_nvim_dir_plugin = 1
 
--- Numbers and relative numbers
-vim.g.netrw_bufsettings = 'nu rnu'
-
--- Hide the help banner
-vim.g.netrw_banner = 0
-
--- Use current buffer
-vim.g.netrw_browse_split = 0
-
--- Avoid vertical splits
-vim.g.netrw_altv = 1
