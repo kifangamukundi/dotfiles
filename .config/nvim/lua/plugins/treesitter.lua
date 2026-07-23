@@ -74,3 +74,13 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
         })
     end,
 })
+
+local function setup_treesitter()
+    if _G._ts_setup_done then return end
+    _G._ts_setup_done = true
+    vim.api.nvim_exec_autocmds("BufReadPost", { group = "kifanga-treesitter-lazy-setup" })
+end
+
+if vim.api.nvim_buf_get_name(0) ~= "" or vim.bo.filetype ~= "" then
+    vim.defer_fn(setup_treesitter, 10)
+end

@@ -7,11 +7,15 @@ set -e
 
 if command -v nvim >/dev/null; then
     sudo apt remove --purge -y neovim || true
+    sudo rm -f /usr/local/bin/nvim
+    sudo rm -rf /usr/local/share/nvim/
 else
     echo "No existing Neovim installation found."
 fi
 
 rm -rf ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim
+rm -f ~/personal/dotfiles/.config/nvim/nvim-pack-lock.json
+rm -f ~/personal/dotfiles/.config/nvim/lazy-lock.json
 
 sudo apt update
 sudo apt install -y ninja-build gettext cmake unzip curl git build-essential

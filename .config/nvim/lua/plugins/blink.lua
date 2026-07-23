@@ -4,37 +4,34 @@ vim.pack.add({
     { src = "https://github.com/folke/lazydev.nvim", name = "lazydev.nvim" },
 })
 
-vim.api.nvim_create_autocmd("InsertEnter", {
-    group = vim.api.nvim_create_augroup("kifanga-blink-lazy-setup", { clear = true }),
-    once = true,
-    callback = function()
-        require("blink.cmp").setup({
-            keymap = {
-                preset = "none",
-                ["<C-y>"] = { "select_and_accept" },
-                ["<C-k>"] = { "select_prev" },
-                ["<C-j>"] = { "select_next" },
-                ["<C-c>"] = { "cancel" },
-            },
-            appearance = { nerd_font_variant = "mono" },
-            completion = {
-                accept = { auto_brackets = { enabled = true } },
-                documentation = { auto_show = true },
-            },
-            sources = {
-                default = { "lazydev", "lsp", "path", "snippets", "buffer" },
-                providers = {
-                    lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
-                },
-            },
-            fuzzy = { implementation = "prefer_rust_with_warning" },
-            signature = { enabled = true },
-            cmdline = {
-                keymap = { preset = "inherit", ["<C-y>"] = { "select_accept_and_enter" } },
-                completion = { menu = { auto_show = true } },
-            },
-        })
-    end,
+local ok, blink = pcall(require, "blink.cmp")
+if not ok then return end
+
+blink.setup({
+    keymap = {
+        preset = "none",
+        ["<C-y>"] = { "select_and_accept" },
+        ["<C-k>"] = { "select_prev" },
+        ["<C-j>"] = { "select_next" },
+        ["<C-c>"] = { "cancel" },
+    },
+    appearance = { nerd_font_variant = "mono" },
+    completion = {
+        accept = { auto_brackets = { enabled = true } },
+        documentation = { auto_show = true },
+    },
+    sources = {
+        default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+        providers = {
+            lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
+        },
+    },
+    fuzzy = { implementation = "prefer_rust_with_warning" },
+    signature = { enabled = true },
+    cmdline = {
+        keymap = { preset = "inherit", ["<C-y>"] = { "select_accept_and_enter" } },
+        completion = { menu = { auto_show = true } },
+    },
 })
 
 

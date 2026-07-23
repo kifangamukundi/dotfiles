@@ -9,7 +9,9 @@ vim.pack.add({
     },
 })
 
-local null_ls = require("null-ls")
+local ok, null_ls = pcall(require, "null-ls")
+if not ok then return end
+
 local builtins = null_ls.builtins
 
 null_ls.setup({

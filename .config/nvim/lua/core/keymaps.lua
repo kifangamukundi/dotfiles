@@ -1,5 +1,4 @@
 vim.g.mapleader = " "
-vim.g.mapleader = " "
 
 -- Disable arrow keys in all modes
 local modes = { "n", "i", "v", "s", "c", "t" }
@@ -171,16 +170,6 @@ vim.keymap.set("n", "<leader>L", "<Cmd>lclose<CR>", { desc = "Close loclist list
 -- use O to switch the ends for selections
 -- use gu or gU with motion to change case
 -- Select a list of items then put them in one line with gJ
-
--- Highlight when yanking (copying) text
-vim.api.nvim_create_autocmd("TextYankPost",
-    {
-        desc = "Highlight when yanking (copying) text",
-        group = vim.api.nvim_create_augroup("kickstart-highlight-yank",
-            { clear = true }),
-        callback = function() vim.hl.on_yank() end,
-    })
-
 -- Yank
 -- "{register}y{motion/text_object}
 -- Works with 'a' through 'z', 'A' through 'Z', '0' through '9',

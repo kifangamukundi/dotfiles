@@ -12,6 +12,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if not client then return end
 
+        -- Safety check: don't attach LSP to huge files (>1MB) to prevent hanging
+        local file_name = vim.api.nvim_buf_get_name(event.buf)
+        local ok, stats = pcall(vim.loop.fs_stat, file_name)
+        if ok and stats and stats.size > 1048576 then
+            vim.notify("File too large, disabling LSP for " .. file_name, vim.log.levels.WARN)
+            vim.lsp.buf_detach_client(event.buf, client.id)
+            return
+        end
+
         local function supports(method) return client:supports_method(method) end
 
         -- KEYMAPS (Preserved exactly)
@@ -88,16 +97,19 @@ local function setup_lsp()
 
     require("mason").setup({})
 
-    local capabilities = require("blink.cmp").get_lsp_capabilities()
+    local ok, blink = pcall(require, "blink.cmp")
+    local capabilities = ok and blink.get_lsp_capabilities() or vim.lsp.protocol.make_client_capabilities()
     local util = require("lspconfig.util")
     local servers = {
-        gopls = {},
+        gopls = {
+            root_dir = util.root_pattern("go.work", "go.mod"),
+        },
         rust_analyzer = {},
         clangd = {},
         pyright = {},
         ts_ls = {
-            root_dir = util.root_pattern("package.json", "tsconfig.json", ".git"),
-            single_file_support = false,
+            root_dir = util.root_pattern("package.json", "tsconfig.json"),
+            single_file_support = true,
             settings = {
                 typescript = {
                     tsserver = {
@@ -118,13 +130,6 @@ local function setup_lsp()
             function(server_name)
                 local server = servers[server_name] or {}
                 server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-                -- Disable formatting for specific servers that we prefer null-ls for
-                if server_name == "ts_ls" then
-                    server.on_init = function(client)
-                        client.server_capabilities.documentFormattingProvider = false
-                        client.server_capabilities.documentRangeFormattingProvider = false
-                    end
-                end
                 require("lspconfig")[server_name].setup(server)
             end,
         },
@@ -145,6 +150,11 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
         setup_lsp()
     end,
 })
+
+-- Handle cases where Neovim is opened directly with a file
+if vim.api.nvim_buf_get_name(0) ~= "" or vim.bo.filetype ~= "" then
+    setup_lsp()
+end
 
 -- DIAGNOSTICS CONFIG (Lightweight)
 vim.diagnostic.config({
