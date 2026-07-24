@@ -104,9 +104,15 @@ local function setup_lsp()
         gopls = {
             root_dir = util.root_pattern("go.work", "go.mod"),
         },
-        rust_analyzer = {},
-        clangd = {},
-        pyright = {},
+        rust_analyzer = {
+            root_dir = util.root_pattern("Cargo.toml", "rust-project.json"),
+        },
+        clangd = {
+            root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt"),
+        },
+        pyright = {
+            root_dir = util.root_pattern("pyproject.toml", "setup.py", "setup.cfg", "requirements.txt"),
+        },
         ts_ls = {
             root_dir = util.root_pattern("package.json", "tsconfig.json"),
             single_file_support = true,
@@ -118,8 +124,17 @@ local function setup_lsp()
                 },
             },
         },
-        lua_ls = { settings = { Lua = { completion = { callSnippet = "Replace" }, diagnostics = { disable = { "missing-fields" } } } } },
-        html = {}, cssls = {}, tailwindcss = {}, svelte = {}, marksman = {}, jsonls = {}, bashls = {},
+        lua_ls = {
+            root_dir = util.root_pattern(".luarc.json", ".luacheckrc", "init.lua"),
+            settings = { Lua = { completion = { callSnippet = "Replace" }, diagnostics = { disable = { "missing-fields" } } } }
+        },
+        html = { root_dir = util.root_pattern("package.json") },
+        cssls = { root_dir = util.root_pattern("package.json") },
+        tailwindcss = { root_dir = util.root_pattern("tailwind.config.js", "tailwind.config.ts", "package.json") },
+        svelte = { root_dir = util.root_pattern("svelte.config.js", "package.json") },
+        marksman = { root_dir = util.root_pattern(".marksman.toml") },
+        jsonls = { root_dir = util.root_pattern("package.json") },
+        bashls = { root_dir = util.root_pattern(".bashrc", ".bash_profile") },
     }
 
     require("mason-lspconfig").setup({
