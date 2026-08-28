@@ -113,6 +113,10 @@ local function setup_lsp()
         pyright = {
             root_dir = util.root_pattern("pyproject.toml", "setup.py", "setup.cfg", "requirements.txt"),
         },
+        biome = {
+            root_dir = util.root_pattern("biome.json", "biome.jsonc"),
+            single_file_support = true,
+        },
         ts_ls = {
             root_dir = util.root_pattern("package.json", "tsconfig.json"),
             single_file_support = true,
@@ -153,7 +157,7 @@ local function setup_lsp()
     -- Defer mason-tool-installer to avoid blocking UI during startup
     vim.defer_fn(function()
         require("mason-tool-installer").setup({
-            ensure_installed = { "prettierd", "stylua", "goimports", "eslint_d" }
+            ensure_installed = { "biome", "stylua", "goimports" }
         })
     end, 100)
 end

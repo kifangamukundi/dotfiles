@@ -17,33 +17,11 @@ local builtins = null_ls.builtins
 null_ls.setup({
     sources = {
         -- Formatting sources
-        builtins.formatting.prettierd.with({
-            filetypes = {
-                "javascript",
-                "typescript",
-                "javascriptreact",
-                "typescriptreact",
-                "css",
-                "html",
-                "json",
-                "yaml",
-                "markdown",
-                "svelte",
-            },
-        }),
         builtins.formatting.stylua,
         builtins.formatting.goimports,
 
         -- Linting sources
-        require("none-ls.diagnostics.eslint_d").with({
-            filetypes = {
-                "javascript",
-                "typescript",
-                "javascriptreact",
-                "typescriptreact",
-            },
-            prefer_local = "node_modules/.bin",
-        }),
+        -- Biome provides both formatting and linting via its dedicated LSP!
     },
 })
 
