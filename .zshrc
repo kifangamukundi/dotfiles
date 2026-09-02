@@ -151,8 +151,11 @@ export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
 # Then the rest of your existing PATH exports:
 export PATH="$PATH:/sbin:/usr/sbin"
 export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:$(go env GOPAPH)/bin"
+export PATH="$PATH:$(go env GOPATH)/bin"
 export PATH="$PATH:/opt/nvim-linux64/bin"
+
+# Keep only unique PATH entries
+typeset -U PATH path
 
 
 # SOURCING & CUSTOM DEFINITIONS 
