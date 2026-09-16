@@ -18,7 +18,7 @@ exec_always --no-startup-id bash -c 'echo Default > /tmp/i3_mode'
 exec --no-startup-id xrandr --output VGA-1 --mode 1920x1080 --rate 60 --primary --output HDMI-1 --off
 
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec_always --no-startup-id bash -c 'pkill -f "virtualenvironment.*workspaces.py" 2>/dev/null; sleep 0.1; ~/.config/i3/workspaces.py &'
+exec_always --no-startup-id ~/.config/i3/workspaces.sh
 
 set $refresh_i3status killall -SIGUSR1 i3status
 
