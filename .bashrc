@@ -70,12 +70,12 @@ xterm*|rxvt*)
     ;;
 esac
 
-# Enable color support for ls (Cached for speed)
+# Enable color support for ls (Cached, zero-fork)
 if [ -x /usr/bin/dircolors ]; then
     if [ ! -f ~/.cache/dircolors.cache ] || [ ~/.dircolors -nt ~/.cache/dircolors.cache ]; then
         test -r ~/.dircolors && dircolors -b ~/.dircolors > ~/.cache/dircolors.cache || dircolors -b > ~/.cache/dircolors.cache
     fi
-    eval "$(cat ~/.cache/dircolors.cache)"
+    eval "$(<~/.cache/dircolors.cache)"
     alias ls='ls --color=auto'
 fi
 
@@ -198,14 +198,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Add user's local bin directory FIRST
-export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
-
-# Then the rest of your existing PATH exports:
-export PATH="$PATH:/sbin:/usr/sbin"
-export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:$(go env GOPATH)/bin"
-export PATH="$PATH:/opt/nvim-linux64/bin"
+# PATH — built once, clean, no subshells
+export PATH="$HOME/.local/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/go/bin:$HOME/go/bin:/opt/nvim-linux64/bin:$PATH"
 
 # Keep only unique PATH entries (Pure Bash, no subshells)
 if [ -n "$PATH" ]; then
@@ -238,14 +232,6 @@ export BROWSER=google-chrome
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
-
-alias vim="nvim"
-
-# Add /usr/local/bin to PATH
-export PATH=/usr/local/bin:$PATH
-
-# Add /system binaries to PATH
-export PATH=$PATH:/sbin:/usr/sbin
 
 # Cargo and rust environment setup
 . "$HOME/.cargo/env"

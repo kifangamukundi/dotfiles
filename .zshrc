@@ -112,7 +112,6 @@ source "$HOME/.oh-my-zsh/custom/plugins/zsh-vi-mode/zsh-vi-mode.zsh"
 # HISTORY SETTINGS
 HISTSIZE=10000
 SAVEHIST=20000
-HIST_STAMP='%F %T'
 
 # Zsh History Options
 setopt appendhistory
@@ -145,7 +144,7 @@ export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
 # Then the rest of your existing PATH exports:
 export PATH="$PATH:/sbin:/usr/sbin"
 export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:$(go env GOPATH)/bin"
+export PATH="$PATH:$HOME/go/bin"
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
 # Keep only unique PATH entries
@@ -184,12 +183,12 @@ npx() {
     npx "$@"
 }
 
-# Enable color support for ls (Cached for speed)
+# Enable color support for ls (Cached, zero-fork)
 if [ -x /usr/bin/dircolors ]; then
     if [ ! -f ~/.cache/dircolors.cache ] || [ ~/.dircolors -nt ~/.cache/dircolors.cache ]; then
         test -r ~/.dircolors && dircolors -b ~/.dircolors > ~/.cache/dircolors.cache || dircolors -b > ~/.cache/dircolors.cache
     fi
-    eval "$(cat ~/.cache/dircolors.cache)"
+    eval "$(<~/.cache/dircolors.cache)"
     alias ls='ls --color=auto'
 fi
 
@@ -354,7 +353,7 @@ zvm_after_init() {
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 
 # opencode
 export PATH=/home/kifanga/.opencode/bin:$PATH

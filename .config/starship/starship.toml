@@ -85,16 +85,13 @@ only_with_files = true
 detect_files = ["docker-compose.yml", "Dockerfile"]
 disabled = false
 
-# Shlvl module configuration
+# Shlvl module — disabled (runs unconditionally, adds overhead every prompt)
 [shlvl]
-symbol = "shell "
-format = '\([$symbol($shlvl)]($style)\) '
-style = "bold #ea9a97"
-disabled = false
+disabled = true
 
-# Package module configuration
+# Package module — disabled (runs unconditionally, reads package.json/Cargo.toml on every prompt)
 [package]
-symbol = "package "
-format = '\([$symbol($package $version)]($style)\) '
-style = "bold #f6c177"
-disabled = false
+disabled = true
+
+# Hard cap: kill any module that takes longer than 200ms to prevent prompt hangs
+command_timeout = 200

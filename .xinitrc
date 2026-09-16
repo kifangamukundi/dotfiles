@@ -20,5 +20,9 @@ picom --config ~/.config/picom/picom.conf &
 # sudo systemctl set-default multi-user.target
 # systemctl get-default
 
-# 4. Finally, start the i3 window manager within ssh-agent
-exec ssh-agent i3
+# 4. Start ssh-agent once for the entire X session and load the key
+eval "$(ssh-agent -s)" > /dev/null
+ssh-add ~/.ssh/github_key_name 2>/dev/null
+
+# 5. Finally, start i3 — it inherits SSH_AUTH_SOCK from above
+exec i3

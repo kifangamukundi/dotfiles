@@ -14,11 +14,11 @@ exec --no-startup-id dbus-update-activation-environment --all
 
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork --image "$HOME/.config/i3/wallpapers/archie.png" 
 exec_always --no-startup-id setxkbmap -option caps:escape
-exec_always --no-startup-id sh -c 'echo "Default" > /tmp/i3_mode'
+exec_always --no-startup-id bash -c 'echo Default > /tmp/i3_mode'
 exec --no-startup-id xrandr --output VGA-1 --mode 1920x1080 --rate 60 --primary --output HDMI-1 --off
 
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec_always --no-startup-id pkill -f workspaces.py; ~/.config/i3/workspaces.py
+exec_always --no-startup-id bash -c 'pkill -f workspaces.py; sleep 0.1; ~/.config/i3/workspaces.py &'
 
 set $refresh_i3status killall -SIGUSR1 i3status
 
