@@ -1,12 +1,36 @@
 #!/bin/bash
-# Closes all other windows in the workspace except the focused one (Pure bash/jq, 10x faster than Python)
-FOCUSED_ID=$(i3-msg -t get_tree | jq -r '.. | select(.focused? == true and .window? != null)? | .id' | head -n 1)
+# only.sh — Kill all windows in focused workspace EXCEPT the focused one.
+# Mirrors only.py: keeps the focused window, kills everything else.
 
-if [ -z "$FOCUSED_ID" ]; then
+TREE=$(i3-msg -t get_tree)
+
+# Find the focused window's con_id (integer)
+FOCUSED_ID=$(echo "$TREE" | jq -r '
+  first(.. | objects | select(.focused? == true and .window? != null) | .id)
+')
+
+if [ -z "$FOCUSED_ID" ] || [ "$FOCUSED_ID" = "null" ]; then
     exit 0
 fi
 
-i3-msg -t get_tree | jq -r --arg current "$FOCUSED_ID" '
-  .. | select(.focused? == true and .type? == "workspace")? |
-  .. | select(.window? != null and .id? != ($current | tonumber))? | .id
-' | xargs -r -I {} i3-msg '[con_id="{}"] kill' >/dev/null
+# Find workspace name containing the focused window
+WS_NAME=$(echo "$TREE" | jq -r --argjson fid "$FOCUSED_ID" '
+  first(
+    .. | objects |
+    select(.type? == "workspace") |
+    select([ .. | objects | select(.id? == $fid) ] | length > 0) |
+    .name
+  )
+')
+
+if [ -z "$WS_NAME" ] || [ "$WS_NAME" = "null" ]; then
+    exit 0
+fi
+
+# Kill all windows in that workspace except the focused one
+echo "$TREE" | jq -r --arg ws "$WS_NAME" --argjson fid "$FOCUSED_ID" '
+  .. | objects |
+  select(.type? == "workspace" and .name? == $ws) |
+  [ .. | objects | select(.window? != null and .id? != $fid) | .id ] |
+  .[]
+' | xargs -r -I {} i3-msg "[con_id=\"{}\"] kill" >/dev/null
