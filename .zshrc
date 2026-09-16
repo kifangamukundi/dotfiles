@@ -1,14 +1,16 @@
-# ZSH FRAMEWORK CONFIGURATION 
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
+# ZSH CORE CONFIGURATION (God-Level Speed)
+# We completely bypassed Oh-My-Zsh to save ~200ms of startup time.
 
-plugins=(
-    zsh-syntax-highlighting
-    # zsh-autosuggestions
-    zsh-vi-mode
-)
+# 1. History File (Your other history settings are further down)
+HISTFILE="$HOME/.zsh_history"
 
-# CUSTOM SYNTAX HIGHLIGHTING (ROSE PINE MOON HARMONY)
+# 2. Blazing Fast Tab Completion
+autoload -Uz compinit
+# Use cached completion (-C) to skip the slow security check on every startup
+compinit -C
+
+# 3. Load Custom ZSH Highlighting Configuration
+
 typeset -A ZSH_HIGHLIGHT_STYLES
 
 # ZSH SYNTAX HIGHLIGHTING COMPLETE CONFIGURATION
@@ -101,9 +103,11 @@ ZSH_HIGHLIGHT_STYLES[root]='bg=#eb6f92'
 
 export ZVM_CURSOR_STYLE_ENABLED=false
 
-source $ZSH/oh-my-zsh.sh
+# 4. Load Plugins Manually (Bypassing OMZ Bloat)
+source "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$HOME/.oh-my-zsh/custom/plugins/zsh-vi-mode/zsh-vi-mode.zsh"
 
-# User Configuration starts below the OMZ sourcing
+# User Configuration starts below
 
 # HISTORY SETTINGS
 HISTSIZE=10000
