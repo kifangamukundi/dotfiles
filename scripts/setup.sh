@@ -1,6 +1,5 @@
 #!/bin/bash
-
-package_list="i3 xorg xinit picom feh polybar mpd mpc mpv socat alacritty ansible pipewire pipewire-pulse wireplumber pavucontrol git rsync fonts-noto-color-emoji oathtool psmisc freepats timidity"
+package_list="i3 xorg xinit picom feh polybar mpd mpc mpv socat alacritty ansible pipewire pipewire-pulse wireplumber pavucontrol git rsync fonts-noto-color-emoji oathtool psmisc freepats timidity inotify-tools"
 
 sudo apt install -y $package_list
 

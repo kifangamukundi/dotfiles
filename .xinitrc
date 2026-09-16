@@ -20,5 +20,5 @@ picom --config ~/.config/picom/picom.conf &
 # sudo systemctl set-default multi-user.target
 # systemctl get-default
 
-# 4. Finally, start the i3 window manager
-exec i3
+# 4. Finally, start the i3 window manager within ssh-agent
+exec ssh-agent i3

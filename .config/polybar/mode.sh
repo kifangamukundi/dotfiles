@@ -3,21 +3,24 @@
 default_mode="#6e6a86"
 other_modes="#e06c75"
 
-mode="Default"
-color=$default_fg
-
-if [ -f /tmp/i3_mode ]; then
-    mode=$(cat /tmp/i3_mode)
-
-    if [ -z "$mode" ]; then
-        mode="Default"
+print_mode() {
+    local mode="Default"
+    local color=$default_mode
+    if [ -f /tmp/i3_mode ]; then
+        mode=$(cat /tmp/i3_mode)
+        [ -z "$mode" ] && mode="Default"
     fi
-fi
+    if [ "$mode" != "Default" ]; then
+        color=$other_modes
+    else
+        color=$default_mode
+    fi
+    echo "%{F$color}$mode%{F-}"
+}
 
-if [ "$mode" != "Default" ]; then
-    color=$other_modes
-else
-    color=$default_mode
-fi
+print_mode
 
-echo "%{F$color}$mode%{F-}"
+# Run event-driven listener (No fallbacks)
+inotifywait -q -m -e modify,close_write,create /tmp/i3_mode 2>/dev/null | while read -r event; do
+    print_mode
+done

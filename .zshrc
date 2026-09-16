@@ -118,19 +118,9 @@ setopt hist_ignore_space
 setopt extendedhistory
 setopt checkjobs 
 
-# SSH AGENT MANAGEMENT 
-if ! pgrep -u "$USER" ssh-agent >/dev/null; then
-    eval "$(ssh-agent -s | grep -v 'echo')" > "$HOME/.ssh-agent-env"
-fi
-
-if [ -f "$HOME/.ssh-agent-env" ]; then
-    . "$HOME/.ssh-agent-env"
-fi
-
-# Add keys if not loaded
-if ! ssh-add -l >/dev/null 2>&1; then
-    ssh-add ~/.ssh/github_key_name
-fi
+# SSH AGENT MANAGEMENT (Now handled by ~/.xinitrc's `exec ssh-agent i3`)
+# If you need keys added automatically, consider a systemd user service or keychain,
+# or simply run `ssh-add` when you need it.
 
 # ENVIRONMENT VARIABLES & PATHS
 
@@ -167,9 +157,28 @@ fi
 # Cargo and rust environment setup
 . "$HOME/.cargo/env"
 
-# Load NVM (Node Version Manager)
+# Lazy Load NVM (Node Version Manager)
 export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+nvm() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm "$@"
+}
+node() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    node "$@"
+}
+npm() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    npm "$@"
+}
+npx() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    npx "$@"
+}
 
 # Enable color support for ls
 if [ -x /usr/bin/dircolors ]; then

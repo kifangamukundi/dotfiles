@@ -33,15 +33,15 @@ get_mpv_status() {
     return 1
 }
 
-main() {
+get_status() {
     # 1. First, check for a running MPV video.
     if get_mpv_status; then
-        exit 0
+        return 0
     fi
 
     # 2. If no MPV video is found, check for a running MPD song.
-    local current_song=$(mpc current)
-    local status=$(mpc status | grep -Eo '\[(playing|paused)\]')
+    local current_song=$(mpc current 2>/dev/null)
+    local status=$(mpc status 2>/dev/null | grep -Eo '\[(playing|paused)\]')
 
     if [[ -n "$current_song" && "$status" == "[playing]" ]]; then
         if [[ "$current_song" == *" - "* ]]; then
@@ -63,4 +63,8 @@ main() {
     fi
 }
 
-main
+# Run forever in a single process rather than forcing polybar to repeatedly fork bash
+while true; do
+    get_status
+    sleep 2
+done

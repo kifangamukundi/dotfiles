@@ -4,20 +4,7 @@ case $- in
       *) return;;
 esac
 
-# Start ssh-agent if not already running and save its environment
-if ! pgrep -u "$USER" ssh-agent >/dev/null; then
-    eval "$(ssh-agent -s)" > "$HOME/.ssh-agent-env"
-fi
-
-# Always source the agent environment (important: right after starting it)
-if [ -f "$HOME/.ssh-agent-env" ]; then
-    . "$HOME/.ssh-agent-env"
-fi
-
-# Add keys if not loaded
-if ! ssh-add -l >/dev/null 2>&1; then
-    ssh-add ~/.ssh/github_key_name
-fi
+# SSH AGENT MANAGEMENT (Now handled by ~/.xinitrc's `exec ssh-agent i3`)
 
 # Don't put duplicate lines or lines starting with space in the history
 HISTCONTROL=ignoreboth
@@ -217,8 +204,20 @@ export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$(go env GOPATH)/bin"
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
-# Keep only unique PATH entries
-export PATH=$(echo -n $PATH | awk -v RS=: -v ORS=: '!a[$0]++' | sed 's/:$//')
+# Keep only unique PATH entries (Pure Bash, no subshells)
+if [ -n "$PATH" ]; then
+  old_PATH=$PATH:; PATH=
+  while [ -n "$old_PATH" ]; do
+    x=${old_PATH%%:*}
+    case $PATH: in
+      *:"$x":*) ;;
+      *) PATH=$PATH:$x;;
+    esac
+    old_PATH=${old_PATH#*:}
+  done
+  PATH=${PATH#:}
+  export PATH
+fi
 
 # Use vim as default editor 
 # You can now use sudoedit to edit system files instead of sudo nano (absolutely awesome) 
@@ -255,10 +254,32 @@ fi
 
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 
-# Load NVM
+# Lazy Load NVM
 export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+nvm() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    nvm "$@"
+}
+node() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    node "$@"
+}
+npm() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    npm "$@"
+}
+npx() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    npx "$@"
+}
 
 # Set up fzf key bindings and fuzzy completion
 if [[ $- == *i* ]]; then

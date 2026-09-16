@@ -9,6 +9,9 @@ client.unfocused        #2e2e2e #1e1e1e #888888 #3a3a3a #1e1e1e
 client.focused_inactive #4c4c4c #1e1e1e #cccccc #555555 #1e1e1e
 client.urgent           #e07a5f #3c1f1f #ffffff #e07a5f #3c1f1f
 
+# Update DBus environment first to prevent portal/terminal timeouts
+exec --no-startup-id dbus-update-activation-environment --all
+
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork --image "$HOME/.config/i3/wallpapers/archie.png" 
 exec_always --no-startup-id setxkbmap -option caps:escape
 exec_always --no-startup-id sh -c 'echo "Default" > /tmp/i3_mode'
@@ -191,7 +194,6 @@ bindsym $mod+v split h
 
 
 
-exec --no-startup-id dbus-update-activation-environment --all
 # This fixes slow terminal apps since we don't have desktop environment
 # sudo apt install xdg-desktop-portal-gtk
 # sudo apt remove xdg-desktop-portal-xapp 
