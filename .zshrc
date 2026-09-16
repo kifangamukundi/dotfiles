@@ -180,9 +180,12 @@ npx() {
     npx "$@"
 }
 
-# Enable color support for ls
+# Enable color support for ls (Cached for speed)
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    if [ ! -f ~/.cache/dircolors.cache ] || [ ~/.dircolors -nt ~/.cache/dircolors.cache ]; then
+        test -r ~/.dircolors && dircolors -b ~/.dircolors > ~/.cache/dircolors.cache || dircolors -b > ~/.cache/dircolors.cache
+    fi
+    eval "$(cat ~/.cache/dircolors.cache)"
     alias ls='ls --color=auto'
 fi
 
@@ -301,7 +304,10 @@ alias whisperx='segmentx'
 # PROMPT AND KEYBINDINGS
 
 if [[ $- == *i* ]]; then
-  eval "$(fzf --zsh)"
+  if [ ! -f ~/.cache/fzf-zsh.cache ]; then
+      fzf --zsh > ~/.cache/fzf-zsh.cache
+  fi
+  source ~/.cache/fzf-zsh.cache
 fi
 
 # not needed since am using a plugin for vi mode
@@ -309,7 +315,10 @@ fi
 export KEYTIMEOUT=1
 
 if [[ $- == *i* ]]; then
-  eval "$(starship init zsh)"
+  if [ ! -f ~/.cache/starship-zsh.cache ] || [ ~/.config/starship/starship.toml -nt ~/.cache/starship-zsh.cache ]; then
+      starship init zsh > ~/.cache/starship-zsh.cache
+  fi
+  source ~/.cache/starship-zsh.cache
 fi
 
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"

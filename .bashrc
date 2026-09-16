@@ -70,9 +70,12 @@ xterm*|rxvt*)
     ;;
 esac
 
-# Enable color support for ls
+# Enable color support for ls (Cached for speed)
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    if [ ! -f ~/.cache/dircolors.cache ] || [ ~/.dircolors -nt ~/.cache/dircolors.cache ]; then
+        test -r ~/.dircolors && dircolors -b ~/.dircolors > ~/.cache/dircolors.cache || dircolors -b > ~/.cache/dircolors.cache
+    fi
+    eval "$(cat ~/.cache/dircolors.cache)"
     alias ls='ls --color=auto'
 fi
 
@@ -247,14 +250,17 @@ export PATH=$PATH:/sbin:/usr/sbin
 # Cargo and rust environment setup
 . "$HOME/.cargo/env"
 
-# Initialize Starship prompt
+# Initialize Starship prompt (Cached for speed)
 if [[ $- == *i* ]]; then
-  eval "$(starship init bash)"
+  if [ ! -f ~/.cache/starship-bash.cache ] || [ ~/.config/starship/starship.toml -nt ~/.cache/starship-bash.cache ]; then
+      starship init bash > ~/.cache/starship-bash.cache
+  fi
+  source ~/.cache/starship-bash.cache
 fi
 
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 
-# Lazy Load NVM
+# Load NVM
 export NVM_DIR="$HOME/.config/nvm"
 nvm() {
     unset -f nvm node npm npx
@@ -281,9 +287,12 @@ npx() {
     npx "$@"
 }
 
-# Set up fzf key bindings and fuzzy completion
+# Set up fzf key bindings and fuzzy completion (Cached for speed)
 if [[ $- == *i* ]]; then
-  eval "$(fzf --height 40% --border --bash)"
+  if [ ! -f ~/.cache/fzf-bash.cache ]; then
+      fzf --height 40% --border --bash > ~/.cache/fzf-bash.cache
+  fi
+  source ~/.cache/fzf-bash.cache
 fi
 
 # Bind Ctrl+f to tmux session
