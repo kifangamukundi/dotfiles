@@ -39,6 +39,7 @@ echo "▶ Linking server tools..."
 mkdir -p "$HOME/.config/tmux"
 create_symlink "$DOTFILES_DIR/.config/tmux-server.conf" "$HOME/.config/tmux/tmux.conf"
 create_symlink "$DOTFILES_DIR/.config/starship" "$HOME/.config/starship"
+create_symlink "$DOTFILES_DIR/.config/nvim" "$HOME/.config/nvim"
 
 echo ""
 echo "✅ Server shell configs linked successfully!"
