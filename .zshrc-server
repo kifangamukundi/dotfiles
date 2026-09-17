@@ -1,0 +1,165 @@
+# ZSH SERVER FRAMEWORK CONFIGURATION (God-Level Speed, No OMZ Bloat)
+
+# 1. Native Zsh Compinit
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+  compinit -d "${ZDOTDIR:-$HOME}/.zcompdump"
+else
+  compinit -C -d "${ZDOTDIR:-$HOME}/.zcompdump"
+fi
+
+# 2. History Setup
+HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+HISTSIZE=1000000
+SAVEHIST=2000000
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt extendedhistory
+setopt checkjobs 
+
+# 3. Basic Keybindings
+bindkey -e
+bindkey '^[[A' up-line-or-history
+bindkey '^[[B' down-line-or-history
+
+# CUSTOM SYNTAX HIGHLIGHTING (ROSE PINE MOON HARMONY)
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[command]='fg=#31748f,bold'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=#31748f,bold'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=#56949f,bold'
+ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=#56949f,bold'
+ZSH_HIGHLIGHT_STYLES[function]='fg=#9ccfd8'
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#eb6f92,bold'
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=#f6c177'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#f6c177'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#f6c177'
+ZSH_HIGHLIGHT_STYLES[path]='fg=#6e6a86'
+ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=#6e6a86'
+ZSH_HIGHLIGHT_STYLES[dollar-variable]='fg=#c4a7e7'
+ZSH_HIGHLIGHT_STYLES[param]='fg=#908caa'
+ZSH_HIGHLIGHT_STYLES[comment]='fg=#6e6a86,italic'
+ZSH_HIGHLIGHT_STYLES[redirection]='fg=#b4637a' 
+ZSH_HIGHLIGHT_STYLES[quotation]='fg=#9ccfd8'        
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#9ccfd8'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#9ccfd8'
+ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]='fg=#ea9d34'
+ZSH_HIGHLIGHT_STYLES[arithmetic-expansion]='fg=#ea9d34'    
+ZSH_HIGHLIGHT_STYLES[number]='fg=#ea9d34'
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=#286983' 
+ZSH_HIGHLIGHT_STYLES[region]='bg=#393552'
+ZSH_HIGHLIGHT_STYLES[assign]='fg=#e0def4'
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=#f6c177'
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument-unclosed]='fg=#eb6f92'
+ZSH_HIGHLIGHT_STYLES[command-substitution-unclosed]='fg=#eb6f92'
+export ZVM_CURSOR_STYLE_ENABLED=false
+
+# 4. Load Plugins Manually (Server Location)
+if [ -f "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+    source "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
+if [ -f "$HOME/.zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh" ]; then
+    source "$HOME/.zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh"
+fi
+
+# ENVIRONMENT VARIABLES & PATHS
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export EDITOR=nvim
+export VISUAL=nvim
+export MANPAGER="nvim +Man!"
+
+# Path building
+export PATH="$HOME/.local/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/go/bin:$HOME/go/bin:/opt/nvim-linux64/bin:$PATH"
+typeset -U PATH path
+
+# SOURCING & CUSTOM DEFINITIONS 
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# Lazy Load NVM
+export NVM_DIR="$HOME/.config/nvm"
+nvm() { unset -f nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; nvm "$@"; }
+node() { unset -f nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; node "$@"; }
+npm() { unset -f nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; npm "$@"; }
+npx() { unset -f nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; npx "$@"; }
+
+# Enable color support for ls (Cached, zero-fork)
+if [ -x /usr/bin/dircolors ]; then
+    if [ ! -f ~/.cache/dircolors.cache ] || [ ~/.dircolors -nt ~/.cache/dircolors.cache ]; then
+        test -r ~/.dircolors && dircolors -b ~/.dircolors > ~/.cache/dircolors.cache || dircolors -b > ~/.cache/dircolors.cache
+    fi
+    eval "$(<~/.cache/dircolors.cache)"
+    alias ls='ls --color=auto'
+fi
+
+# Only in the interactive shell NOT IN Scripts 
+if [[ $- == *i* ]]; then
+    alias cp='cp -v --reflink=auto'
+    alias mv='mv -v'
+    alias rm='rm -v --preserve-root'
+    alias rsync='rsync -avh --progress --partial --inplace --human-readable --info=stats1,progress2 --compress --rsh=ssh'
+    alias sftp='sftp -C -p -r -q -o ConnectTimeout=10 -o ServerAliveInterval=60 -o ServerAliveCountMax=3'
+    alias sed='sed -E'
+
+    # Guarded Aliases (Only enable if binary exists)
+    if command -v grep >/dev/null 2>&1; then
+        alias grep='grep -E --color=auto -niI --exclude="*.svg" --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
+    fi
+    if command -v fd >/dev/null 2>&1 || command -v fdfind >/dev/null 2>&1; then
+        alias fd='fd --regex --color=auto -iHI --exclude .git --exclude .hg --exclude .svn --exclude node_modules --exclude dist --exclude build'
+    fi
+    if command -v bat >/dev/null 2>&1; then
+        alias cat='bat --style=plain --paging=always --decorations=always --color=always'
+        export BAT_PAGER="less -R"
+    fi
+fi
+
+# Aliases
+alias history-clean="history -c && history -r && history -w"
+alias fkill='~/.local/bin/fkill'
+alias fcontainer='~/.local/bin/fcontainer'
+alias fimage='~/.local/bin/fimage'
+alias fvolume='~/.local/bin/fvolume'
+alias fnetwork='~/.local/bin/fnetwork'
+alias vim="nvim"
+
+# PROMPT AND KEYBINDINGS
+export KEYTIMEOUT=1
+
+if [[ $- == *i* ]]; then
+    # Cached FZF
+    if command -v fzf >/dev/null 2>&1; then
+        if [ ! -f ~/.cache/fzf-zsh.cache ]; then
+            fzf --zsh > ~/.cache/fzf-zsh.cache
+        fi
+        source ~/.cache/fzf-zsh.cache
+    fi
+
+    # Cached Starship
+    if command -v starship >/dev/null 2>&1; then
+        export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+        if [ ! -f ~/.cache/starship-zsh.cache ] || [ ~/.config/starship/starship.toml -nt ~/.cache/starship-zsh.cache ]; then
+            starship init zsh > ~/.cache/starship-zsh.cache
+        fi
+        source ~/.cache/starship-zsh.cache
+    fi
+fi
+
+function fzf-history-widget() {
+  if command -v fzf >/dev/null 2>&1; then
+      BUFFER=$(fc -l -n 1 | fzf --height 40% --border --query="$LBUFFER")
+      CURSOR=$#BUFFER
+  fi
+  zle reset-prompt
+}
+
+zle -N fzf-history-widget
+
+zvm_after_init() {
+  bindkey -M viins '^R' fzf-history-widget
+  bindkey -M vicmd '^R' fzf-history-widget
+}

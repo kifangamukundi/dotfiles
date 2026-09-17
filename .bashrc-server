@@ -1,0 +1,129 @@
+# ~/.bashrc-server: Lightning-fast server profile.
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# History settings
+alias history-clean="history -c && history -r && history -w"
+export HISTSIZE HISTFILESIZE HISTCONTROL PROMPT_COMMAND HISTTIMEFORMAT
+shopt -s checkwinsize
+
+# Chroot identifier
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# Enable color support for ls (Cached, zero-fork)
+if [ -x /usr/bin/dircolors ]; then
+    if [ ! -f ~/.cache/dircolors.cache ] || [ ~/.dircolors -nt ~/.cache/dircolors.cache ]; then
+        test -r ~/.dircolors && dircolors -b ~/.dircolors > ~/.cache/dircolors.cache || dircolors -b > ~/.cache/dircolors.cache
+    fi
+    eval "$(<~/.cache/dircolors.cache)"
+    alias ls='ls --color=auto'
+fi
+
+# Only in the interactive shell
+if [[ $- == *i* ]]; then
+    alias cp='cp -v --reflink=auto'
+    alias mv='mv -v'
+    alias rm='rm -v --preserve-root'
+    alias rsync='rsync -avh --progress --partial --inplace --human-readable --info=stats1,progress2 --compress --rsh=ssh'
+    alias sftp='sftp -C -p -r -q -o ConnectTimeout=10 -o ServerAliveInterval=60 -o ServerAliveCountMax=3'
+    alias sed='sed -E'
+
+    # Guarded Aliases (Only enable if binary exists)
+    if command -v grep >/dev/null 2>&1; then
+        alias grep='grep -E --color=auto -niI --exclude=*.svg --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
+    fi
+    if command -v fd >/dev/null 2>&1 || command -v fdfind >/dev/null 2>&1; then
+        alias fd='fd --regex --color=auto -iHI --exclude .git --exclude .hg --exclude .svn --exclude node_modules --exclude dist --exclude build'
+    fi
+    if command -v bat >/dev/null 2>&1; then
+        alias cat='bat --style=plain --paging=always --decorations=always --color=always'
+        export BAT_PAGER="less -R"
+    fi
+fi
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# Enable programmable completion features
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+# PATH — built once, clean, no subshells
+export PATH="$HOME/.local/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/go/bin:$HOME/go/bin:/opt/nvim-linux64/bin:$PATH"
+
+# Keep only unique PATH entries (Pure Bash, no subshells)
+if [ -n "$PATH" ]; then
+  old_PATH=$PATH:; PATH=
+  while [ -n "$old_PATH" ]; do
+    x=${old_PATH%%:*}
+    case $PATH: in
+      *:"$x":*) ;;
+      *) PATH=$PATH:$x;;
+    esac
+    old_PATH=${old_PATH#*:}
+  done
+  PATH=${PATH#:}
+  export PATH
+fi
+
+export EDITOR=nvim
+export VISUAL=nvim
+export MANPAGER="nvim +Man!"
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+
+# Initialize Starship prompt (Cached for speed)
+if [[ $- == *i* ]]; then
+  if command -v starship >/dev/null 2>&1; then
+      export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+      if [ ! -f ~/.cache/starship-bash.cache ] || [ ~/.config/starship/starship.toml -nt ~/.cache/starship-bash.cache ]; then
+          starship init bash > ~/.cache/starship-bash.cache
+      fi
+      source ~/.cache/starship-bash.cache
+  fi
+fi
+
+# Lazy Load NVM
+export NVM_DIR="$HOME/.config/nvm"
+nvm() { unset -f nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"; nvm "$@"; }
+node() { unset -f nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"; node "$@"; }
+npm() { unset -f nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"; npm "$@"; }
+npx() { unset -f nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"; npx "$@"; }
+
+# Set up fzf key bindings and fuzzy completion (Cached for speed)
+if [[ $- == *i* ]]; then
+  if command -v fzf >/dev/null 2>&1; then
+      if [ ! -f ~/.cache/fzf-bash.cache ]; then
+          fzf --height 40% --border --bash > ~/.cache/fzf-bash.cache
+      fi
+      source ~/.cache/fzf-bash.cache
+  fi
+fi
+
+# Server-friendly aliases
+alias fkill='~/.local/bin/fkill'
+alias fcontainer='~/.local/bin/fcontainer'
+alias fimage='~/.local/bin/fimage'
+alias fvolume='~/.local/bin/fvolume'
+alias fnetwork='~/.local/bin/fnetwork'
+alias vim="nvim"
+
+# Bind Ctrl+g to tmux session (Changed from C-f which conflicts with vi right)
+bind -x '"\C-g": ~/.local/bin/fsession'
+
+bind -m vi-insert '"\C-l":clear-screen'
+bind -m vi-command '"\C-l":clear-screen'
