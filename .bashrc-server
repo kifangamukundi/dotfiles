@@ -1,20 +1,74 @@
-# ~/.bashrc-server: Lightning-fast server profile.
-
-# If not running interactively, don't do anything
+# Ensure this file is only sourced in interactive shells
 case $- in
     *i*) ;;
       *) return;;
 esac
 
-# History settings
+# SSH AGENT MANAGEMENT (Now handled by ~/.xinitrc's `exec ssh-agent i3`)
+
+# Don't put duplicate lines or lines starting with space in the history
+HISTCONTROL=ignoreboth
+
+# Append to the history file, don't overwrite it
+shopt -s histappend
+
+# Set history size
+HISTSIZE=10000
+HISTFILESIZE=20000
+
+# Save history after every command
+PROMPT_COMMAND='history -a; history -n'
+
+# Avoid duplicate entries in history
+HISTCONTROL=ignoredups:ignorespace:erasedups
+
+# Add timestamps to each command in history
+HISTTIMEFORMAT='%F %T '
+
+# Alias to clean and reload history (optional)
 alias history-clean="history -c && history -r && history -w"
+
+# Export all history settings
 export HISTSIZE HISTFILESIZE HISTCONTROL PROMPT_COMMAND HISTTIMEFORMAT
+
+# Check the window size after each command and update LINES and COLUMNS
 shopt -s checkwinsize
 
-# Chroot identifier
+# Set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
+
+# Set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# Force color prompt if desired
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+        color_prompt=yes
+    else
+        color_prompt=
+    fi
+fi
+
+# Define the prompt
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm, set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
 
 # Enable color support for ls (Cached, zero-fork)
 if [ -x /usr/bin/dircolors ]; then
@@ -25,32 +79,116 @@ if [ -x /usr/bin/dircolors ]; then
     alias ls='ls --color=auto'
 fi
 
-# Only in the interactive shell
+# Only in the interactive shell NOT IN Scripts 
 if [[ $- == *i* ]]; then
+    # Addons: -i (interactive confirm), -r (recursive), -f (force), -v (verbose), -u (update only newer)
     alias cp='cp -v --reflink=auto'
+
+    # Addons: -i (interactive confirm), -f (force), -v (verbose), -u (update only newer)
     alias mv='mv -v'
+
+    # Addons: -i (interactive confirm), -r (recursive dirs), -f (force), -v (verbose)
     alias rm='rm -v --preserve-root'
-    alias rsync='rsync -avh --progress --partial --inplace --human-readable --info=stats1,progress2 --compress --rsh=ssh'
-    alias sftp='sftp -C -p -r -q -o ConnectTimeout=10 -o ServerAliveInterval=60 -o ServerAliveCountMax=3'
+
+    # Addons include (-r, -l,-c number, -v(for inverse)) 
+    alias grep='grep -E --color=auto -niI --exclude=*.svg --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
+
+    # Addons include (-t (with the following options:f, d, l, b, c, s, p, x, e)) 
+    alias fd='fd --regex --color=auto -iHI --exclude .git --exclude .hg --exclude .svn --exclude node_modules --exclude dist --exclude build'
+
+    #Addons for awk no -E arguments so not alias required
     alias sed='sed -E'
 
-    # Guarded Aliases (Only enable if binary exists)
-    if command -v grep >/dev/null 2>&1; then
-        alias grep='grep -E --color=auto -niI --exclude=*.svg --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
-    fi
-    if command -v fd >/dev/null 2>&1 || command -v fdfind >/dev/null 2>&1; then
-        alias fd='fd --regex --color=auto -iHI --exclude .git --exclude .hg --exclude .svn --exclude node_modules --exclude dist --exclude build'
-    fi
-    if command -v bat >/dev/null 2>&1; then
-        alias cat='bat --style=plain --paging=always --decorations=always --color=always'
-        export BAT_PAGER="less -R"
-    fi
+    # Addons: --delete (mirror source with destination), --dry-run (preview), -u (update only newer), --exclude (skip files)
+    alias rsync='rsync -avh --progress --partial --inplace --human-readable --info=stats1,progress2 --compress --rsh=ssh'
+
+    # Addons: -i (custom key), -P (custom port), -vvv (debug), -b (batch file), -o option=value (extra SSH options)
+    alias sftp='sftp -C -p -r -q -o ConnectTimeout=10 -o ServerAliveInterval=60 -o ServerAliveCountMax=3'
+
+    # Use bat instead of cat with syntax highlighting and paging
+    alias cat='bat --style=plain --paging=always --decorations=always --color=always'
+
 fi
 
+# ps -efl (all processes) 
+# ps -efL (all threads) 
+# ps -efljH (all processes tree view) 
+#
+# Source additional aliases from ~/.bash_aliases if it exists
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# Ansible shortcuts
+ansiblex() {
+  cmd="$1"
+  shift
+  case "$cmd" in
+    encrypt|view|edit)
+      ansible-vault "$cmd" --vault-password-file ~/.vault "$@"
+      ;;
+    rekey)
+      ansible-vault rekey --vault-password-file ~/.vault --new-vault-password-file ~/.vault_new "$@"
+      ;;
+    *)
+      echo "Usage: ans {encrypt|view|edit|rekey} file..."
+      ;;
+  esac 
+}
+
+# Oauthtool shortcut
+authx() {
+    secret="$1"
+
+    if [ -z "$secret" ]; then
+        echo "Usage: authx SECRETKEY"
+        return 1
+    fi
+
+    clean_secret=$(echo "$secret" | tr -d ' ')
+    oathtool --totp -b "$clean_secret"
+}
+
+# Whisperx transcription
+segmentx() {
+    audio_file="$1"
+    speakers="${2:-2}"
+    model="${3:-tiny}"
+    
+    if [ -z "$audio_file" ]; then
+        echo "Usage: segmentx AUDIO_FILE [SPEAKERS] [MODEL]"
+        return 1
+    fi
+    
+    local venv_path="${WHISPERX_VENV:-$HOME/whisperx_env}"
+    
+    if [ -z "$VIRTUAL_ENV" ]; then
+        source "$venv_path/bin/activate" 2>/dev/null || {
+            echo "Error: Could not activate virtual environment at $venv_path"
+            return 1
+        }
+        local should_deactivate=true
+    fi
+    
+    ftranscript.py "$audio_file" \
+        --model "$model" \
+        --device cpu \
+        --compute_type float32 \
+        --diarize \
+        --min_speakers "$speakers" \
+        --max_speakers "$speakers" \
+        --highlight_words True \
+        --output_format all \
+        --hf_token "$HF_TOKEN" \
+        --print_progress True
+    
+    if [ -n "$should_deactivate" ]; then
+        deactivate
+    fi
+}
+
+# Optional: Add alias for convenience
+alias whisperx='segmentx'
 # Enable programmable completion features
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -78,52 +216,83 @@ if [ -n "$PATH" ]; then
   export PATH
 fi
 
+# Use vim as default editor 
+# You can now use sudoedit to edit system files instead of sudo nano (absolutely awesome) 
 export EDITOR=nvim
 export VISUAL=nvim
+
+# make sure groff is installed 
 export MANPAGER="nvim +Man!"
+
+export BAT_PAGER="less -R"
+
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
+# Cargo and rust environment setup
+. "$HOME/.cargo/env"
+
 # Initialize Starship prompt (Cached for speed)
 if [[ $- == *i* ]]; then
   if command -v starship >/dev/null 2>&1; then
-      export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
       if [ ! -f ~/.cache/starship-bash.cache ] || [ ~/.config/starship/starship.toml -nt ~/.cache/starship-bash.cache ]; then
-          starship init bash > ~/.cache/starship-bash.cache
-      fi
-      source ~/.cache/starship-bash.cache
+      starship init bash > ~/.cache/starship-bash.cache
+  fi
+  source ~/.cache/starship-bash.cache
   fi
 fi
 
-# Lazy Load NVM
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+
+# Load NVM
 export NVM_DIR="$HOME/.config/nvm"
-nvm() { unset -f nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"; nvm "$@"; }
-node() { unset -f nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"; node "$@"; }
-npm() { unset -f nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"; npm "$@"; }
-npx() { unset -f nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"; npx "$@"; }
+nvm() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    nvm "$@"
+}
+node() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    node "$@"
+}
+npm() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    npm "$@"
+}
+npx() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    npx "$@"
+}
 
 # Set up fzf key bindings and fuzzy completion (Cached for speed)
 if [[ $- == *i* ]]; then
   if command -v fzf >/dev/null 2>&1; then
       if [ ! -f ~/.cache/fzf-bash.cache ]; then
-          fzf --height 40% --border --bash > ~/.cache/fzf-bash.cache
-      fi
-      source ~/.cache/fzf-bash.cache
+      fzf --height 40% --border --bash > ~/.cache/fzf-bash.cache
+  fi
+  source ~/.cache/fzf-bash.cache
   fi
 fi
 
-# Server-friendly aliases
-alias fkill='~/.local/bin/fkill'
-alias fcontainer='~/.local/bin/fcontainer'
-alias fimage='~/.local/bin/fimage'
-alias fvolume='~/.local/bin/fvolume'
-alias fnetwork='~/.local/bin/fnetwork'
-alias vim="nvim"
-
-# Bind Ctrl+g to tmux session (Changed from C-f which conflicts with vi right)
+# Bind Ctrl+f to tmux session
 bind -x '"\C-g": ~/.local/bin/fsession'
 
 bind -m vi-insert '"\C-l":clear-screen'
 bind -m vi-command '"\C-l":clear-screen'
+
+alias fkill='~/.local/bin/fkill'
+alias fvideo='~/.local/bin/fvideo'
+alias fmusic='~/.local/bin/fmusic'
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/kifanga/.local/bin:$PATH"

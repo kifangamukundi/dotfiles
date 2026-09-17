@@ -1,30 +1,16 @@
-# ZSH SERVER FRAMEWORK CONFIGURATION (God-Level Speed, No OMZ Bloat)
+# ZSH CORE CONFIGURATION (God-Level Speed)
+# We completely bypassed Oh-My-Zsh to save ~200ms of startup time.
 
-# 1. Native Zsh Compinit
+# 1. History File (Your other history settings are further down)
+HISTFILE="$HOME/.zsh_history"
+
+# 2. Blazing Fast Tab Completion
 autoload -Uz compinit
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-  compinit -d "${ZDOTDIR:-$HOME}/.zcompdump"
-else
-  compinit -C -d "${ZDOTDIR:-$HOME}/.zcompdump"
-fi
+# Use cached completion (-C) to skip the slow security check on every startup
+compinit -C
 
-# 2. History Setup
-HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
-HISTSIZE=1000000
-SAVEHIST=2000000
-setopt appendhistory
-setopt sharehistory
-setopt hist_ignore_dups
-setopt hist_ignore_space
-setopt extendedhistory
-setopt checkjobs 
+# 3. Load Custom ZSH Highlighting Configuration
 
-# 3. Basic Keybindings
-bindkey -e
-bindkey '^[[A' up-line-or-history
-bindkey '^[[B' down-line-or-history
-
-# CUSTOM SYNTAX HIGHLIGHTING (ROSE PINE MOON HARMONY)
 typeset -A ZSH_HIGHLIGHT_STYLES
 
 # ZSH SYNTAX HIGHLIGHTING COMPLETE CONFIGURATION
@@ -117,7 +103,7 @@ ZSH_HIGHLIGHT_STYLES[root]='bg=#eb6f92'
 
 export ZVM_CURSOR_STYLE_ENABLED=false
 
-# 4. Load Plugins Manually (Server Location)
+# 4. Load Plugins Manually (Bypassing OMZ Bloat)
 if [ -f "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
     source "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
@@ -125,29 +111,79 @@ if [ -f "$HOME/.zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh" ]; then
     source "$HOME/.zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh"
 fi
 
+# User Configuration starts below
+
+# HISTORY SETTINGS
+HISTSIZE=10000
+SAVEHIST=20000
+
+# Zsh History Options
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt extendedhistory
+setopt checkjobs 
+
+# SSH AGENT MANAGEMENT (Now handled by ~/.xinitrc's `exec ssh-agent i3`)
+# If you need keys added automatically, consider a systemd user service or keychain,
+# or simply run `ssh-add` when you need it.
+
 # ENVIRONMENT VARIABLES & PATHS
+
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
+
 export EDITOR=nvim
 export VISUAL=nvim
 export MANPAGER="nvim +Man!"
+export BAT_PAGER="less -R"
 
-# Path building
-export PATH="$HOME/.local/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/go/bin:$HOME/go/bin:/opt/nvim-linux64/bin:$PATH"
+# Add user's local bin directory FIRST
+export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
+
+# Then the rest of your existing PATH exports:
+export PATH="$PATH:/sbin:/usr/sbin"
+export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:/opt/nvim-linux64/bin"
+
+# Keep only unique PATH entries
 typeset -U PATH path
 
+
 # SOURCING & CUSTOM DEFINITIONS 
+
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-# Lazy Load NVM
+# Cargo and rust environment setup
+. "$HOME/.cargo/env"
+
+# Lazy Load NVM (Node Version Manager)
 export NVM_DIR="$HOME/.config/nvm"
-nvm() { unset -f nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; nvm "$@"; }
-node() { unset -f nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; node "$@"; }
-npm() { unset -f nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; npm "$@"; }
-npx() { unset -f nvm node npm npx; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; npx "$@"; }
+nvm() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm "$@"
+}
+node() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    node "$@"
+}
+npm() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    npm "$@"
+}
+npx() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    npx "$@"
+}
 
 # Enable color support for ls (Cached, zero-fork)
 if [ -x /usr/bin/dircolors ]; then
@@ -160,68 +196,176 @@ fi
 
 # Only in the interactive shell NOT IN Scripts 
 if [[ $- == *i* ]]; then
+    # Addons: -i (interactive confirm), -r (recursive), -f (force), -v (verbose), -u (update only newer)
     alias cp='cp -v --reflink=auto'
+
+    # Addons: -i (interactive confirm), -f (force), -v (verbose), -u (update only newer)
     alias mv='mv -v'
+
+    # Addons: -i (interactive confirm), -r (recursive dirs), -f (force), -v (verbose)
     alias rm='rm -v --preserve-root'
-    alias rsync='rsync -avh --progress --partial --inplace --human-readable --info=stats1,progress2 --compress --rsh=ssh'
-    alias sftp='sftp -C -p -r -q -o ConnectTimeout=10 -o ServerAliveInterval=60 -o ServerAliveCountMax=3'
+
+    # Addons include (-r, -l,-c number, -v(for inverse)) 
+    alias grep='grep -E --color=auto -niI --exclude="*.svg" --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
+
+    # Addons include (-t (with the following options:f, d, l, b, c, s, p, x, e)) 
+    alias fd='fd --regex --color=auto -iHI --exclude .git --exclude .hg --exclude .svn --exclude node_modules --exclude dist --exclude build'
+
+    #Addons for awk no -E arguments so not alias required
     alias sed='sed -E'
 
-    # Guarded Aliases (Only enable if binary exists)
-    if command -v grep >/dev/null 2>&1; then
-        alias grep='grep -E --color=auto -niI --exclude="*.svg" --exclude-dir={.git,.hg,.svn,node_modules,dist,build}'
-    fi
-    if command -v fd >/dev/null 2>&1 || command -v fdfind >/dev/null 2>&1; then
-        alias fd='fd --regex --color=auto -iHI --exclude .git --exclude .hg --exclude .svn --exclude node_modules --exclude dist --exclude build'
-    fi
-    if command -v bat >/dev/null 2>&1; then
-        alias cat='bat --style=plain --paging=always --decorations=always --color=always'
-        export BAT_PAGER="less -R"
-    fi
+    # Addons: --delete (mirror source with destination), --dry-run (preview), -u (update only newer), --exclude (skip files)
+    alias rsync='rsync -avh --progress --partial --inplace --human-readable --info=stats1,progress2 --compress --rsh=ssh'
+
+    # Addons: -i (custom key), -P (custom port), -vvv (debug), -b (batch file), -o option=value (extra SSH options)
+    alias sftp='sftp -C -p -r -q -o ConnectTimeout=10 -o ServerAliveInterval=60 -o ServerAliveCountMax=3'
+
+    # Use bat instead of cat with syntax highlighting and paging
+    alias cat='bat --style=plain --paging=always --decorations=always --color=always'
+
 fi
+
+# ps -efl (all processes) 
+# ps -efL (all threads) 
+# ps -efljH (all processes tree view) 
 
 # Aliases
 alias history-clean="history -c && history -r && history -w"
-alias fkill='~/.local/bin/fkill'
-alias fcontainer='~/.local/bin/fcontainer'
-alias fimage='~/.local/bin/fimage'
-alias fvolume='~/.local/bin/fvolume'
-alias fnetwork='~/.local/bin/fnetwork'
 alias vim="nvim"
+alias fkill='~/.local/bin/fkill'
+alias fmusic='~/.local/bin/fmusic'
+alias fvideo='~/.local/bin/fvideo'
 
+# Ansible shortcuts
+ansiblex() {
+  cmd="$1"
+  shift
+  case "$cmd" in
+    encrypt|view|edit)
+      ansible-vault "$cmd" --vault-password-file ~/.vault "$@"
+      ;;
+    rekey)
+      ansible-vault rekey --vault-password-file ~/.vault --new-vault-password-file ~/.vault_new "$@"
+      ;;
+    *)
+      echo "Usage: ans {encrypt|view|edit|rekey} file..."
+      ;;
+  esac
+}
+
+# Oauthtool shortcut
+authx() {
+    secret="$1"
+
+    if [ -z "$secret" ]; then
+        echo "Usage: authx SECRETKEY"
+        return 1
+    fi
+
+    clean_secret=$(echo "$secret" | tr -d ' ')
+    oathtool --totp -b "$clean_secret"
+}
+
+# Whisperx transcription
+segmentx() {
+    audio_file="$1"
+    speakers="${2:-2}"
+    model="${3:-tiny}"
+    
+    if [ -z "$audio_file" ]; then
+        echo "Usage: segmentx AUDIO_FILE [SPEAKERS] [MODEL]"
+        return 1
+    fi
+    
+    local venv_path="${WHISPERX_VENV:-$HOME/whisperx_env}"
+    
+    if [ -z "$VIRTUAL_ENV" ]; then
+        source "$venv_path/bin/activate" 2>/dev/null || {
+            echo "Error: Could not activate virtual environment at $venv_path"
+            return 1
+        }
+        local should_deactivate=true
+    fi
+    
+    ftranscript.py "$audio_file" \
+        --model "$model" \
+        --device cpu \
+        --compute_type float32 \
+        --diarize \
+        --min_speakers "$speakers" \
+        --max_speakers "$speakers" \
+        --highlight_words True \
+        --output_format all \
+        --hf_token "$HF_TOKEN" \
+        --print_progress True
+    
+    if [ -n "$should_deactivate" ]; then
+        deactivate
+    fi
+}
+
+# Optional: Add alias for convenience
+alias whisperx='segmentx'
 # PROMPT AND KEYBINDINGS
+
+if [[ $- == *i* ]]; then
+  if command -v fzf >/dev/null 2>&1; then
+      if [ ! -f ~/.cache/fzf-zsh.cache ]; then
+      fzf --zsh > ~/.cache/fzf-zsh.cache
+  fi
+  source ~/.cache/fzf-zsh.cache
+  fi
+fi
+
+# not needed since am using a plugin for vi mode
+# bindkey -v
 export KEYTIMEOUT=1
 
 if [[ $- == *i* ]]; then
-    # Cached FZF
-    if command -v fzf >/dev/null 2>&1; then
-        if [ ! -f ~/.cache/fzf-zsh.cache ]; then
-            fzf --zsh > ~/.cache/fzf-zsh.cache
-        fi
-        source ~/.cache/fzf-zsh.cache
-    fi
-
-    # Cached Starship
-    if command -v starship >/dev/null 2>&1; then
-        export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-        if [ ! -f ~/.cache/starship-zsh.cache ] || [ ~/.config/starship/starship.toml -nt ~/.cache/starship-zsh.cache ]; then
-            starship init zsh > ~/.cache/starship-zsh.cache
-        fi
-        source ~/.cache/starship-zsh.cache
-    fi
+  if command -v starship >/dev/null 2>&1; then
+      if [ ! -f ~/.cache/starship-zsh.cache ] || [ ~/.config/starship/starship.toml -nt ~/.cache/starship-zsh.cache ]; then
+      starship init zsh > ~/.cache/starship-zsh.cache
+  fi
+  source ~/.cache/starship-zsh.cache
+  fi
 fi
 
-function fzf-history-widget() {
-  if command -v fzf >/dev/null 2>&1; then
-      BUFFER=$(fc -l -n 1 | fzf --height 40% --border --query="$LBUFFER")
-      CURSOR=$#BUFFER
-  fi
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+
+function fsession_widget() {
+  ~/.local/bin/fsession
   zle reset-prompt
 }
 
+function fzf-history-widget() {
+  if command -v fzf >/dev/null 2>&1; then
+    BUFFER=$(fc -l -n 1 | fzf --height 40% --border --query="$LBUFFER")
+  fi
+  CURSOR=$#BUFFER
+  zle reset-prompt
+}
+
+zle -N fsession_widget
 zle -N fzf-history-widget
 
 zvm_after_init() {
-  bindkey -M viins '^R' fzf-history-widget
-  bindkey -M vicmd '^R' fzf-history-widget
+  bindkey -M viins '^g' fsession_widget
+  bindkey -M vicmd '^g' fsession_widget
+  bindkey -M viins '^r' fzf-history-widget
+  bindkey -M vicmd '^r' fzf-history-widget
 }
+
+# bun completions
+[ -s "/home/kifanga/.bun/_bun" ] && source "/home/kifanga/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+
+# opencode
+export PATH=/home/kifanga/.opencode/bin:$PATH
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/kifanga/.local/bin:$PATH"
