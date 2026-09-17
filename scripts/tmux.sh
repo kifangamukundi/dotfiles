@@ -8,10 +8,6 @@ else
     echo "tmux is not installed. Proceeding with installation..."
 fi
 
-echo "Installing required build dependencies (libevent, ncurses, etc.)..."
-sudo apt-get update
-sudo apt-get install -y build-essential libevent-dev libncurses-dev bison pkg-config
-
 TMUX_VERSION=${1:-3.5a}
 
 TMUX_URL="https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz"
