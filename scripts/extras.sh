@@ -11,12 +11,12 @@ install_redis() {
     if command -v redis-cli &> /dev/null; then
         echo "Version: $(redis-server --version 2>/dev/null || echo "Redis installed")"
         if systemctl is-active --quiet redis; then
-            echo "✅ Redis service is running"
+            echo "Running"
         else
-            echo "⚠️ Redis service is not running. Start with: sudo systemctl start redis"
+            echo "Start with: sudo systemctl start redis"
         fi
     else
-        echo "❌ Redis installation failed!"
+        echo "Failed"
     fi
 }
 
@@ -27,7 +27,7 @@ install_ffmpeg() {
     if command -v ffmpeg &> /dev/null; then
         echo "Version: $(ffmpeg -version | head -n 1)"
     else
-        echo "❌ FFmpeg installation failed!"
+        echo "Failed"
     fi
 }
 
@@ -38,7 +38,7 @@ install_yt_dlp() {
         echo "Version: $(yt-dlp --version)"
         sudo yt-dlp -U
     else
-        echo "❌ yt-dlp installation failed!"
+        echo "Failed"
     fi
 }
 
@@ -59,12 +59,11 @@ install_spotify_dl() {
     source "$VENV_DIR/bin/activate"
     pip install spotdl
     deactivate
-    echo "✅ Spotify download tools setup complete!"
 }
 
 valid_options=("all" "redis" "spotify" "ffmpeg" "yt-dlp")
 if [[ ! " ${valid_options[@]} " =~ " ${EXTRA_TYPE} " ]]; then
-    echo "❌ Invalid option: $EXTRA_TYPE"
+    echo "Invalid option: $EXTRA_TYPE"
     echo "Usage: $0 [all|redis|spotify|ffmpeg|yt-dlp]"
     exit 1
 fi
@@ -87,8 +86,6 @@ case $EXTRA_TYPE in
         install_ffmpeg
         install_yt_dlp
         install_spotify_dl
-        echo "✅ All extras installed successfully!"
+        echo "Success"
         ;;
 esac
-
-echo "🎉 Extras installation complete!"

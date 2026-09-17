@@ -13,12 +13,10 @@ esac
 GO_FILENAME="go${GO_VERSION}.linux-${ARCH}.tar.gz"
 GO_DOWNLOAD_URL="https://go.dev/dl/${GO_FILENAME}"
 
-echo "Downloading Go ${GO_VERSION} for ${ARCH}..."
 curl -L -o "${GO_FILENAME}" "${GO_DOWNLOAD_URL}"
 
 sudo rm -rf /usr/local/go
 sudo tar -C /usr/local -xzf "${GO_FILENAME}"
 rm "${GO_FILENAME}"
 
-echo "✅ Go ${GO_VERSION} installation complete!"
 go version

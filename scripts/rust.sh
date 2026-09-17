@@ -3,7 +3,6 @@
 set -e 
 
 if command -v rustup &>/dev/null; then
-    echo "Removing existing Rust installation..."
     rustup self uninstall -y
 fi
 
@@ -16,5 +15,3 @@ case "$ARCH" in
 esac
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-
-echo "Rust stable and nightly installations complete!"

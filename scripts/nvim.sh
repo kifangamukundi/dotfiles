@@ -10,7 +10,7 @@ if command -v nvim >/dev/null; then
     sudo rm -f /usr/local/bin/nvim
     sudo rm -rf /usr/local/share/nvim/
 else
-    echo "No existing Neovim installation found."
+    echo "No existing nvim"
 fi
 
 rm -rf ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim
@@ -29,14 +29,12 @@ make CMAKE_BUILD_TYPE=Release
 sudo make install
 
 if command -v nvim >/dev/null; then
-    echo "Neovim installed successfully! Version:"
+    echo "Success"
     nvim --version
 else
-    echo "Neovim installation failed. Exiting."
+    echo "Failed"
     exit 1
 fi
 
 cd ..
 rm -rf neovim
-
-echo "Neovim installation complete!"

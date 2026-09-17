@@ -8,16 +8,14 @@ sudo apt install -y $package_list
 success=true
 for package in $package_list; do
   if ! dpkg -s $package &>/dev/null; then
-    echo "Failed to install $package!"
+    echo "Failed: $package!"
     success=false
   fi
 done
 
 if [ "$success" = true ]; then
-  echo "Build-essential and development tools installed successfully!"
+  echo "Success"
 else
-  echo "Build-essential installation may be incomplete."
+  echo "Failed."
   exit 1
 fi
-
-echo "Script execution complete."

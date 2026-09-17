@@ -3,9 +3,8 @@
 
 if command -v tmux >/dev/null; then
     sudo apt remove --purge -y tmux
-    echo "tmux removed successfully."
 else
-    echo "tmux is not installed. Proceeding with installation..."
+    echo "No existing installation found"
 fi
 
 TMUX_VERSION=${1:-3.5a}

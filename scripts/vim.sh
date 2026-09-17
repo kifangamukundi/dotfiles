@@ -7,7 +7,6 @@ VERSION="v9.1.1744"
 for vim_path in /usr/bin/vim /usr/local/bin/vim /opt/vim; do
   if [ -f "$vim_path" ]; then
     sudo rm -f "$vim_path"
-    echo "    Removed: $vim_path"
   fi
 done
 
@@ -18,7 +17,7 @@ RELEASE_URL="https://github.com/vim/vim-appimage/releases/download/${VERSION}/Vi
 FILENAME="Vim-x86_64.AppImage"
 
 if ! curl -L -o "$FILENAME" "$RELEASE_URL"; then
-  echo "❌ Download failed. Check:"
+  echo "Failed"
   exit 1
 fi
 
@@ -27,4 +26,3 @@ sudo mv "$FILENAME" /usr/local/bin/vim
 sudo ln -sf /usr/local/bin/vim /usr/local/bin/vi 
 
 /usr/local/bin/vim --version | head -n 3
-echo "Vim installed at: $(which vim)"

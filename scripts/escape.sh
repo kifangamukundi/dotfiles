@@ -8,4 +8,4 @@ sudo sed -i -e '/XKBMODEL=/c\XKBMODEL="pc105"' \
            -e '/XKBOPTIONS=/c\XKBOPTIONS="caps:escape"' \
            /etc/default/keyboard
 
-echo "All configurations applied."
+echo "Done"

@@ -16,9 +16,9 @@ sudo apt update
 sudo apt install -y postgresql postgresql-contrib
 
 if command -v psql &> /dev/null; then
-    echo "✅ PostgreSQL installed successfully!"
+    echo "Success"
     echo "Version: $(psql --version)"
 else
-    echo "❌ PostgreSQL installation failed!"
+    echo "Failed"
     exit 1
 fi

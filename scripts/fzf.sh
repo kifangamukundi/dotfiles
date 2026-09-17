@@ -20,5 +20,3 @@ sudo apt install -y bat fd-find
 
 sudo ln -sf /usr/bin/batcat /usr/bin/bat
 sudo ln -sf /usr/bin/fdfind /usr/bin/fd
-
-echo "Setup complete."

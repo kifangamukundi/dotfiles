@@ -40,11 +40,9 @@ cd $LUAROCKS_DIR
 if [ $? -eq 0 ]; then
     make build && sudo make install
 else
-    echo "Configuration failed. Please check Lua installation."
+    echo "Failed"
     exit 1
 fi
 
 cd ..
 rm -rf $LUAROCKS_TAR $LUAROCKS_DIR
-
-echo "LuaRocks $LUAROCKS_VERSION installed successfully with Lua $LUA_VERSION."
