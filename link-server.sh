@@ -35,5 +35,11 @@ create_symlink "$DOTFILES_DIR/.bashrc-server"  "$HOME/.bashrc"
 create_symlink "$DOTFILES_DIR/.gitconfig-server" "$HOME/.gitconfig"
 
 echo ""
+echo "▶ Linking server tools..."
+mkdir -p "$HOME/.config/tmux"
+create_symlink "$DOTFILES_DIR/.config/tmux-server.conf" "$HOME/.config/tmux/tmux.conf"
+create_symlink "$DOTFILES_DIR/.config/starship" "$HOME/.config/starship"
+
+echo ""
 echo "✅ Server shell configs linked successfully!"
 echo "   Run 'source ~/.zshrc' or 'source ~/.bashrc' to apply."
