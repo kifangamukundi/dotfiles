@@ -8,7 +8,7 @@ DOTFILES_DIR="$HOME/personal/dotfiles"
 DRY_RUN=false
 if [[ "${1:-}" == "--dry-run" ]]; then
     DRY_RUN=true
-    echo "Running in dry-run mode. No changes will be made."
+    echo "Dry run"
 fi
 
 create_symlink() {
@@ -16,12 +16,12 @@ create_symlink() {
     local dest="$2"
 
     if [[ ! -e "$src" ]]; then
-        echo "  ⚠ Source does not exist, skipping: $src"
+        echo "Source does not exist, skipping: $src"
         return
     fi
 
     if [[ -e "$dest" && ! -L "$dest" ]]; then
-        echo "  ↩ Backing up: $dest → $dest.bak"
+        echo "Backing up: $dest → $dest.bak"
         [[ "$DRY_RUN" == false ]] && mv "$dest" "$dest.bak"
     fi
 
@@ -29,18 +29,16 @@ create_symlink() {
     [[ "$DRY_RUN" == false ]] && ln -sf "$src" "$dest"
 }
 
-echo "▶ Linking server shell configs..."
+echo "Linking server shell configs..."
 create_symlink "$DOTFILES_DIR/.zshrc-server"   "$HOME/.zshrc"
 create_symlink "$DOTFILES_DIR/.bashrc-server"  "$HOME/.bashrc"
 create_symlink "$DOTFILES_DIR/.gitconfig-server" "$HOME/.gitconfig"
+create_symlink "$DOTFILES_DIR/.inputrc"        "$HOME/.inputrc"
 
-echo ""
-echo "▶ Linking server tools..."
+echo "Linking server tools..."
 mkdir -p "$HOME/.config/tmux"
 create_symlink "$DOTFILES_DIR/.config/tmux-server.conf" "$HOME/.config/tmux/tmux.conf"
 create_symlink "$DOTFILES_DIR/.config/starship" "$HOME/.config/starship"
 create_symlink "$DOTFILES_DIR/.config/nvim" "$HOME/.config/nvim"
 
-echo ""
-echo "✅ Server shell configs linked successfully!"
-echo "   Run 'source ~/.zshrc' or 'source ~/.bashrc' to apply."
+echo "Success"

@@ -9,7 +9,7 @@ LOCAL_DIR="$HOME/.local"
 DRY_RUN=false
 if [[ "$1" == "--dry-run" ]]; then
     DRY_RUN=true
-    echo "Running in dry-run mode. No changes will be made."
+    echo "Dry mode"
 fi
 
 create_symlink() {
@@ -95,4 +95,4 @@ create_symlink "$DOTFILES_DIR/.config/fontconfig" "$CONFIG_DIR/fontconfig"
 create_symlink "$DOTFILES_DIR/.config/xdg-desktop-portal" "$CONFIG_DIR/xdg-desktop-portal"
 create_symlink "$DOTFILES_DIR/.local/bin" "$LOCAL_DIR/bin"
 
-echo "Dotfiles symlinks created successfully!"
+echo "Success!"
